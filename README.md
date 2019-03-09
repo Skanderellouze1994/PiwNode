@@ -46,7 +46,7 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 
 ## Install
 
-    $ git clone https://github.com/ORG/PROJECT.git
+    $ git clone https://github.com/Skanderellouze1994/PiwNode.git
     $ cd PROJECT
     $ npm install
 
