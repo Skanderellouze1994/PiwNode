@@ -1,4 +1,4 @@
-# PiwNode# PROJECT BLAH BLAH
+# PiwNode
 
 ## Requirements
 
