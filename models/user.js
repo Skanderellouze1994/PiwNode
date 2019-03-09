@@ -12,10 +12,18 @@ var userSchema = new mongoose.Schema({
     password: {
         type: String
     },
+    facebook :{
+        id: {
+            type: String
+        },
+
+        token: {
+            type: String
+        }
+    },
     role: {
         type: String
-    }
-});
+    }});
 
 userSchema.methods.hashPassword = function(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
