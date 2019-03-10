@@ -3,6 +3,7 @@ var User = require('./models/user');
 FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 module.exports=function (passport) {
     passport.serializeUser(function (user,done) {
@@ -114,7 +115,7 @@ module.exports=function (passport) {
                     {
                         var newUser = new User();
                         newUser.linkedin.id = profile.id;
-                        newUser.github.url = profile.ProfileUrl;
+                        //newUser.github.url = profile.ProfileUrl;
                         newUser.username = profile.displayName;
                         newUser.email = profile.emails[0].value;
                         console.log("bbb");
@@ -125,4 +126,33 @@ module.exports=function (passport) {
                     }});
             }
         )}));
+
+    passport.use(new GoogleStrategy({
+            clientID: '514608932569-uui3nhiloakd9d1nob0tso24ao2o718a.apps.googleusercontent.com',
+            clientSecret: '3sPuTFIzTboRzsD3yco3BX8c',
+            callbackURL: "http://127.0.0.1:3000/auth/google/callback",
+            scope: [ 'https://www.googleapis.com/auth/userinfo.profile',
+                'https://www.googleapis.com/auth/userinfo.email'],
+        },
+        function(accessToken, refreshToken, profile, done) {
+            process.nextTick(function () {
+                    console.log(profile)
+                    var existe = User.findOne({'google.id':profile.id},function (err,user) {
+                        if(user){
+                            return done(null,user)
+                        }
+                        else
+                        {
+                            var newUser = new User();
+                            newUser.google.id = profile.id;
+                            newUser.username = profile.displayName;
+                            newUser.email = profile.emails[0].value;
+                            console.log("bbb");
+                            newUser.save(function (err,newUser) {
+                                console.log("ccc");
+                            });
+                            return done(null,newUser)
+                        }});
+                }
+            )}));
 };

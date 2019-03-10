@@ -32,6 +32,11 @@ var userSchema = new mongoose.Schema({
             type: String
         }
     },
+    google :{
+        id: {
+            type: String
+        }
+    },
     linkedin :{
         id: {
             type: String
