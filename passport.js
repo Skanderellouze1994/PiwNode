@@ -106,7 +106,7 @@ module.exports=function (passport) {
         // asynchronous verification, for effect...
         process.nextTick(function () {
             console.log(profile)
-                var existe = User.findOne({'github.id':profile.id},function (err,user) {
+                var existe = User.findOne({'linkedin.id':profile.id},function (err,user) {
                     if(user){
                         return done(null,user)
                     }
