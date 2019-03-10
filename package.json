@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "cookie-parser": "~1.4.3",
+    "create-react-app": "^2.1.8",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "express-session": "^1.15.6",
@@ -21,6 +24,10 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-linkedin-oauth2": "^1.6.1",
     "passport-local": "^1.0.0",
-    "twig": "^1.13.2"
+    "twig": "^1.13.2",
+    "body-parser": "^1.18.3"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
   }
 }
