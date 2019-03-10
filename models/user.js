@@ -21,6 +21,29 @@ var userSchema = new mongoose.Schema({
             type: String
         }
     },
+    github :{
+        id: {
+            type: String
+        },
+        url: {
+            type: String
+        },
+        photo: {
+            type: String
+        }
+    },
+    linkedin :{
+        id: {
+            type: String
+        },
+        url: {
+            type: String
+        },
+        headline: {
+            type: String
+        },
+
+    },
     role: {
         type: String
     }});
