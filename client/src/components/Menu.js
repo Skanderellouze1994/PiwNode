@@ -9,7 +9,7 @@ export default class Menu extends Component {
             <div class="container">
             <div class="navbar p-0 navbar-expand-lg">
             <div class="navbar-brand">
-            <a class="logo-default" href="index-2.html"><img alt="" src="assets/img/logo-black.png" /></a>
+            <Link to="/home" class="logo-default" ><img alt="" src="assets/img/logo-black.png" /></Link>
             </div>
             <span aria-expanded="false" class="navbar-toggler ml-auto collapsed" data-target="#ec-nav__collapsible" data-toggle="collapse">
             <div class="hamburger hamburger--spin js-hamburger">

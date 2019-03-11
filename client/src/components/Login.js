@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export class Login extends Component {
     render(){
@@ -54,7 +55,7 @@ export class Login extends Component {
         </div>
         <button class="btn btn-block btn-primary">Log In</button>
         <p class="my-5 text-center">
-            Don’t have an account? <a href="page-signup.html" class="text-primary">Register</a>
+            Don’t have an account? <Link to="/signup" class="text-primary">Register</Link>
             </p>
             </form>
             </div>
