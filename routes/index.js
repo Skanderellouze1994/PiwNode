@@ -46,6 +46,11 @@ router.get('/profile/linkedin',loggedIn, function(req, res, next) {
   res.send(req.session)
 });
 
+router.get('/profile/google',loggedIn, function(req, res, next) {
+  console.log(req.session.passport);
+  res.send(req.session)
+});
+
 
 router.get('/auth/github',
     passport.authenticate('github'));
@@ -77,6 +82,16 @@ router.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
   successRedirect: '/profile/linkedin',
   failureRedirect: '/login'
 }));
+
+router.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile','email'] }));
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/profile/google');
+    });
 
 router.get('/logout', function(req, res, next) {
   req.logout();
