@@ -19,7 +19,7 @@ module.exports = function (passport) {
 
         sampleFile = req.files.sampleFile;
 
-        uploadPath = 'C:\\Users\\Achraf\\Documents\\GitHub\\PiwNode\\client\\public\\assets\\img\\uploads\\' + sampleFile.name;
+        uploadPath = 'C:\\Users\\asus\\Documents\\GitHub\\PiwNode\\client\\public\\assets\\img\\uploads\\' + sampleFile.name;
 
         sampleFile.mv(uploadPath, function(err) {
             if (err) {

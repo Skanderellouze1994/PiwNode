@@ -1,10 +1,11 @@
 var localStrategy = require('passport-local').Strategy;
-var User = require('./models/user');
+var user = require('./models/user');
 FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
+var mongoose=require('mongoose');
+User = mongoose.model('User',user);
 module.exports=function (passport) {
     passport.serializeUser(function (user,done) {
         done(null,user);
