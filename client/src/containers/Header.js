@@ -10,20 +10,20 @@ export default class Header extends Component {
                         <ul className="list-inline d-none d-lg-block mb-0">
                             <li className="list-inline-item mr-3">
                                 <div className="d-flex align-items-center">
-                                    <i className="ti-email mr-2"></i>
+                                    <i className="ti-email mr-2"/>
                                     <a href="mailto:support@educati.com">support@csma-js.com</a>
                                 </div>
                             </li>
                             <li className="list-inline-item mr-3">
                                 <div className="d-flex align-items-center">
-                                    <i className="ti-headphone mr-2"></i>
+                                    <i className="ti-headphone mr-2"/>
                                     <a href="tel:+8801740411513">+8801740411513</a>
                                 </div>
                             </li>
                         </ul>
                         <ul className="list-inline mb-0">
                             <li className="list-inline-item mr-0 p-3 border-right border-left border-white-0_1">
-                                <a href="#"><i className="ti-facebook"></i></a>
+                                <a href="#"><i className="ti-facebook"/></a>
                             </li>
                             <li className="list-inline-item mr-0 p-3 border-right border-white-0_1">
                                 <a href="#"><i className="ti-twitter"></i></a>

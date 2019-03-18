@@ -23,7 +23,9 @@ module.exports=function (passport) {
                     if(valid){
                         done(null,{
                             username:doc.username,
-                            password:doc.password
+                            password:doc.password,
+                            email:doc.email,
+                            role:doc.role
                         })
                     }
                     else{

@@ -1,8 +1,53 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {userActions} from "../_actions";
+import { connect } from 'react-redux';
 
-export class Signup extends Component {
+
+class Signup extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: {
+
+                username: '',
+                email:'',
+                password: '',
+                role:'',
+            },
+            submitted: false
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        const { name, value } = event.target;
+        const { user } = this.state;
+        this.setState({
+            user: {
+                ...user,
+                [name]: value
+            }
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        this.setState({ submitted: true });
+        const { user } = this.state;
+        const { dispatch } = this.props;
+        if (user.role && user.email && user.username && user.password) {
+            dispatch(userActions.register(user));
+        }
+    }
+
     render() {
+        const { registering  } = this.props;
+        const { user, submitted } = this.state;
         return (
             <section className="padding-y-100 bg-light">
                 <div className="container">
@@ -18,13 +63,13 @@ export class Signup extends Component {
                                     <div className="row">
                                         <div className="col my-2">
                                             <button className="btn btn-block btn-facebook">
-                                                <i className="ti-facebook mr-1"></i>
+                                                <i className="ti-facebook mr-1"/>
                                                 <span>Facebook Sign in</span>
                                             </button>
                                         </div>
                                         <div className="col my-2">
                                             <button className="btn btn-block btn-google-plus">
-                                                <i className="ti-google mr-1"></i>
+                                                <i className="ti-google mr-1"/>
                                                 <span>Google Sign in</span>
                                             </button>
                                         </div>
@@ -32,32 +77,39 @@ export class Signup extends Component {
                                     <p className="text-center my-4">
                                         OR
                                     </p>
-                                    <form action="#" method="POST" className="px-lg-4">
+                                    <form onSubmit={this.handleSubmit} className="px-lg-4" name="form">
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user"></span>
+                                                <span className="input-group-text bg-white ti-user"/>
                                             </div>
-                                            <input type="text" className="form-control border-left-0 pl-0"
-                                                   placeholder="Full Name"/>
+                                            <input type="text" className="form-control border-left-0 pl-0" name="username"
+                                                   placeholder="Username"  value={user.username} onChange={this.handleChange}/>
                                         </div>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-email"></span>
+                                                <span className="input-group-text bg-white ti-email"/>
                                             </div>
-                                            <input type="email" className="form-control border-left-0 pl-0"
-                                                   placeholder="Email"/>
+                                            <input type="email" className="form-control border-left-0 pl-0" name="email"
+                                                   placeholder="Email"  value={user.email} onChange={this.handleChange}/>
                                         </div>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-lock"></span>
+                                                <span className="input-group-text bg-white ti-lock"/>
                                             </div>
-                                            <input type="email" className="form-control border-left-0 pl-0"
-                                                   placeholder="Password" required/>
+                                            <input type="password" className="form-control border-left-0 pl-0" name="password"
+                                                   placeholder="Password" required value={user.password} onChange={this.handleChange}/>
+                                        </div>
+                                        <div className="input-group input-group--focus mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text bg-white ti-lock"/>
+                                            </div>
+                                            <input type="text" className="form-control border-left-0 pl-0" name="role"
+                                                   placeholder="Role" required value={user.role} onChange={this.handleChange}/>
                                         </div>
                                         <div className="my-4">
                                             <label className="ec-checkbox check-sm my-2 clearfix">
                                                 <input type="checkbox" name="checkbox"/>
-                                                <span className="ec-checkbox__control mt-1"></span>
+                                                <span className="ec-checkbox__control mt-1"/>
                                                 <span className="ec-checkbox__lebel">
                                                         By signing up, you agree to our
                                                          <a href="page-terms-and-privacy-policy.html" className="text-primary">Terms of Use</a>
@@ -68,7 +120,7 @@ export class Signup extends Component {
                                         </div>
                                         <button className="btn btn-block btn-primary">Register Now</button>
                                         <p className="my-5 text-center">
-                                            Already have an account? <Link to="/login" class="text-primary">Login</Link>
+                                            Already have an account? <a className="text-primary">Login</a>
                                         </p>
                                     </form>
                                 </div>
@@ -80,3 +132,12 @@ export class Signup extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    const { registering } = state.registration;
+    return {
+        registering
+    };
+}
+
+const connectedRegisterPage = connect(mapStateToProps)(Signup);
+export { connectedRegisterPage as Signup };

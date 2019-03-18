@@ -40,10 +40,9 @@ module.exports = function (passport) {
     });
 
     router.post('/login',passport.authenticate('local',{
-        failureRedirect:'/login',
-        successRedirect:'/profile'
+
     }),function (req,res) {
-        res.send('hey')
+        res.send(req.session)
     });
 return router;
 };

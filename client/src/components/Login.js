@@ -1,8 +1,44 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {userActions} from "../_actions/user.actions";
+import {connect} from "react-redux";
 
-export class Login extends Component {
+class Login extends Component {
+    constructor(props) {
+        super(props);
+
+        // reset login status
+        this.props.dispatch(userActions.logout());
+
+        this.state = {
+            username: '',
+            password: '',
+            submitted: false
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(e) {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        this.setState({ submitted: true });
+        const { username, password } = this.state;
+        const { dispatch } = this.props;
+        if (username && password) {
+            dispatch(userActions.login(username, password));
+        }
+    }
+
     render() {
+        const { loggingIn } = this.props;
+        const { username, password, submitted } = this.state;
         return (
             <section className="padding-y-100 bg-light">
                 <div className="container">
@@ -18,13 +54,13 @@ export class Login extends Component {
                                     <div className="row">
                                         <div className="col my-2">
                                             <button className="btn btn-block btn-facebook">
-                                                <i className="ti-facebook mr-1"></i>
+                                                <i className="ti-facebook mr-1"/>
                                                 <span>Facebook Sign in</span>
                                             </button>
                                         </div>
                                         <div className="col my-2">
                                             <button className="btn btn-block btn-google-plus">
-                                                <i className="ti-google mr-1"></i>
+                                                <i className="ti-google mr-1"/>
                                                 <span>Google Sign in</span>
                                             </button>
                                         </div>
@@ -32,25 +68,25 @@ export class Login extends Component {
                                     <p className="text-center my-4">
                                         OR
                                     </p>
-                                    <form action="#" method="POST" className="px-lg-4">
+                                    <form name="form" onSubmit={this.handleSubmit} className="px-lg-4">
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-email"></span>
+                                                <span className="input-group-text bg-white ti-email"/>
                                             </div>
                                             <input type="text" className="form-control border-left-0 pl-0"
-                                                   placeholder="Email"/>
+                                                   placeholder="Username" name="username" value={username} onChange={this.handleChange}/>
                                         </div>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-lock"></span>
+                                                <span className="input-group-text bg-white ti-lock"/>
                                             </div>
                                             <input type="password" className="form-control border-left-0 pl-0"
-                                                   placeholder="Password"/>
+                                                   placeholder="Password"  name="password" value={password} onChange={this.handleChange}/>
                                         </div>
                                         <div className="d-md-flex justify-content-between my-4">
                                             <label className="ec-checkbox check-sm my-2 clearfix">
                                                 <input type="checkbox" name="checkbox"/>
-                                                <span className="ec-checkbox__control"></span>
+                                                <span className="ec-checkbox__control"/>
                                                 <span className="ec-checkbox__lebel">Remember Me</span>
                                             </label>
                                             <a href="page-recover-password.html" className="text-primary my-2 d-block">Forgot
@@ -71,3 +107,12 @@ export class Login extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    const { loggingIn } = state.authentication;
+    return {
+        loggingIn
+    };
+}
+
+const connectedLoginPage = connect(mapStateToProps)(Login);
+export { connectedLoginPage as Login };
