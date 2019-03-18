@@ -15,6 +15,11 @@ class Signup extends Component {
                 email:'',
                 password: '',
                 role:'',
+                name:'',
+                address:'',
+                birthday:'',
+                profile_photo:'',
+
             },
             submitted: false
         };
@@ -78,6 +83,20 @@ class Signup extends Component {
                                         OR
                                     </p>
                                     <form onSubmit={this.handleSubmit} className="px-lg-4" name="form">
+                                        <div className="input-group input-group--focus mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text bg-white ti-user"/>
+                                            </div>
+                                            <input type="text" className="form-control border-left-0 pl-0" name="name"
+                                                   placeholder="Name"  value={user.name} onChange={this.handleChange}/>
+                                        </div>
+                                        <div className="input-group input-group--focus mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text bg-white ti-user"/>
+                                            </div>
+                                            <input type="text" className="form-control border-left-0 pl-0" name="address"
+                                                   placeholder="Name"  value={user.name} onChange={this.handleChange}/>
+                                        </div>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user"/>
