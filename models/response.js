@@ -13,4 +13,4 @@ var responseSchema = new mongoose.Schema({
     userResponse: user
 });
 
-module.exports = mongoose.model('Response', responseSchema);
+module.exports = responseSchema;

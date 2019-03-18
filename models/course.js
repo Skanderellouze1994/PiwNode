@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 var ressources = require('ressources');
 var tutor = require('user');
+var quiz = require('quiz');
 
 var courseSchema = new mongoose.Schema({
 
@@ -26,7 +27,8 @@ var courseSchema = new mongoose.Schema({
         type: int
     },
     ressources: [ressources],
-    tutorCreator: tutor
+    tutorCreator: tutor,
+    quiz: quiz
 });
 
 module.exports = courseSchema;
