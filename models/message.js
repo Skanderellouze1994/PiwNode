@@ -12,4 +12,4 @@ var messageSchema = new mongoose.Schema({
     user: user
 });
 
-module.exports = mongoose.model('Message', messageSchema);
+module.exports =  messageSchema;

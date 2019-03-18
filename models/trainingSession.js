@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 var tutor = require('user');
 var students = require('user');
 var courses = require('course');
+var quiz = require('quiz');
 
 var trainingSessionSchema = new mongoose.Schema({
 
@@ -19,7 +20,8 @@ var trainingSessionSchema = new mongoose.Schema({
     },
     tutor: tutor,
     studentsList: [students],
-    courses: [courses]
+    courses: [courses],
+    quiz: quiz
     });
 
-module.exports = mongoose.model('TrainingSession', trainingSessionSchema);
+module.exports = trainingSessionSchema;

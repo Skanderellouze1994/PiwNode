@@ -11,10 +11,11 @@ var postSchema = new mongoose.Schema({
         type: String
     },
     datePost :{
-        type: Date
+        type: Date,
+        default: Date.now
     },
     userPost: user,
     responses: [responses]
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = postSchema;

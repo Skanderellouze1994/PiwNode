@@ -7,9 +7,10 @@ var responseSchema = new mongoose.Schema({
         type: String
     },
     dateResponse :{
-        type: Date
+        type: Date,
+        default: Date.now
     },
     userResponse: user
 });
 
-module.exports = mongoose.model('Response', responseSchema);
+module.exports = responseSchema;
