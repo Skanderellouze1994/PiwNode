@@ -9,9 +9,10 @@ import state from "../_reducers";
     render() {
 const {user}=this.props.user;
         return (
-<div>
-    <p>{user.username}</p>
-</div> )
+            <div>
+                <p>{user.username}</p>
+            </div>
+        )
     }
 
 }
