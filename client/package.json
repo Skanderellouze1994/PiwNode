@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:4000/",
   "dependencies": {
+    "axios": "^0.18.0",
+    "form-data": "^2.3.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",

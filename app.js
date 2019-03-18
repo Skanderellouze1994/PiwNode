@@ -11,6 +11,8 @@ var usersRouter = require('./routes/users');
 var auth = require('./routes/auth')(passport);
 require('./passport')(passport);
 var cors = require('cors');
+const fileUpload = require('express-fileupload');
+
 var app = express();
 
 // view engine setup
@@ -31,6 +33,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
+app.use(fileUpload());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', auth);

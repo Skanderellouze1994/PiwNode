@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 import {userActions} from "../_actions/user.actions";
 import {connect} from "react-redux";
 
@@ -89,8 +89,8 @@ class Login extends Component {
                                                 <span className="ec-checkbox__control"/>
                                                 <span className="ec-checkbox__lebel">Remember Me</span>
                                             </label>
-                                            <a href="page-recover-password.html" className="text-primary my-2 d-block">Forgot
-                                                password?</a>
+                                            <button className="text-primary my-2 d-block">Forgot
+                                                password?</button>
                                         </div>
                                         <button className="btn btn-block btn-primary">Log In</button>
                                         <p className="my-5 text-center">

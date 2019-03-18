@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 export default class Header extends Component {
     render() {
@@ -11,28 +11,28 @@ export default class Header extends Component {
                             <li className="list-inline-item mr-3">
                                 <div className="d-flex align-items-center">
                                     <i className="ti-email mr-2"/>
-                                    <a href="mailto:support@educati.com">support@csma-js.com</a>
+                                    <Link to={"/"}>support@csma-js.com</Link>
                                 </div>
                             </li>
                             <li className="list-inline-item mr-3">
                                 <div className="d-flex align-items-center">
                                     <i className="ti-headphone mr-2"/>
-                                    <a href="tel:+8801740411513">+8801740411513</a>
+                                    <Link to={"/"}>+8801740411513</Link>
                                 </div>
                             </li>
                         </ul>
                         <ul className="list-inline mb-0">
                             <li className="list-inline-item mr-0 p-3 border-right border-left border-white-0_1">
-                                <a href="#"><i className="ti-facebook"/></a>
+                                <Link ><i className="ti-facebook"/></Link>
                             </li>
                             <li className="list-inline-item mr-0 p-3 border-right border-white-0_1">
-                                <a href="#"><i className="ti-twitter"></i></a>
+                                <Link><i className="ti-twitter"/></Link>
                             </li>
                             <li className="list-inline-item mr-0 p-3 border-right border-white-0_1">
-                                <a href="#"><i className="ti-vimeo"></i></a>
+                                <Link><i className="ti-vimeo"/></Link>
                             </li>
                             <li className="list-inline-item mr-0 p-3 border-right border-white-0_1">
-                                <a href="#"><i className="ti-linkedin"></i></a>
+                                <Link ><i className="ti-linkedin"/></Link>
                             </li>
                         </ul>
                         <ul className="list-inline mb-0">

@@ -6,6 +6,29 @@ var User = require('../models/user');
 
 
 module.exports = function (passport) {
+    router.post('/upload', function(req, res) {
+        let sampleFile;
+        let uploadPath;
+
+        if (Object.keys(req.files).length == 0) {
+            res.status(400).send('No files were uploaded.');
+            return;
+        }
+
+        console.log('req.files >>>', req.files); // eslint-disable-line
+
+        sampleFile = req.files.sampleFile;
+
+        uploadPath = 'C:\\Users\\Achraf\\Documents\\GitHub\\PiwNode\\client\\public\\assets\\img\\uploads\\' + sampleFile.name;
+
+        sampleFile.mv(uploadPath, function(err) {
+            if (err) {
+                return res.status(500).send(err);
+            }
+
+            res.send('File uploaded to ' + uploadPath);
+        });
+    });
     router.post('/signup', function(req, res, next) {
         var body = req.body;
         var username = body.username;
@@ -44,5 +67,6 @@ module.exports = function (passport) {
     }),function (req,res) {
         res.send(req.session)
     });
+
 return router;
 };

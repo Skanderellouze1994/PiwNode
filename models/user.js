@@ -24,6 +24,9 @@ var userSchema = new mongoose.Schema({
     profile_photo:{
         type:String
     },
+    num_tel:{
+        type:String
+    },
 
     facebook :{
         id: {

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {userActions} from "../_actions";
 import { connect } from 'react-redux';
-
+import axios from 'axios';
+import FormData from 'form-data'
 
 class Signup extends Component {
     constructor(props) {
@@ -21,7 +21,8 @@ class Signup extends Component {
                 profile_photo:'',
 
             },
-            submitted: false
+            submitted: false,
+            selectedFile:null
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,7 +39,10 @@ class Signup extends Component {
             }
         });
     }
-
+fileSelectedHandler= event=>{
+        console.log(event.target.files[0]);
+        this.setState({selectedFile:event.target.files[0]})
+}
     handleSubmit(event) {
         event.preventDefault();
 
@@ -46,6 +50,11 @@ class Signup extends Component {
         const { user } = this.state;
         const { dispatch } = this.props;
         if (user.role && user.email && user.username && user.password) {
+            const fd = new FormData();
+            fd.append('image',this.state.selectedFile,this.state.selectedFile.name);
+            axios.post('http://localhost:4000/auth/upload',fd).then(res=>{
+                console.log(res);
+            });
             dispatch(userActions.register(user));
         }
     }
@@ -94,9 +103,18 @@ class Signup extends Component {
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user"/>
                                             </div>
+
                                             <input type="text" className="form-control border-left-0 pl-0" name="address"
-                                                   placeholder="Name"  value={user.name} onChange={this.handleChange}/>
+                                                   placeholder="Address"  value={user.address} onChange={this.handleChange}/>
                                         </div>
+                                        <div className="input-group input-group--focus mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text bg-white ti-user"/>
+                                            </div>
+                                            <input type="date" className="form-control border-left-0 pl-0" name="birthday"
+                                                   placeholder="birthday"  value={user.birthday} onChange={this.handleChange}/>
+                                        </div>
+
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user"/>
@@ -125,21 +143,28 @@ class Signup extends Component {
                                             <input type="text" className="form-control border-left-0 pl-0" name="role"
                                                    placeholder="Role" required value={user.role} onChange={this.handleChange}/>
                                         </div>
+                                        <div className="input-group input-group--focus mb-3">
+                                            <div className="input-group-prepend">
+
+                                            </div>
+                                            <input type="file" className="form-control border-left-0 pl-0 " name="profile_photo"
+                                                   placeholder="profile_photo"  value={user.profile_photo} onChange={this.fileSelectedHandler}/>
+                                        </div>
                                         <div className="my-4">
                                             <label className="ec-checkbox check-sm my-2 clearfix">
                                                 <input type="checkbox" name="checkbox"/>
                                                 <span className="ec-checkbox__control mt-1"/>
                                                 <span className="ec-checkbox__lebel">
                                                         By signing up, you agree to our
-                                                         <a href="page-terms-and-privacy-policy.html" className="text-primary">Terms of Use</a>
+                                                         <button  className="text-primary">Terms of Use</button>
                                                             and
-                                                         <a href="page-terms-and-privacy-policy.html" className="text-primary">Privacy Policy.</a>
+                                                         <button  className="text-primary">Privacy Policy.</button>
                                                  </span>
                                             </label>
                                         </div>
                                         <button className="btn btn-block btn-primary">Register Now</button>
                                         <p className="my-5 text-center">
-                                            Already have an account? <a className="text-primary">Login</a>
+                                            Already have an account? <button className="text-primary">Login</button>
                                         </p>
                                     </form>
                                 </div>

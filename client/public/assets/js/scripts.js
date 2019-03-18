@@ -6,7 +6,7 @@
 //////////////////////////////////////////////////
 ///////////////// Helper variables
 // ///////////////////////////////////////////////
-var $assetsPath ='assets/vendor',
+var $assetsPath ='public/assets/vendor',
      $window = $(window),
      $windowHeight = $(window).height(),
      $windowWidth = $(window).width(),
@@ -698,7 +698,7 @@ var ECHOHelper = {
 // ///////////////////////////////////////////////
   dateTimePicker:function(){
     if($('[data-toggle="datetimepicker"]').exists()){
-      loadScript($assetsPath+'/moment/moment.min.js', function(){        
+      loadScript($assetsPath+'/moment/moment.min.js', function(){
         loadScript($assetsPath+'/tempus-dominus-datetimepicker/js/tempusdominus-bootstrap-4.min.js', function(){
           // Date time both 
             $('#ec-datetimepicker').datetimepicker({

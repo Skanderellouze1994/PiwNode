@@ -24,6 +24,9 @@ router.get('/login', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
   res.render('signup.twig');
 });
+router.get('/upload', function(req, res, next) {
+    res.render('upload.twig');
+});
 
 
 router.get('/profile',loggedIn, function(req, res, next) {
