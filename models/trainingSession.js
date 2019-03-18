@@ -22,4 +22,4 @@ var trainingSessionSchema = new mongoose.Schema({
     courses: [courses]
     });
 
-module.exports = mongoose.model('TrainingSession', trainingSessionSchema);
+module.exports = trainingSessionSchema;

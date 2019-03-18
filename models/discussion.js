@@ -14,4 +14,4 @@ var discussionSchema = new mongoose.Schema({
     users: [users]
 });
 
-module.exports = mongoose.model('Discussion', discussionSchema);
+module.exports = discussionSchema;

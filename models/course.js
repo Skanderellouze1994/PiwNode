@@ -29,4 +29,4 @@ var courseSchema = new mongoose.Schema({
     tutorCreator: tutor
 });
 
-module.exports = mongoose.model('Course', courseSchema);
+module.exports = courseSchema;
