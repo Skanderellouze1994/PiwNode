@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import './App.css';
-import Header from './containers/Header';
+import {Header} from './containers/Header';
 import Footer from './containers/Footer';
 import Menu from './containers/Menu';
 import {Login} from './components/Login';
@@ -14,7 +14,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header />
                 <Menu/>
                 <Switch history={history}>
                     <Route exact path="/login" component={Login}/>
