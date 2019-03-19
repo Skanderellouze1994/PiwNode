@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+var user = require('../models/user');
+var mongoose=require('mongoose');
 
 /* GET home page. */
 
-
+User = mongoose.model('User',user);
 module.exports = function (passport) {
     router.post('/upload', function(req, res) {
         let sampleFile;
@@ -41,7 +42,7 @@ module.exports = function (passport) {
             }
             else{
                 if(doc){
-                    res.status(500).send('username already exists');
+                    res.status(400).send({message:'username '+username+' is already taken'});
                 }
                 else{
                     var record = new User();

@@ -1,8 +1,28 @@
 import React, {Component} from 'react';
 import { Link} from "react-router-dom";
+import connect from "react-redux/es/connect/connect";
+import initialState from "../_reducers/index";
 
-export default class Header extends Component {
+
+class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {loggingIn: false};
+        this.props = initialState.loggedIn;
+        var user ={};
+    }
+
     render() {
+        var auth = this.props;
+        if(!this.props.user){
+            auth ="";
+        }else{
+            auth = this.props.user;
+        }
+        const loggingIn = this.state.loggingIn;
+        console.log(this.state.loggingIn);
+        //console.log(this.props.user.user.username);
+        console.log(this.props.user);
         return (
             <header className="site-header bg-dark text-white-0_5">
                 <div className="container">
@@ -37,10 +57,25 @@ export default class Header extends Component {
                         </ul>
                         <ul className="list-inline mb-0">
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-                                <Link to="/login">Login</Link>
+                                {auth ? (
+                                    <a>Welcome <b>{auth.user.username}</b></a>
+                                ) : (
+                                    <Link to="/login">Login</Link>
+                                )}
+                            </li>
+                            <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
+                                {auth ?  (
+                                    <Link to="/profil">My profile</Link>
+                                ): (
+                                    <a></a>
+                                )}
                             </li>
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
-                                <Link to="/signup">Register</Link>
+                                {auth ? (
+                                    <Link to="/login">Logout</Link>
+                                ) : (
+                                    <Link to="/signup">Register</Link>
+                                )}
                             </li>
                         </ul>
                     </div>
@@ -48,4 +83,16 @@ export default class Header extends Component {
             </header>
         )
     }
+
 }
+function mapStateToProps(state) {
+    const { users, authentication } = state;
+    const { user } = authentication;
+    return {
+        user,
+        users
+    };
+}
+
+const connectedHomePage = connect(mapStateToProps)(Header);
+export { connectedHomePage as Header };
