@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 
 
- class Profil extends Component {
+class Profil extends Component {
 
     render() {
-const {user}=this.props;
+        const {user}=this.props;
         return (
 
                <div>
@@ -28,7 +28,7 @@ const {user}=this.props;
                                        <div className="card-header text-center border-bottom pt-5 mb-4">
                                            <img className="rounded-circle mb-4" src="assets/img/262x230/6.jpg" width={200} height={200} alt />
                                            <h4>
-                                               {user.username}
+                                               {user.user.username}
                                            </h4>
                                            <p>
                                                Web Developer and Instructor
