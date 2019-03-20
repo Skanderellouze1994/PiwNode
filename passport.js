@@ -46,7 +46,7 @@ module.exports=function (passport) {
             clientSecret: '197b024bf6451452299c9bb50d1fb2f4',
             callbackURL: "http://localhost:4000/auth/facebook/callback",
             // passReqToCallback : false,
-            profileFields: ['id', 'emails', 'name','displayName'] //This
+            profileFields: ['id', 'emails', 'name','displayName','picture.type(large)'] //This
         },
         function(accessToken, refreshToken, profile, done) {
             process.nextTick(function() {
