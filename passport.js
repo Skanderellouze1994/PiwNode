@@ -1,4 +1,4 @@
-var LocalStrategy = require('passport-local').Strategy;
+var localStrategy = require('passport-local').Strategy;
 var user = require('./models/user');
 FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
@@ -13,17 +13,33 @@ module.exports=function (passport) {
     passport.deserializeUser(function (user,done) {
         done(null,user);
     });
-    passport.use(new LocalStrategy(
-        function(username, password, done) {
-            User.findOne({ username: username,password:password }, function(err, user) {
-               if (err) { return done(); }
-                if (!user) {
-                    return done(null, false, { message: 'Incorrect username.' });
+    passport.use(new localStrategy(function (username,password,done) {
+        User.findOne({username:username},function (err,doc) {
+            if(err){
+                done(err);
+            }
+            else{
+                if(doc){
+                    var valid = doc.comparePassword(password,doc.password);
+                    if(valid){
+                        done(null,{
+                            username:doc.username,
+                            password:doc.password,
+                            email:doc.email,
+                            role:doc.role
+                        })
+                    }
+                    else{
+                        done(null,false)
+                    }
                 }
-                return done(null, user);
-            });
-        }
-    ));
+                else{
+                    done(null,false)
+                }
+            }
+
+        })
+    }));
 
     passport.use(new FacebookStrategy({
             clientID: '426024058143152',

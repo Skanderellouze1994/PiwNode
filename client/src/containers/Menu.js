@@ -16,7 +16,7 @@ class Menu extends Component {
                               data-target="#ec-nav__collapsible" data-toggle="collapse">
                             <div className="hamburger hamburger--spin js-hamburger">
                             <div className="hamburger-box">
-                            <div className="hamburger-inner"></div>
+                            <div className="hamburger-inner"/>
                             </div>
                             </div>
                         </span>
