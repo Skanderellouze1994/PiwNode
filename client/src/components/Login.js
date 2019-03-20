@@ -90,8 +90,8 @@ class Login extends Component {
                                                 <span className="ec-checkbox__control"/>
                                                 <span className="ec-checkbox__lebel">Remember Me</span>
                                             </label>
-                                            <button className="text-primary my-2 d-block">Forgot
-                                                password?</button>
+                                            <a className="text-primary my-2 d-block">Forgot
+                                                password?</a>
                                         </div>
                                         <button className="btn btn-block btn-primary">Log In</button>
                                         <p className="my-5 text-center">
