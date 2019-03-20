@@ -1,6 +1,7 @@
 import { authHeader } from '../_helpers';
 
 export const userService = {
+    loginFacebook,
     login,
     logout,
     register,
@@ -49,6 +50,15 @@ function getById(id) {
     };
 
     return fetch(`/users/${id}`, requestOptions).then(handleResponse);
+}
+function loginFacebook() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader(),
+        mode: 'no-cors'
+    };
+
+    return fetch('http://localhost:4000/auth/google', requestOptions).then(handleResponse);
 }
 
 function register(user) {

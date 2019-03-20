@@ -7,7 +7,7 @@ import state from "../_reducers";
  class Profil extends Component {
 
     render() {
-const {user}=this.props.user;
+const {user}=this.props;
         return (
 
                <div>
