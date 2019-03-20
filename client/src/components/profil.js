@@ -5,7 +5,7 @@ import {connect} from "react-redux";
  class Profil extends Component {
 
     render() {
-const {user}=this.props.user;
+const {user}=this.props;
         return (
 
                <div>

@@ -32,7 +32,7 @@ class Signup extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleChangee = this.handleChangee.bind(this);
-
+        this.huandleLoginFacebook = this.huandleLoginFacebook.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -55,6 +55,11 @@ class Signup extends Component {
             accepted:!accepted
         })
 
+    }
+    huandleLoginFacebook(event){
+        console.log("dkhal");
+        const { dispatch } = this.props;
+        dispatch(userActions.loginFacebook())
     }
     handleSubmit(event) {
         event.preventDefault();
@@ -87,10 +92,11 @@ class Signup extends Component {
                                         Sign Up and Start Learning!
                                     </h4>
                                 </div>
+
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col my-2">
-                                            <button className="btn btn-block btn-facebook">
+                                            <button className="btn btn-block btn-facebook" onClick={this.huandleLoginFacebook}>
                                                 <i className="ti-facebook mr-1"/>
                                                 <span>Facebook Sign in</span>
                                             </button>

@@ -4,6 +4,7 @@ import { alertActions } from './';
 import { history } from '../_helpers';
 
 export const userActions = {
+    loginFacebook,
     login,
     logout,
     register,
@@ -18,6 +19,27 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => { 
+                    dispatch(success(user));
+                    //history.push('/profil');
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
+function loginFacebook () {
+    return dispatch => {
+        dispatch(request({ username:"aaa" }));
+
+        userService.loginFacebook()
+            .then(
+                user => {
                     dispatch(success(user));
                     history.push('/profil');
                 },
