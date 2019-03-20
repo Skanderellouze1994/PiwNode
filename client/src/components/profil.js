@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 
 
- class Profil extends Component {
+class Profil extends Component {
 
     render() {
-const {user}=this.props;
+        const {user}=this.props;
         return (
 
                <div>
