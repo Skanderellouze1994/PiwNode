@@ -20,7 +20,7 @@ module.exports=function (passport) {
             }
             else{
                 if(doc){
-                    var valid = doc.comparePassword(password,doc.password)
+                    var valid = doc.comparePassword(password,doc.password);
                     if(valid){
                         done(null,{
                             username:doc.username,

@@ -7,22 +7,16 @@ import initialState from "../_reducers/index";
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {loggingIn: false};
-        this.props = initialState.loggedIn;
-        var user ={};
     }
 
     render() {
+        //const {authentication} = this.props;
         var auth = this.props;
         if(!this.props.user){
             auth ="";
         }else{
             auth = this.props.user;
         }
-        const loggingIn = this.state.loggingIn;
-        console.log(this.state.loggingIn);
-        //console.log(this.props.user.user.username);
-        console.log(this.props.user);
         return (
             <header className="site-header bg-dark text-white-0_5">
                 <div className="container">
@@ -58,21 +52,32 @@ class Header extends Component {
                         <ul className="list-inline mb-0">
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
                                 {auth ? (
-                                    <a>Welcome <b>{auth.user.username}</b></a>
+                                    <a></a>
                                 ) : (
                                     <Link to="/login">Login</Link>
                                 )}
                             </li>
-                            <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-                                {auth ?  (
-                                    <Link to="/profil">My profile</Link>
-                                ): (
-                                    <a></a>
-                                )}
-                            </li>
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
                                 {auth ? (
-                                    <Link to="/login">Logout</Link>
+                                    <div className="dropdown" style={{zIndex : 9999}}>
+                                        <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                                            <span><b>{auth.user.username}</b></span>
+                                            <img className="iconbox iconbox-sm mx-1" src="assets/img/avatar/4.jpg" alt />
+                                        </a>
+                                        <div className="dropdown-menu">
+                                            <Link to="/profil" className="dropdown-item">
+                                                <i className="ti-user mr-2" />
+                                                <span className="mr-2">
+                                                        My profile
+                                                </span>
+                                            </Link>
+                                            <div className="dropdown-divider" />
+                                            <Link to="/login" className="dropdown-item" >
+                                                <i className="ti-back-left mr-2" />
+                                                <span className="mr-2">Logout</span>
+                                            </Link>
+                                        </div>
+                                    </div>
                                 ) : (
                                     <Link to="/signup">Register</Link>
                                 )}
@@ -81,7 +86,9 @@ class Header extends Component {
                     </div>
                 </div>
             </header>
+
         )
+
     }
 
 }
@@ -90,7 +97,8 @@ function mapStateToProps(state) {
     const { user } = authentication;
     return {
         user,
-        users
+        users,
+        authentication
     };
 }
 

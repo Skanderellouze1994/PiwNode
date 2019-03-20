@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import connect from "react-redux/es/connect/connect";
 
 
-export default class Menu extends Component {
+class Menu extends Component {
     render() {
         return (
             <nav className="ec-nav sticky-top bg-white">
@@ -15,7 +16,7 @@ export default class Menu extends Component {
                               data-target="#ec-nav__collapsible" data-toggle="collapse">
                             <div className="hamburger hamburger--spin js-hamburger">
                             <div className="hamburger-box">
-                            <div className="hamburger-inner"></div>
+                            <div className="hamburger-inner"/>
                             </div>
                             </div>
                         </span>
@@ -149,3 +150,15 @@ export default class Menu extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    const { users, authentication } = state;
+    const { user } = authentication;
+    return {
+        user,
+        users,
+        authentication
+    };
+}
+
+const connectedHomePage = connect(mapStateToProps)(Menu);
+export { connectedHomePage as Menu };

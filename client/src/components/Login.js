@@ -33,7 +33,7 @@ class Login extends Component {
         const { dispatch } = this.props;
         if (username && password) {
             dispatch(userActions.login(username, password));
-            this.props.history.push('/profil')
+
         }
     }
 
