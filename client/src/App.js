@@ -9,20 +9,23 @@ import {Signup} from './components/Signup';
 import {Home} from './components/Home';
 import {Profil} from './components/profil';
 import { history } from '../src/_helpers';
+import {Router} from "react-router";
 
 class App extends Component {
     render() {
         return (
             <div>
+                <Router history={history}>
                 <Header />
                 <Menu/>
-                <Switch history={history}>
+
                     <Route exact path="/login" component={Login}/>
-                    <Route exact path="/signup" component={Signup}/>
-                    <Route exact path="/home" component={Home}/>
-                    <Route exact path="/profil" component={Profil}/>
-                </Switch>
+                    <Route  path="/signup" component={Signup}/>
+                    <Route  path="/home" component={Home}/>
+                    <Route  path="/profil" component={Profil}/>
+
                 <Footer/>
+                </Router>
             </div>
         );
     }

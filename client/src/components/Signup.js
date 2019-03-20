@@ -70,6 +70,7 @@ class Signup extends Component {
         if (this.validator.allValid()) {
 
             dispatch(userActions.register(user));
+
         }else {
             this.validator.showMessages();
             // rerender to show messages for the first time
@@ -112,7 +113,7 @@ class Signup extends Component {
                                         OR
                                     </p>
                                     {alert.message &&
-                                    <div className="alert bg-danger text-white px-4 py-3" role="alert">
+                                    <div className={`alert ${alert.type} text-white px-4 py-3`} role="alert">
                                         {alert.message}
                                     </div>
                                     }
