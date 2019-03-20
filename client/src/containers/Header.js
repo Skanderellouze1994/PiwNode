@@ -14,20 +14,17 @@ class Header extends Component {
 
     render() {
         const {authentication} = this.props;
-console.log(authentication);
+        console.log(authentication);
         //const loggingIn = this.state.loggingIn;
-        //console.log(this.state.loggingIn);
+        console.log(this.state);
         //console.log(this.props.user.user.username);
-       // console.log(this.props.user);
-        function f() {
-            if(authentication){
-                return( <Link to="/login">Login</Link>  )}
-            else{
-                return( <a>Welcome <b>{authentication.user.user.username}</b></a>)}
-
-
+        console.log(this.props);
+        var auth = this.props;
+        if(!this.props.user){
+            auth ="";
+        }else{
+            auth = this.props.user;
         }
-
         return (
             <header className="site-header bg-dark text-white-0_5">
                 <div className="container">
@@ -62,17 +59,21 @@ console.log(authentication);
                         </ul>
                         <ul className="list-inline mb-0">
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-                                {f()}
+                                {auth ? (
+                                    <a>Welcome <b>{auth.user.username}</b></a>
+                                ) : (
+                                    <Link to="/login">Login</Link>
+                                )}
                             </li>
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-                                {authentication ?  (
+                                {auth ?  (
                                     <Link to="/profil">My profile</Link>
                                 ): (
                                     <a></a>
                                 )}
                             </li>
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
-                                {authentication ? (
+                                {auth ? (
                                     <Link to="/login">Logout</Link>
                                 ) : (
                                     <Link to="/signup">Register</Link>
@@ -90,11 +91,11 @@ console.log(authentication);
 }
 function mapStateToProps(state) {
     const { users, authentication } = state;
-
-    console.log();
+    const { user } = authentication;
     return {
-        authentication,
-        users
+        user,
+        users,
+        authentication
     };
 }
 
