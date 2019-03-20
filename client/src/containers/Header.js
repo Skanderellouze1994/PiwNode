@@ -7,22 +7,27 @@ import initialState from "../_reducers/index";
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {loggingIn: false};
-        this.props = initialState.loggedIn;
-        var user ={};
+       // this.state = {loggingIn: false};
+        //this.props = initialState.loggedIn;
+        //var user ={};
     }
 
     render() {
-        var auth = this.props;
-        if(!this.props.user){
-            auth ="";
-        }else{
-            auth = this.props.user;
-        }
-        const loggingIn = this.state.loggingIn;
-        console.log(this.state.loggingIn);
+        const {authentication} = this.props;
+console.log(authentication);
+        //const loggingIn = this.state.loggingIn;
+        //console.log(this.state.loggingIn);
         //console.log(this.props.user.user.username);
-        console.log(this.props.user);
+       // console.log(this.props.user);
+        function f() {
+            if(authentication){
+                return( <Link to="/login">Login</Link>  )}
+            else{
+                return( <a>Welcome <b>{authentication.user.user.username}</b></a>)}
+
+
+        }
+
         return (
             <header className="site-header bg-dark text-white-0_5">
                 <div className="container">
@@ -57,21 +62,17 @@ class Header extends Component {
                         </ul>
                         <ul className="list-inline mb-0">
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-                                {auth ? (
-                                    <a>Welcome <b>{auth.user.username}</b></a>
-                                ) : (
-                                    <Link to="/login">Login</Link>
-                                )}
+                                {f()}
                             </li>
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-                                {auth ?  (
+                                {authentication ?  (
                                     <Link to="/profil">My profile</Link>
                                 ): (
                                     <a></a>
                                 )}
                             </li>
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
-                                {auth ? (
+                                {authentication ? (
                                     <Link to="/login">Logout</Link>
                                 ) : (
                                     <Link to="/signup">Register</Link>
@@ -81,15 +82,18 @@ class Header extends Component {
                     </div>
                 </div>
             </header>
+
         )
+
     }
 
 }
 function mapStateToProps(state) {
     const { users, authentication } = state;
-    const { user } = authentication;
+
+    console.log();
     return {
-        user,
+        authentication,
         users
     };
 }
