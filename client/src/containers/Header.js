@@ -61,7 +61,7 @@ class Header extends Component {
                                 {auth ? (
                                     <div className="dropdown" style={{zIndex : 9999}}>
                                         <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                            <span>Welcome <b>{auth.user.username}</b></span>
+                                            <span><b>{auth.user.username}</b></span>
                                             <img className="iconbox iconbox-sm mx-1" src="assets/img/avatar/4.jpg" alt />
                                         </a>
                                         <div className="dropdown-menu">
