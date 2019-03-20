@@ -44,9 +44,9 @@ module.exports=function (passport) {
     passport.use(new FacebookStrategy({
             clientID: '426024058143152',
             clientSecret: '197b024bf6451452299c9bb50d1fb2f4',
-            callbackURL: "http://localhost:3000/auth/facebook/callback",
+            callbackURL: "http://localhost:4000/auth/facebook/callback",
             // passReqToCallback : false,
-            profileFields: ['id', 'emails', 'name','displayName'] //This
+            profileFields: ['id', 'emails', 'name','displayName','picture.type(large)'] //This
         },
         function(accessToken, refreshToken, profile, done) {
             process.nextTick(function() {
@@ -74,7 +74,7 @@ module.exports=function (passport) {
     passport.use(new GitHubStrategy({
             clientID: '6285c3dd0898aa94f691',
             clientSecret: '9acf2aee429484f1cfff6ad76bab8b592e556ccd',
-            callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+            callbackURL: "http://127.0.0.1:4000/auth/github/callback"
             //profileFields: ['id', 'emails', 'name','displayName']
         },
         function(accessToken, refreshToken, profile, done) {
@@ -104,7 +104,7 @@ module.exports=function (passport) {
     passport.use(new LinkedInStrategy({
         clientID: '862ekdwlfwuu6j',
         clientSecret: 'Qpd24YBESAt2esEH',
-        callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback",
+        callbackURL: "http://127.0.0.1:4000/auth/linkedin/callback",
         scope: ['r_emailaddress', 'r_basicprofile'],
     }, function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -133,7 +133,7 @@ module.exports=function (passport) {
     passport.use(new GoogleStrategy({
             clientID: '514608932569-uui3nhiloakd9d1nob0tso24ao2o718a.apps.googleusercontent.com',
             clientSecret: '3sPuTFIzTboRzsD3yco3BX8c',
-            callbackURL: "http://127.0.0.1:3000/auth/google/callback",
+            callbackURL: "http://127.0.0.1:4000/auth/google/callback",
             scope: [ 'https://www.googleapis.com/auth/userinfo.profile',
                 'https://www.googleapis.com/auth/userinfo.email'],
         },
