@@ -6,6 +6,9 @@ var responseSchema = new mongoose.Schema({
     description: {
         type: String
     },
+    status: {
+        type: String
+    },
     dateResponse :{
         type: Date,
         default: Date.now

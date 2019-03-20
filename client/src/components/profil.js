@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {store} from "../_helpers";
 import {connect} from "react-redux";
-import state from "../_reducers";
 
 
  class Profil extends Component {
@@ -14,12 +12,11 @@ const {user}=this.props.user;
                    <div className="padding-y-80 bg-cover" data-dark-overlay={6} style={{background: 'url(assets/img/breadcrumb-bg.jpg) no-repeat'}}>
                        <div className="container">
                            <h2 className="text-white">
-                               Instructor Profile
+                               My profile
                            </h2>
                            <ol className="breadcrumb breadcrumb-double-angle text-white bg-transparent p-0">
                                <li className="breadcrumb-item"><a href="#">Home</a></li>
-                               <li className="breadcrumb-item"><a href="#">Page</a></li>
-                               <li className="breadcrumb-item"> Instructor Profile</li>
+                               <li className="breadcrumb-item"> My profile</li>
                            </ol>
                        </div>
                    </div>
