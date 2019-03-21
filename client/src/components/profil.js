@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 
 class Profil extends Component {
@@ -15,7 +16,7 @@ class Profil extends Component {
                                My profile
                            </h2>
                            <ol className="breadcrumb breadcrumb-double-angle text-white bg-transparent p-0">
-                               <li className="breadcrumb-item"><a href="#">Home</a></li>
+                               <li className="breadcrumb-item"><Link to="/">Home</Link></li>
                                <li className="breadcrumb-item"> My profile</li>
                            </ol>
                        </div>
@@ -26,7 +27,7 @@ class Profil extends Component {
                                <div className="col-lg-4 mt-4">
                                    <div className="card shadow-v1">
                                        <div className="card-header text-center border-bottom pt-5 mb-4">
-                                           <img className="rounded-circle mb-4" src="assets/img/262x230/6.jpg" width={200} height={200} alt />
+                                           <img alt="aaa" className="rounded-circle mb-4" src="assets/img/262x230/6.jpg" width={200} height={200}   />
                                            <h4>
                                                {user.user.username}
                                            </h4>
@@ -55,15 +56,15 @@ class Profil extends Component {
                                            <ul className="list-unstyled">
                                                <li className="mb-3">
                                                    <span className="d-block">Email address:</span>
-                                                   <a className="h6" href="mailto:saifullah@gmail.com">saifullah@gmail.com</a>
+                                                   <Link to="/" className="h6" href="mailto:saifullah@gmail.com">saifullah@gmail.com</Link>
                                                </li>
                                                <li className="mb-3">
                                                    <span className="d-block">Phone:</span>
-                                                   <a className="h6" href="mailto:saifullah@gmail.com">+91 654 784 547</a>
+                                                   <Link to="/" className="h6" href="mailto:saifullah@gmail.com">+91 654 784 547</Link>
                                                </li>
                                                <li className="mb-3">
                                                    <span className="d-block">Location:</span>
-                                                   <a className="h6" href="mailto:saifullah@gmail.com">South Street, London, UK</a>
+                                                   <Link to="/" className="h6" href="mailto:saifullah@gmail.com">South Street, London, UK</Link>
                                                </li>
                                            </ul>
                                        </div>
@@ -73,24 +74,24 @@ class Profil extends Component {
                                            </p>
                                            <ul className="list-inline mb-0">
                                                <li className="list-inline-item">
-                                                   <a href="#" className="btn btn-outline-facebook iconbox iconbox-sm">
+                                                   <Link to="/" className="btn btn-outline-facebook iconbox iconbox-sm">
                                                        <i className="ti-facebook" />
-                                                   </a>
+                                                   </Link>
                                                </li>
                                                <li className="list-inline-item">
-                                                   <a href="#" className="btn btn-outline-twitter iconbox iconbox-sm">
+                                                   <Link to="/" className="btn btn-outline-twitter iconbox iconbox-sm">
                                                        <i className="ti-twitter" />
-                                                   </a>
+                                                   </Link>
                                                </li>
                                                <li className="list-inline-item">
-                                                   <a href="#" className="btn btn-outline-google-plus iconbox iconbox-sm">
+                                                   <Link to="/" className="btn btn-outline-google-plus iconbox iconbox-sm">
                                                        <i className="ti-google" />
-                                                   </a>
+                                                   </Link>
                                                </li>
                                                <li className="list-inline-item">
-                                                   <a href="#" className="btn btn-outline-linkedin iconbox iconbox-sm">
+                                                   <Link to="/" className="btn btn-outline-linkedin iconbox iconbox-sm">
                                                        <i className="ti-linkedin" />
-                                                   </a>
+                                                   </Link>
                                                </li>
                                            </ul>
                                        </div>
@@ -100,29 +101,29 @@ class Profil extends Component {
                                    <div className="card shadow-v1 padding-30">
                                        <ul className="nav tab-line tab-line border-bottom mb-4" role="tablist">
                                            <li className="nav-item">
-                                               <a className="nav-link active" data-toggle="tab" href="#Tabs_1-1" role="tab" aria-selected="true">
+                                               <Link to="/" className="nav-link active" data-toggle="tab" href="#Tabs_1-1" role="tab" aria-selected="true">
                                                    About
-                                               </a>
+                                               </Link>
                                            </li>
                                            <li className="nav-item">
-                                               <a className="nav-link" data-toggle="tab" href="#Tabs_1-2" role="tab" aria-selected="true">
+                                               <Link to="/" className="nav-link" data-toggle="tab" href="#Tabs_1-2" role="tab" aria-selected="true">
                                                    Courses
-                                               </a>
+                                               </Link>
                                            </li>
                                            <li className="nav-item">
-                                               <a className="nav-link" data-toggle="tab" href="#Tabs_1-3" role="tab" aria-selected="true">
+                                               <Link to="/" className="nav-link" data-toggle="tab" href="#Tabs_1-3" role="tab" aria-selected="true">
                                                    Reviews
-                                               </a>
+                                               </Link>
                                            </li>
                                            <li className="nav-item">
-                                               <a className="nav-link" data-toggle="tab" href="#Tabs_1-4" role="tab" aria-selected="true">
+                                               <Link to="/" className="nav-link" data-toggle="tab" href="#Tabs_1-4" role="tab" aria-selected="true">
                                                    Message
-                                               </a>
+                                               </Link>
                                            </li>
                                            <li className="nav-item">
-                                               <a className="nav-link" data-toggle="tab" href="#Tabs_1-5" role="tab" aria-selected="true">
+                                               <Link to="/" className="nav-link" data-toggle="tab"  role="tab" aria-selected="true">
                                                    Settings
-                                               </a>
+                                               </Link>
                                            </li>
                                        </ul>
                                        <div className="tab-content">
@@ -189,9 +190,9 @@ class Profil extends Component {
                                            <div className="tab-pane fade" id="Tabs_1-2" role="tabpanel">
                                                <div className="row">
                                                    <div className="col-md-6 mt-4">
-                                                       <a href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border">
+                                                       <Link to="/"> href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border">
                                                            <span className="ribbon-badge font-size-sm bg-success text-white">Best selling</span>
-                                                           <img className="card-img-top" src="assets/img/360x220/1.jpg" alt />
+                                                           <img alt="aaa" className="card-img-top" src="assets/img/360x220/1.jpg"  />
                                                            <div className="card-body">
                                                                <h4 className="h5">
                                                                    The Web Developer Bootcamp
@@ -225,11 +226,11 @@ class Profil extends Component {
                                                                    <span className="text-primary">$180</span>
                                                                </h4>
                                                            </div>
-                                                       </a>
+                                                       </Link>
                                                    </div>
                                                    <div className="col-md-6 mt-4">
-                                                       <a href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border">
-                                                           <img className="card-img-top" src="assets/img/360x220/2.jpg" alt />
+                                                       <Link to="/"> href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border">
+                                                           <img alt="aaa" className="card-img-top" src="assets/img/360x220/2.jpg"  />
                                                            <div className="card-body">
                                                                <h4 className="h5">
                                                                    C++ Essential Training
@@ -264,11 +265,11 @@ class Profil extends Component {
                                                                    <s className="small">$129</s>
                                                                </h4>
                                                            </div>
-                                                       </a>
+                                                       </Link>
                                                    </div>
                                                    <div className="col-md-6 mt-4">
-                                                       <a href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border">
-                                                           <img className="card-img-top" src="assets/img/360x220/3.jpg" alt />
+                                                       <Link to="/"> href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border">
+                                                           <img alt="aaa" className="card-img-top" src="assets/img/360x220/3.jpg"  />
                                                            <div className="card-body">
                                                                <h4 className="h5">
                                                                    Programming Real-World Examples
@@ -302,11 +303,11 @@ class Profil extends Component {
                                                                    <span className="text-primary">$249</span>
                                                                </h4>
                                                            </div>
-                                                       </a>
+                                                       </Link>
                                                    </div>
                                                    <div className="col-md-6 mt-4">
-                                                       <a href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border shadow-v1">
-                                                           <img className="card-img-top" src="assets/img/360x220/4.jpg" alt />
+                                                       <Link to="/"> href="page-course-details.html" className="card text-gray overflow-hidden height-100p shadow-v1 border shadow-v1">
+                                                           <img alt="aaa" className="card-img-top" src="assets/img/360x220/4.jpg"  />
                                                            <div className="card-body">
                                                                <h4 className="h5">
                                                                    Java 8 Essential Training
@@ -340,20 +341,20 @@ class Profil extends Component {
                                                                    <span className="text-success">Free</span>
                                                                </h4>
                                                            </div>
-                                                       </a>
+                                                       </Link>
                                                    </div>
                                                    <div className="col-12 text-center mt-5">
-                                                       <a href="#" className="btn btn-icon btn-outline-primary">
+                                                       <Link to="/" className="btn btn-icon btn-outline-primary">
                                                            <i className="ti-reload mr-2" />
                                                            Load More
-                                                       </a>
+                                                       </Link>
                                                    </div>
                                                </div> {/* END row*/}
                                            </div> {/* END tab-pane */}
                                            <div className="tab-pane fade" id="Tabs_1-3" role="tabpanel">
                                                <div className="row mx-0 py-4 border-bottom mt-4">
                                                    <div className="col-md-4 media">
-                                                       <img className="iconbox iconbox-xl" src="assets/img/avatar/4.jpg" alt />
+                                                       <img alt="aaa" className="iconbox iconbox-xl" src="assets/img/avatar/4.jpg"  />
                                                        <div className="media-body ml-4 mb-4 mb-md-0">
                                                            <small className="text-gray">7 min ago</small>
                                                            <h6>
@@ -379,7 +380,7 @@ class Profil extends Component {
                                                </div> {/* END d-flex*/}
                                                <div className="row mx-0 py-4 border-bottom mt-4">
                                                    <div className="col-md-4 media">
-                                                       <img className="iconbox iconbox-xl" src="assets/img/avatar/5.jpg" alt />
+                                                       <img alt="aaa" className="iconbox iconbox-xl" src="assets/img/avatar/5.jpg"  />
                                                        <div className="media-body ml-4 mb-4 mb-md-0">
                                                            <small className="text-gray">1 mon ago</small>
                                                            <h6>
@@ -433,7 +434,7 @@ class Profil extends Component {
                                                </div> {/* END d-flex*/}
                                                <div className="row mx-0 py-4 border-bottom mt-4">
                                                    <div className="col-md-4 media">
-                                                       <img className="iconbox iconbox-xl" src="assets/img/avatar/6.jpg" alt />
+                                                       <img alt="aaa" className="iconbox iconbox-xl" src="assets/img/avatar/6.jpg"  />
                                                        <div className="media-body ml-4 mb-4 mb-md-0">
                                                            <small className="text-gray">1 year ago</small>
                                                            <h6>
@@ -459,10 +460,10 @@ class Profil extends Component {
                                                    </div>
                                                </div> {/* END d-flex*/}
                                                <div className="text-center mt-5">
-                                                   <a href="#" className="btn btn-primary btn-icon">
+                                                   <Link to="/" className="btn btn-primary btn-icon">
                                                        <i className="ti-reload mr-2" />
                                                        Load More
-                                                   </a>
+                                                   </Link>
                                                </div>
                                            </div>
                                            <div className="tab-pane fade" id="Tabs_1-4" role="tabpanel">
@@ -491,13 +492,13 @@ class Profil extends Component {
                                                    <div className="media align-items-end mt-4">
                                                        <div className="position-relative">
                                                            <input type="file" className="opacity-0 position-absolute as-parent" />
-                                                           <img src="assets/img/placeholder-1.jpg" alt />
+                                                           <img alt="aaa" src="assets/img/placeholder-1.jpg"  />
                                                        </div>
                                                        <div className="media-body ml-4 mb-4 mb-md-0">
                                                            <p>
                                                                JPG or PNG 200x200 px
                                                            </p>
-                                                           <a href="#" />
+                                                           <Link to="/" />
                                                            <button className="btn btn-outline-primary">
                                                                <input type="file" className="opacity-0 position-absolute" />
                                                                Upload

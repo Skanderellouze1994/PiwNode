@@ -30,11 +30,11 @@ module.exports=function (passport) {
                         })
                     }
                     else{
-                        done(null,false)
+                        done(null,false,{message:"aaaaaa"})
                     }
                 }
                 else{
-                    done(null,false)
+                    done(null,false,{message:"aaaaaa"})
                 }
             }
 

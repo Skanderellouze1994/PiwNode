@@ -76,5 +76,9 @@ userSchema.methods.hashPassword = function(password){
 userSchema.methods.comparePassword = function(password,hash){
     return bcrypt.compareSync(password,hash)
 };
+userSchema.methods.validPassword = function( pwd ) {
+    // EXAMPLE CODE!
+    return ( this.password === pwd );
+};
 
 module.exports = userSchema;

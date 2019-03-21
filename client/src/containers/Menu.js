@@ -10,7 +10,7 @@ class Menu extends Component {
                 <div className="container">
                     <div className="navbar p-0 navbar-expand-lg">
                         <div className="navbar-brand">
-                            <Link to="/home" class="logo-default"><img alt="" src="assets/img/logo-black.png"/></Link>
+                            <Link to="/home" className="logo-default"><img alt="" src="assets/img/logo-black.png"/></Link>
                         </div>
                         <span aria-expanded="false" className="navbar-toggler ml-auto collapsed"
                               data-target="#ec-nav__collapsible" data-toggle="collapse">
@@ -23,18 +23,18 @@ class Menu extends Component {
                         <div className="collapse navbar-collapse when-collapsed" id="ec-nav__collapsible">
                             <ul className="nav navbar-nav ec-nav__navbar ml-auto">
                                 <li className="nav-item nav-item__has-megamenu megamenu-col-2">
-                                    <Link className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Home</Link>
+                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Home</Link>
                                     <div className="dropdown-menu left-auto p-2 p-md-4">
                                         <div className="row mx-0">
                                             <div className="col-lg-6">
                                                 <ul className="list-unstyled">
-                                                    <li><Link to="/login" class="nav-link__list px-0">Demo School</Link>
+                                                    <li><Link to="/login" className="nav-link__list px-0">Demo School</Link>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div className="col-lg-6">
                                                 <ul className="list-unstyled">
-                                                    <li><Link className="nav-link__list px-0" href="#">Demo Online
+                                                    <li><Link to="/" className="nav-link__list px-0" href="#">Demo Online
                                                         University</Link></li>
                                                 </ul>
                                             </div>
@@ -43,40 +43,40 @@ class Menu extends Component {
                                 </li>
 
                                 <li className="nav-item nav-item__has-dropdown">
-                                    <Link className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Courses</Link>
+                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Courses</Link>
                                 </li>
 
                                 <li className="nav-item nav-item__has-dropdown">
-                                    <Link className="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Blog </Link>
+                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Blog </Link>
                                 </li>
 
                                 <li className="nav-item nav-item__has-dropdown">
-                                    <Link className="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Shop </Link>
+                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Shop </Link>
                                 </li>
 
                                 <li className="nav-item nav-item__has-megamenu">
-                                    <Link className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Elements</Link>
+                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Elements</Link>
                                     <div className="dropdown-menu p-2 p-md-4">
                                         <div className="row mx-0">
                                             <div className="col-md-3">
                                                 <ul className="list-unstyled">
-                                                    <li><Link className="nav-link__list px-0"
+                                                    <li><Link to="/" className="nav-link__list px-0"
                                                            href="#">Accordions</Link></li>
                                                 </ul>
                                             </div>
                                             <div className="col-md-3">
                                                 <ul className="list-unstyled">
-                                                    <li><Link className="nav-link__list px-0" href="#">Card</Link>
+                                                    <li><Link to="/" className="nav-link__list px-0" href="#">Card</Link>
                                                     </li>
-                                                    <li><Link className="nav-link__list px-0"
+                                                    <li><Link to="/" className="nav-link__list px-0"
                                                            >Lightbox</Link></li>
-                                                    <li><Link className="nav-link__list px-0" href="element-list-group.html">List
+                                                    <li><Link to="/" className="nav-link__list px-0" href="element-list-group.html">List
                                                         Group</Link></li>
                                                 </ul>
                                             </div>
                                             <div className="col-md-3">
                                                 <ul className="list-unstyled">
-                                                    <li><Link className="nav-link__list px-0"
+                                                    <li><Link to="/" className="nav-link__list px-0"
                                                            >Tables</Link></li>
                                                 </ul>
                                             </div>
@@ -88,7 +88,7 @@ class Menu extends Component {
                         <div className="nav-toolbar">
                             <ul className="navbar-nav ec-nav__navbar">
                                 <li className="nav-item nav-item__has-dropdown">
-                                    <Link className="nav-link dropdown-toggle no-caret"  data-toggle="dropdown"><i
+                                    <Link to="/" className="nav-link dropdown-toggle no-caret"  data-toggle="dropdown"><i
     className="ti-shopping-cart"/></Link>
                                     <ul className="dropdown-menu dropdown-cart" aria-labelledby="navbarDropdown">
                                         <li className="dropdown-cart__item">
@@ -96,11 +96,11 @@ class Menu extends Component {
                                                 <img className="dropdown-cart__img" src="assets/img/shop/products/2.jpg"
                                                      alt=""/>
                                                 <div className="media-body pl-3">
-                                                    <Link className="h6">Quick intro to Python</Link>
+                                                    <Link to="/" className="h6">Quick intro to Python</Link>
                                                     <span className="text-primary">$199.00</span>
                                                 </div>
                                             </div>
-                                            <Link className="dropdown-cart__item-remove">
+                                            <Link to="/" className="dropdown-cart__item-remove">
                                                 <i className="ti-close"/>
                                             </Link>
                                         </li>
@@ -109,11 +109,11 @@ class Menu extends Component {
                                                 <img className="dropdown-cart__img" src="assets/img/shop/products/4.jpg"
                                                      alt=""/>
                                                 <div className="media-body pl-3">
-                                                    <Link className="h6">Gentel intro to C++</Link>
+                                                    <Link to="/" className="h6">Gentel intro to C++</Link>
                                                     <span className="text-primary">$45.00</span>
                                                 </div>
                                             </div>
-                                            <Link className="dropdown-cart__item-remove">
+                                            <Link to="/" className="dropdown-cart__item-remove">
                                                 <i className="ti-close"></i>
                                             </Link>
                                         </li>
@@ -122,11 +122,11 @@ class Menu extends Component {
                                                 <img className="dropdown-cart__img" src="assets/img/shop/products/3.jpg"
                                                      alt=""/>
                                                 <div className="media-body pl-3">
-                                                    <Link className="h6">Programming 101</Link>
+                                                    <Link to="/" className="h6">Programming 101</Link>
                                                     <span className="text-primary">$79.00</span>
                                                 </div>
                                             </div>
-                                            <Link className="dropdown-cart__item-remove">
+                                            <Link to="/" className="dropdown-cart__item-remove">
                                                 <i className="ti-close"></i>
                                             </Link>
                                         </li>
@@ -140,7 +140,7 @@ class Menu extends Component {
                                     </ul>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link site-search-toggler"/>
+                                    <Link to="/" className="nav-link site-search-toggler"/>
                                 </li>
                             </ul>
                         </div>

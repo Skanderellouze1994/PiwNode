@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Link} from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
-import initialState from "../_reducers/index";
 
 
 class Header extends Component {
@@ -10,13 +9,15 @@ class Header extends Component {
     }
 
     render() {
-        //const {authentication} = this.props;
-        var auth = this.props;
+        const {authentication} = this.props;
+        let auth = this.props;
+       // console.log(auth.authentication.user.user.username);
         if(!this.props.user){
             auth ="";
         }else{
-            auth = this.props.user;
+            auth = authentication;
         }
+
         return (
             <header className="site-header bg-dark text-white-0_5">
                 <div className="container">
@@ -37,33 +38,33 @@ class Header extends Component {
                         </ul>
                         <ul className="list-inline mb-0">
                             <li className="list-inline-item mr-0 p-3 border-right border-left border-white-0_1">
-                                <Link ><i className="ti-facebook"/></Link>
+                                <Link to="/" ><i className="ti-facebook"/></Link>
                             </li>
                             <li className="list-inline-item mr-0 p-3 border-right border-white-0_1">
-                                <Link><i className="ti-twitter"/></Link>
+                                <Link to="/"><i className="ti-twitter"/></Link>
                             </li>
                             <li className="list-inline-item mr-0 p-3 border-right border-white-0_1">
-                                <Link><i className="ti-vimeo"/></Link>
+                                <Link to="/"><i className="ti-vimeo"/></Link>
                             </li>
                             <li className="list-inline-item mr-0 p-3 border-right border-white-0_1">
-                                <Link ><i className="ti-linkedin"/></Link>
+                                <Link to="/" ><i className="ti-linkedin"/></Link>
                             </li>
                         </ul>
                         <ul className="list-inline mb-0">
+                            {!auth &&
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-                                {auth ? (
-                                    <a></a>
-                                ) : (
-                                    <Link to="/login">Login</Link>
-                                )}
+
+                                <Link to="/login">Login</Link>
+
                             </li>
+                            }
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
                                 {auth ? (
                                     <div className="dropdown" style={{zIndex : 9999}}>
-                                        <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                            <span><b>{auth.user.username}</b></span>
-                                            <img className="iconbox iconbox-sm mx-1" src="assets/img/avatar/4.jpg" alt />
-                                        </a>
+                                        <Link to="/" className="dropdown-toggle" data-toggle="dropdown">
+                                            <span><b></b></span>
+                                            <img className="iconbox iconbox-sm mx-1" src="assets/img/avatar/4.jpg" alt="aaa"  />
+                                        </Link>
                                         <div className="dropdown-menu">
                                             <Link to="/profil" className="dropdown-item">
                                                 <i className="ti-user mr-2" />

@@ -12,6 +12,11 @@ export function alert(state = {}, action) {
         type: 'bg-danger',
         message: action.message
       };
+    case alertConstants.PASSWORD:
+      return {
+        type: 'bg-danger',
+        message: "Username and Password invalid"
+      };
     case alertConstants.CLEAR:
       return {};
     default:

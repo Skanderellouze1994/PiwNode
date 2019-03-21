@@ -79,9 +79,8 @@ class Signup extends Component {
     }
 
     render() {
-        const { registering  } = this.props;
         const {alert} = this.props;
-        const { user, submitted,accepted } = this.state;
+        const { user } = this.state;
         return (
             <section className="padding-y-100 bg-light">
                 <div className="container">

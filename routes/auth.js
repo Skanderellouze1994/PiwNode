@@ -66,6 +66,7 @@ module.exports = function (passport) {
     router.post('/login',passport.authenticate('local',{
 
     }),function (req,res) {
+        console.log(res);
         res.send(req.session.passport)
     });
 

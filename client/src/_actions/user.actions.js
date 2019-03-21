@@ -23,8 +23,8 @@ function login(username, password) {
                     history.push('/profil');
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(failure("error.toString()"));
+                    dispatch(alertActions.error("Username and password invalid"));
                 }
             );
     };
@@ -44,8 +44,8 @@ function loginFacebook () {
                     history.push('/profil');
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(failure("Username and password invalid"));
+                    dispatch(alertActions.password(error));
                 }
             );
     };

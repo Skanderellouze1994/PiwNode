@@ -17,13 +17,13 @@ export default class Footer extends Component {
                                     </p>
                                 </div>
                                 <ul className="list-inline">
-                                    <li className="list-inline-item"><Link className="iconbox bg-white-0_2 hover:primary" ><i
+                                    <li className="list-inline-item"><Link to="/" className="iconbox bg-white-0_2 hover:primary" ><i
                                         className="ti-facebook"> </i></Link></li>
-                                    <li className="list-inline-item"><Link className="iconbox bg-white-0_2 hover:primary" ><i
+                                    <li className="list-inline-item"><Link to="/" className="iconbox bg-white-0_2 hover:primary" ><i
                                         className="ti-twitter"> </i></Link></li>
-                                    <li className="list-inline-item"><Link className="iconbox bg-white-0_2 hover:primary" ><i
+                                    <li className="list-inline-item"><Link to="/" className="iconbox bg-white-0_2 hover:primary" ><i
                                         className="ti-linkedin"> </i></Link></li>
-                                    <li className="list-inline-item"><Link className="iconbox bg-white-0_2 hover:primary" ><i
+                                    <li className="list-inline-item"><Link to="/" className="iconbox bg-white-0_2 hover:primary" ><i
     className="ti-pinterest"/></Link></li>
                                 </ul>
                             </div>
@@ -32,9 +32,9 @@ export default class Footer extends Component {
                                 <h4 className="h5 text-white">Contact Us</h4>
                                 <div className="width-3rem bg-primary height-3 mt-3"/>
                                 <ul className="list-unstyled marginTop-40">
-                                    <li className="mb-3"><i className="ti-headphone mr-3"/><Link>800
+                                    <li className="mb-3"><i className="ti-headphone mr-3"/><Link to="/">800
                                         567.890.576 </Link></li>
-                                    <li className="mb-3"><i className="ti-email mr-3"/><Link
+                                    <li className="mb-3"><i className="ti-email mr-3"/><Link to="/"
                                        >support@csma-js.com</Link></li>
                                     <li className="mb-3">
                                         <div className="media">
@@ -51,12 +51,12 @@ export default class Footer extends Component {
                                 <h4 className="h5 text-white">Quick links</h4>
                                 <div className="width-3rem bg-primary height-3 mt-3"/>
                                 <ul className="list-unstyled marginTop-40">
-                                    <li className="mb-2"><Link >About Us</Link></li>
-                                    <li className="mb-2"><Link >Contact Us</Link></li>
-                                    <li className="mb-2"><Link >Students</Link></li>
-                                    <li className="mb-2"><Link >Admission</Link></li>
-                                    <li className="mb-2"><Link >Events</Link></li>
-                                    <li className="mb-2"><Link >Latest News</Link></li>
+                                    <li className="mb-2"><Link to="/" >About Us</Link></li>
+                                    <li className="mb-2"><Link to="/" >Contact Us</Link></li>
+                                    <li className="mb-2"><Link to="/" >Students</Link></li>
+                                    <li className="mb-2"><Link to="/" >Admission</Link></li>
+                                    <li className="mb-2"><Link to="/" >Events</Link></li>
+                                    <li className="mb-2"><Link to="/" >Latest News</Link></li>
                                 </ul>
                             </div>
 
@@ -71,7 +71,7 @@ export default class Footer extends Component {
                                             <input type="text" placeholder="Enter your email"
                                                    className="form-control py-3 border-white" required=""/>
                                             <div className="input-group-append">
-                                                <Link className="btn btn-primary" type="submit">Subscribe</Link>
+                                                <Link to="/" className="btn btn-primary" type="submit">Subscribe</Link>
                                             </div>
                                         </div>
                                     </form>
