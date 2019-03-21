@@ -82,7 +82,10 @@ var userSchema = new mongoose.Schema({
     },
     role: {
         type: String
-    }});
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
+});
 
 userSchema.methods.hashPassword = function(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))

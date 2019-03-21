@@ -40,10 +40,10 @@ class Login extends Component {
             dispatch(userActions.login(username, password));
 
         }else {
-    this.validator.showMessages();
-    // rerender to show messages for the first time
-    this.forceUpdate();
-}
+        this.validator.showMessages();
+        // rerender to show messages for the first time
+        this.forceUpdate();
+        }
     }
 
     render() {
@@ -113,7 +113,7 @@ class Login extends Component {
                                                 <span className="ec-checkbox__control"/>
                                                 <span className="ec-checkbox__lebel">Remember Me</span>
                                             </label>
-                                            <Link to="/" className="text-primary my-2 d-block">Forgot
+                                            <Link to="/forgot" className="text-primary my-2 d-block">Forgot
                                                 password?</Link>
                                         </div>
                                         <button className="btn btn-block btn-primary">Log In</button>

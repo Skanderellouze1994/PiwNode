@@ -3,6 +3,8 @@ import { authHeader } from '../_helpers';
 export const userService = {
     loginFacebook,
     login,
+    resetPassword,
+    getNewPassword,
     logout,
     register,
     getAll,
@@ -29,6 +31,37 @@ function login(username, password) {
         });
 }
 
+function resetPassword(email) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email})
+    };
+
+    return fetch('http://localhost:4000/auth/forgot', requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
+
+function getNewPassword(password , confirmpassword, token) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+    };
+
+    return fetch(`http://localhost:4000/auth/reset/${token}`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
