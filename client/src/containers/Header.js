@@ -4,8 +4,14 @@ import connect from "react-redux/es/connect/connect";
 
 
 class Header extends Component {
+    componentWillMount() {
+       console.log(this.props);
+       this.setState({username:this.props.user.user.username})
+    }
+
     constructor(props) {
         super(props);
+this.state={username:""};
     }
 
     render() {
@@ -62,7 +68,7 @@ class Header extends Component {
                                 {auth ? (
                                     <div className="dropdown" style={{zIndex : 9999}}>
                                         <Link to="/" className="dropdown-toggle" data-toggle="dropdown">
-                                            <span><b></b></span>
+                                            <span><b>{this.state.username}</b></span>
                                             <img className="iconbox iconbox-sm mx-1" src="assets/img/avatar/4.jpg" alt="aaa"  />
                                         </Link>
                                         <div className="dropdown-menu">
