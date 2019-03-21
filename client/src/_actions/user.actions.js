@@ -20,6 +20,7 @@ function login(username, password) {
             .then(
                 user => { 
                     dispatch(success(user));
+                   window.location.reload();
                     history.push('/profil');
                 },
                 error => {
