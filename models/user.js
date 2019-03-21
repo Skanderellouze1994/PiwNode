@@ -24,6 +24,21 @@ var userSchema = new mongoose.Schema({
     profile_photo:{
         type:String
     },
+    facebook_url:{
+        type:String
+    },
+    linkedin_url:{
+        type:String
+    },
+    github_url:{
+        type:String
+    },
+    position:{
+        type:String
+    },
+    about_me:{
+        type:String
+    },
     num_tel:{
         type:String
     },
