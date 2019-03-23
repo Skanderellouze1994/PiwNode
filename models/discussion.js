@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-var messageUser = require('message');
-var users = require('user');
+var messageUser = require('./message');
+var users = require('./user');
 
 var discussionSchema = new mongoose.Schema({
 
