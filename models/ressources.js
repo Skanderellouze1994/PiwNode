@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var tutor = require('user');
+var tutor = require('./user');
 
 var ressourceSchema = new mongoose.Schema({
 

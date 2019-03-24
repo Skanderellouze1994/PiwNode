@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var user = require('user');
+var user = require('./user');
 
 var propositionSchema = new mongoose.Schema({
 

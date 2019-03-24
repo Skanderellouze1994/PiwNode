@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var user = require('user');
+var user = require('./user');
 
 var responseSchema = new mongoose.Schema({
 

@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var chatsRouter = require('./routes/chats');
 
+var trainingRouter = require('./routes/trainingSession');
 var auth = require('./routes/auth')(passport);
 require('./passport')(passport);
 var cors = require('cors');
@@ -42,6 +43,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', auth);
 app.use('/chats',chatsRouter);
+app.use('/trainingSession' , trainingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

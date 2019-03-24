@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-var tutor = require('user');
-var students = require('user');
-var courses = require('course');
-var quiz = require('quiz');
+var tutor = require('./user');
+var students = require('./user');
+var courses = require('./course');
+var quiz = require('./quiz');
 
 var trainingSessionSchema = new mongoose.Schema({
 
