@@ -23,4 +23,4 @@ var profileSchema = new mongoose.Schema({
     anteriorCurriculums : [anteriorCurriculumsSchema]
 });
 
-module.exports = profileSchema;
+module.exports = module.exports = mongoose.model('Profile', profileSchema);

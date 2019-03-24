@@ -99,4 +99,4 @@ userSchema.methods.validPassword = function( pwd ) {
     return ( this.password === pwd );
 };
 
-module.exports = userSchema;
+module.exports = mongoose.model('User', userSchema);

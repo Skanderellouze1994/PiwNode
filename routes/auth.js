@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var user = require('../models/user');
-var mongoose=require('mongoose');
+var User = require('../models/user');
 var nodemailer = require('nodemailer');
 
 var async = require('async');
@@ -9,7 +8,6 @@ var crypto = require('crypto');
 
 /* GET home page. */
 
-User = mongoose.model('User',user);
 module.exports = function (passport) {
     router.post('/upload', function(req, res) {
         let sampleFile;

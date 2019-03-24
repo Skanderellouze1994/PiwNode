@@ -26,9 +26,9 @@ var courseSchema = new mongoose.Schema({
     period: {
         type: int
     },
-    ressources: [ressources],
-    tutorCreator: tutor,
-    quiz: quiz
+    ressources: [{type:mongoose.Schema.Types.Object,ref:'Ressources'}],
+    tutorCreator: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
+    quiz: {type:mongoose.Schema.Types.Object,ref:'Quiz'}
 });
 
-module.exports = courseSchema;
+module.exports = mongoose.model('Course', courseSchema);

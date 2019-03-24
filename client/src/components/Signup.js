@@ -102,7 +102,7 @@ class Signup extends Component {
                                     appId="426024058143152"
                                     autoLoad={true}
                                     fields="name,email,picture"
-                                    scope="public_profile,user_friends"
+                                        scope="public_profile,user_friends"
                                     callback={this.responseFacebook}
                                 />
                                 <div className="card-body">
