@@ -42,6 +42,11 @@ function loginCam() {
         .then(user => {
             //console.log(user);
             // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
 function resetPassword(email) {
     const requestOptions = {
         method: 'POST',
