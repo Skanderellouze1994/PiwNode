@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-var ressources = require('./ressources');
-var tutor = require('./user');
-var quiz = require('./quiz');
+
 
 var courseSchema = new mongoose.Schema({
 

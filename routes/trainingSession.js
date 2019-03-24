@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var trainingSession = require('./../models/trainingSession');
-var user = require('../models/user');
-var course = require('../models/course');
-var mongoose=require('mongoose');
-TrainingSession = mongoose.model('TrainingSession',trainingSession);
-User = mongoose.model('User', user);
-Course = mongoose.model('Course', course);
+var TrainingSession = require('./../models/trainingSession');
+var User = require('../models/user');
+var Course = require('../models/course');
+//TrainingSession = mongoose.model('TrainingSession',trainingSession);
+//User = mongoose.model('User', user);
+//Course = mongoose.model('Course', course);
 /*
     This file contains the following functions :
        Add a training session by the tutor
@@ -17,7 +16,7 @@ Course = mongoose.model('Course', course);
        Add a student who participated to the training session
        Add a course in a training session by the tutor
        Get a course by name
-       Update a course 
+       Update a course
 */
 /************************************Add a training session by the tutor*********************************************/
 router.post('/add/:id', function(req, res, next) {

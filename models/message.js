@@ -4,7 +4,6 @@ var data = new mongoose.Schema({
     code:String,
     url:String,
     fileName:String
-var user = require('./user');
 
 })
 var messageSchema = new mongoose.Schema({
