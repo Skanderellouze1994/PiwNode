@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var tutor = require('user');
+var tutor = require('./user');
 
 var ressourceSchema = new mongoose.Schema({
 
@@ -16,7 +16,7 @@ var ressourceSchema = new mongoose.Schema({
     path: {
         type: String
     },
-    tutor: tutor
+    tutor: {type:mongoose.Schema.Types.ObjectId,ref:'User'}
 });
 
-module.exports = ressourceSchema;
+module.exports = mongoose.model('Ressources', ressourceSchema);

@@ -7,6 +7,7 @@ class Profil extends Component {
 
     render() {
         const {user}=this.props;
+        console.log("props"+this.props);
         return (
 
                <div>

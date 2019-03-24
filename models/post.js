@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-var user = require('user');
-var responses = require('response');
+var user = require('./user');
+var responses = require('./response');
 
 var postSchema = new mongoose.Schema({
 
@@ -14,8 +14,8 @@ var postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    userPost: user,
-    responses: [responses]
+    userPost: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
+    responses: [{type:mongoose.Schema.Types.Object,ref:'Response'}]
 });
 
-module.exports = postSchema;
+module.exports = mongoose.model('Post', postSchema);

@@ -1,7 +1,16 @@
 const mongoose = require('mongoose');
-var user = require('user');
+var data = new mongoose.Schema({
+    text:String,
+    code:String,
+    url:String,
+    fileName:String
 
+})
 var messageSchema = new mongoose.Schema({
+
+    type:{
+        type:String
+    },
 
     textMessage: {
         type: String
@@ -9,7 +18,17 @@ var messageSchema = new mongoose.Schema({
     dateCreation :{
         type: Date
     },
-    user: user
+
+    data:data,
+    author: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
+    chatId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Discussion',
+        required: true
+    }
 });
 
-module.exports =  messageSchema;
+const Chat = module.exports = mongoose.model('Message', messageSchema);
+module.exports.addChatMsg = function (newMsg, callback) {
+    newMsg.save(callback);
+};

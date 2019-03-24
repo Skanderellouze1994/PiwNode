@@ -7,6 +7,8 @@ export const userActions = {
     loginCam,
     loginFacebook,
     login,
+    resetPassword,
+    getNewPassword,
     logout,
     register,
     getAll,
@@ -55,6 +57,53 @@ function login(username, password) {
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
+
+function resetPassword(email) {
+    return dispatch => {
+        dispatch(request({ email }));
+
+        userService.resetPassword(email)
+            .then(
+                user => {
+                    dispatch(success(user));
+                    history.push('/reset');
+                    dispatch(alertActions.error("Please verify your email to continue reseting your password!"));
+                },
+                error => {
+                    dispatch(failure("error.toString()"));
+                    dispatch(alertActions.error("Email invalid"));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
+
+function getNewPassword(password , confirmpassword, token) {
+    return dispatch => {
+        dispatch(request({ password }));
+
+        userService.getNewPassword(password , confirmpassword, token)
+            .then(
+                user => {
+                    dispatch(success(user));
+                    history.push('/login');
+                    dispatch(alertActions.success('Passwrd reset ! Please login again'));
+                },
+                error => {
+                    dispatch(failure("error.toString()"));
+                    dispatch(alertActions.error("Password invalid"));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
+
 function loginFacebook () {
     return dispatch => {
         dispatch(request({ username:"aaa" }));

@@ -13,6 +13,8 @@ import {Router} from "react-router";
 import {PrivateRoute} from "./_components";
 import {HomeTutor} from "./components/tutor/HomeTutor";
 import HomeStudent from "./components/student/HomeStudent";
+import {ForgetPassword} from "./components/ForgetPassword";
+import {ResetPassword} from "./components/ResetPassword";
 
 class App extends Component {
     render() {
@@ -25,6 +27,8 @@ class App extends Component {
 
 
                     <Route exact path="/login" component={Login}/>
+                    <Route exact  path="/forgot" component={ForgetPassword}/>
+                    <Route exact  path="/reset" component={ResetPassword}/>
                     <Route exact  path="/signup" component={Signup}/>
                     <Route exact  path="/home" component={Home}/>
                     <PrivateRoute  exact  path="/profil" component={Profil}/>

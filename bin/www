@@ -20,7 +20,31 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+const io = require('socket.io')(server);
+io.on('connection', function(socket) {
+  console.log('A user connected..........');
 
+  //Whenever someone disconnects this piece of code executed
+  socket.on('disconnect', function () {
+    console.log('A user disconnected........');
+  });
+});
+users = [];
+io.on('connection', function(socket) {
+  console.log('A user connected');
+  socket.on('setMsgBy', function(data) {
+    console.log(data);
+    // check this msgBy in chatroom of database
+    users.push(data);
+    socket.emit('userSet', {msgBy: data});
+  });
+
+  socket.on('msg', function(data) {
+    //Send message to everyone
+    console.log(data);
+    io.sockets.emit('newmsg', data);
+  });
+});
 /**
  * Listen on provided port, on all network interfaces.
  */

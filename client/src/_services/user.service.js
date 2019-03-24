@@ -4,6 +4,8 @@ export const userService = {
     loginCam,
     loginFacebook,
     login,
+    resetPassword,
+    getNewPassword,
     logout,
     register,
     getAll,
@@ -40,6 +42,32 @@ function loginCam() {
         .then(user => {
             //console.log(user);
             // store user details and jwt token in local storage to keep user logged in between page refreshes
+function resetPassword(email) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email})
+    };
+
+    return fetch('http://localhost:4000/auth/forgot', requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
+
+function getNewPassword(password , confirmpassword, token) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+    };
+
+    return fetch(`http://localhost:4000/auth/reset/${token}`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
             localStorage.setItem('user', JSON.stringify(user));
 
             return user;
