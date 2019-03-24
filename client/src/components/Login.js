@@ -23,8 +23,13 @@ class Login extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onSubmitcam = this.onSubmitcam.bind(this);
     }
+    onSubmitcam() {
+        const { dispatch } = this.props;
+        dispatch(userActions.loginCam())
 
+    }
     handleChange(e) {
         const { name, value } = e.target;
         this.setState({ [name]: value });
@@ -78,6 +83,10 @@ class Login extends Component {
                                             </button>
                                         </div>
                                     </div>
+                                    <button className="btn btn-block btn-primary" onClick={this.onSubmitcam}>
+                                        <i className="ti-eye mr-2"/>
+                                        <span>facial recognition Sign in</span>
+                                    </button>
                                     <p className="text-center my-4">
                                         OR
                                     </p>
@@ -133,6 +142,8 @@ class Login extends Component {
             </section>
         )
     }
+
+
 }
 function mapStateToProps(state) {
     const { loggingIn } = state.authentication;
