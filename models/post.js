@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var userSchema = require('../models/user');
+var responses = require('../models/response');
 var user = require('./user');
 var responses = require('./response');
 

@@ -99,8 +99,8 @@ module.exports = function (passport) {
                 var smtpTransport = nodemailer.createTransport( {
                     service: 'SendGrid',
                     auth: {
-                        user: 'apikey',
-                        pass: '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'
+                        user: ' ',
+                        pass: ' '
                     }
                 });
                 smtpTransport.verify(function(error, success) {
