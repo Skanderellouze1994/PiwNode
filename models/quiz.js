@@ -33,7 +33,7 @@ var quizSchema = new mongoose.Schema({
         type: String
     },
     tutor: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
-    questions: questionSchema
+    questions: [questionSchema]
 });
 
 module.exports = mongoose.model('Quiz', quizSchema);
