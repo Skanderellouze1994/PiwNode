@@ -8,8 +8,13 @@ import {Login} from './components/Login';
 import {Signup} from './components/Signup';
 import {Home} from './components/Home';
 import {Profil} from './components/profil';
-import {history, store} from '../src/_helpers';
+import {history} from '../src/_helpers';
 import {Router} from "react-router";
+import {PrivateRoute} from "./_components";
+import {HomeTutor} from "./components/tutor/HomeTutor";
+import HomeStudent from "./components/student/HomeStudent";
+import {ForgetPassword} from "./components/ForgetPassword";
+import {ResetPassword} from "./components/ResetPassword";
 
 class App extends Component {
     render() {
@@ -22,9 +27,14 @@ class App extends Component {
 
 
                     <Route exact path="/login" component={Login}/>
-                    <Route  path="/signup" component={Signup}/>
-                    <Route  path="/home" component={Home}/>
-                    <Route  path="/profil" component={Profil}/>
+                    <Route exact  path="/forgot" component={ForgetPassword}/>
+                    <Route exact  path="/reset" component={ResetPassword}/>
+                    <Route exact  path="/signup" component={Signup}/>
+                    <Route exact  path="/home" component={Home}/>
+                    <PrivateRoute  exact  path="/profil" component={Profil}/>
+                    <PrivateRoute  exact  path="/tutor" component={HomeTutor}/>
+                    <PrivateRoute  exact  path="/student" component={HomeStudent}/>
+
 
                 <Footer/>
                 </Router>

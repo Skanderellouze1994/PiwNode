@@ -89,7 +89,10 @@ var userSchema = new mongoose.Schema({
     },
     role: {
         type: String
-    }});
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
+});
 
 userSchema.methods.hashPassword = function(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
@@ -103,4 +106,4 @@ userSchema.methods.validPassword = function( pwd ) {
     return ( this.password === pwd );
 };
 
-module.exports = userSchema;
+module.exports = mongoose.model('User', userSchema);

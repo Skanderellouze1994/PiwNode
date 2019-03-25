@@ -3,6 +3,8 @@ import {userActions} from "../_actions";
 import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
 import SimpleReactValidator from 'simple-react-validator';
+import FacebookLogin from 'react-facebook-login';
+
 class Signup extends Component {
     constructor(props) {
         super(props);
@@ -40,6 +42,7 @@ class Signup extends Component {
     handleChange(event) {
         const { name, value } = event.target;
         const { user } = this.state;
+        console.log(value);
         this.setState({
             user: {
                 ...user,
@@ -49,6 +52,7 @@ class Signup extends Component {
 
         });
     }
+
     handleChangee(event) {
         const {accepted} = this.state;
         this.setState({
@@ -77,7 +81,9 @@ class Signup extends Component {
             this.forceUpdate();
         }
     }
-
+    responseFacebook(response) {
+        console.log(response);
+    }
     render() {
         const {alert} = this.props;
         const { user } = this.state;
@@ -92,7 +98,13 @@ class Signup extends Component {
                                         Sign Up and Start Learning!
                                     </h4>
                                 </div>
-
+                                <FacebookLogin
+                                    appId="426024058143152"
+                                    autoLoad={true}
+                                    fields="name,email,picture"
+                                        scope="public_profile,user_friends"
+                                    callback={this.responseFacebook}
+                                />
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col my-2">
@@ -173,12 +185,12 @@ class Signup extends Component {
                                         {this.validator.message('password', user.password, 'required|min:8')}
 
                                         <label className="ec-radio radio-thin radio-sm mb-3 mr-4">
-                                            <input type="radio" name="role" onChange={this.handleChange}/>
+                                            <input type="radio" name="role" value="Student" onChange={this.handleChange}/>
                                                 <span className="ec-radio__control"/>
                                                 <span className="ec-radio__label">Student</span>
                                         </label>
                                         <label className="ec-radio radio-thin radio-sm mb-3 mr-4">
-                                            <input type="radio" name="role" onChange={this.handleChange}/>
+                                            <input type="radio" name="role" value="Tutor" onChange={this.handleChange}/>
                                             <span className="ec-radio__control"/>
                                             <span className="ec-radio__label">Tutor</span>
                                         </label>

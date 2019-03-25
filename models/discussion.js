@@ -1,17 +1,22 @@
 const mongoose = require('mongoose');
-var messageUser = require('message');
-var users = require('user');
+
+var messageUser = require('./message');
+var users = require('./user');
 
 var discussionSchema = new mongoose.Schema({
 
-    name: {
+    roomTitle: {
         type: String
     },
-    dateCreation :{
-        type: Date
+    date :{
+        type: Date,
+        default:new Date()
     },
-    messages: [messageUser],
-    users: [users]
+   // messages: [{type:mongoose.Schema.Types.Object,ref:'Messages'}],
+    //users: [{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
 });
 
-module.exports = discussionSchema;
+const ChatDetail = module.exports = mongoose.model('Discussion', discussionSchema);
+module.exports.addChatRoom = function (newChat, callback) {
+    newChat.save(callback);
+};

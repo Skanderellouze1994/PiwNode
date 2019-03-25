@@ -4,9 +4,29 @@ import connect from "react-redux/es/connect/connect";
 
 
 class Header extends Component {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(prevProps);
+        console.log(this.props);
+
+console.log('aaaaa');
+           //this.forceUpdate();
+
+    }
+    componentDidCatch(error, errorInfo) {
+        this.forceUpdate();
+    }
+
     componentWillMount() {
        console.log(this.props);
-       this.setState({username:this.props.user.user.username})
+       try {
+
+
+           this.setState({username: this.props.user.user.username})
+       }
+       catch (e) {
+           this.setState({username:""})
+       }
+
     }
 
     constructor(props) {

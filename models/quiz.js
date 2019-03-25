@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var user = require('user');
+var user = require('./user');
 
 var propositionSchema = new mongoose.Schema({
 
@@ -32,8 +32,8 @@ var quizSchema = new mongoose.Schema({
     name: {
         type: String
     },
-    tutor: user,
+    tutor: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
     questions: questionSchema
 });
 
-module.exports = quizSchema;
+module.exports = mongoose.model('Quiz', quizSchema);

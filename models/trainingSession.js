@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
-var tutor = require('user');
-var students = require('user');
-var courses = require('course');
-var quiz = require('quiz');
+
 
 var trainingSessionSchema = new mongoose.Schema({
 
@@ -18,10 +15,10 @@ var trainingSessionSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    tutor: tutor,
-    studentsList: [students],
-    courses: [courses],
-    quiz: quiz
+    tutor: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
+    studentsList: [{type:mongoose.Schema.Types.ObjectId,ref:'User'}],
+    courses: [{type:mongoose.Schema.Types.ObjectId,ref:'Course'}],
+    quiz: {type:mongoose.Schema.Types.Object,ref:'Quiz'}
     });
 
-module.exports = trainingSessionSchema;
+module.exports = mongoose.model('TrainingSession', trainingSessionSchema);
