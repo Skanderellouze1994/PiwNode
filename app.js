@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var forumRouter = require('./routes/forum');
 var auth = require('./routes/auth')(passport);
 require('./passport')(passport);
 var cors = require('cors');
@@ -37,6 +38,7 @@ app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/forum', forumRouter);
 app.use('/auth', auth);
 
 // catch 404 and forward to error handler

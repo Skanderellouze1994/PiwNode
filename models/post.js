@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-var user = require('user');
-var responses = require('response');
+var userSchema = require('../models/user');
+var responses = require('../models/response');
 
 var postSchema = new mongoose.Schema({
 
@@ -14,7 +14,7 @@ var postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    userPost: user,
+    userPost: userSchema,
     responses: [responses]
 });
 
