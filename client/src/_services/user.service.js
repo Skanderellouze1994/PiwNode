@@ -1,6 +1,7 @@
 import { authHeader } from '../_helpers';
 
 export const userService = {
+    loginCam,
     loginFacebook,
     login,
     resetPassword,
@@ -30,7 +31,22 @@ function login(username, password) {
             return user;
         });
 }
+function loginCam() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
 
+    return fetch('http://localhost:5000', requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            //console.log(user);
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
 function resetPassword(email) {
     const requestOptions = {
         method: 'POST',

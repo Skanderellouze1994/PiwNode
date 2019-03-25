@@ -4,6 +4,7 @@ import { alertActions } from './';
 import { history } from '../_helpers';
 
 export const userActions = {
+    loginCam,
     loginFacebook,
     login,
     resetPassword,
@@ -13,7 +14,27 @@ export const userActions = {
     getAll,
     delete: _delete
 };
+function loginCam() {
+    return dispatch => {
+        dispatch(request({username: "aaa"}));
 
+        userService.loginCam()
+            .then(
+                user => {
+                    dispatch(success(user));
+                    window.location.reload();
+                    history.push('/profil');
+                },
+                error => {
+                    dispatch(failure("error.toString()"));
+                    dispatch(alertActions.error("Username and password invalid"));
+                }
+            );
+    };
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));

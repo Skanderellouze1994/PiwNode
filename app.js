@@ -8,6 +8,8 @@ var session = require('express-session');
 var passport = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+var forumRouter = require('./routes/forum');
 var chatsRouter = require('./routes/chats');
 
 var trainingRouter = require('./routes/trainingSession');
@@ -41,6 +43,7 @@ app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/forum', forumRouter);
 app.use('/auth', auth);
 app.use('/chats',chatsRouter);
 app.use('/trainingSession' , trainingRouter);
