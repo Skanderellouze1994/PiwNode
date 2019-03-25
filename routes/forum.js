@@ -1,12 +1,10 @@
 var mongoose=require('mongoose');
 var express = require('express');
 var router = express.Router();
-var post = require('../models/post');
-var response = require('../models/response');
-Post = mongoose.model('Post',post);
-Responsee = mongoose.model('Responsee',response);
-var user = require('../models/user');
-var passport = require('passport');
+var Post = require('../models/post');
+var Responsee = require('../models/response');
+
+
 
 //get all posts
 router.get('/', function(req, res, next) {
