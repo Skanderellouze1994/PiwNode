@@ -15,7 +15,6 @@ var responseSchema = new mongoose.Schema({
     student: {type:mongoose.Schema.Types.ObjectId,ref:'User'}
 });
 var questionSchema = new mongoose.Schema({
-
     name: {
         type: String
     },
@@ -24,11 +23,8 @@ var questionSchema = new mongoose.Schema({
     rightResponse: {
         type: String
     }
-
 });
-
 var quizSchema = new mongoose.Schema({
-
     name: {
         type: String
     },
