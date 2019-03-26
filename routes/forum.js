@@ -19,6 +19,19 @@ router.get('/', function(req, res, next) {
     })
 });
 
+//find one form
+router.get('/:id', function(req, res, next) {
+    Post.findById(req.params.id,function (err,post) {
+
+        if(!err){
+            res.json(post);
+        }
+        else{
+            res.json('Error in retrieving posts list :' + err);
+        }
+    })
+});
+
 //create a new post
 router.post('/add', function(req, res, next) {
 
@@ -30,26 +43,48 @@ router.post('/add', function(req, res, next) {
 
 //add a new response to a post
 router.post('/response/add/:id', function(req, res, next) {
-    var r = new Responsee(req.body);
-    Post.findById(req.params.id,function (err,doc) {
-        doc.responses.push(r);
-        r.save();
-        doc.save();
-        res.json(r);
+    Post.findById(req.params.id,function (err,post) {
+        if(err)
+            res.send(err)
+        if(!post)
+            res.status(400).send()
+        else {
+            //console.log(post)
+            post.responses.push(req.body)
+            post.save(function (err, doc) {
+                if (err)
+                    res.send(err)
+                else
+                    res.send(doc)
+            });
+        }
+        //console.log('2');
     });
 
 });
 
 // validate a response
-router.put('/response/validate/:id', function(req, res, next) {
-    Responsee.findById(req.params.id,function (err,doc) {
-        doc.status="true";
-        doc.update();
-        res.json(doc);
+router.put('/:idP/response/validate/:id', function(req, res, next) {
+    console.log('1');
+    Post.findById(req.params.idP,function (err,post) {
+        if(err)
+            res.send(err)
+        if(!post)
+            res.status(400).send()
+        else {
+            //console.log(post)
+            post.responses.id(req.params.id).status=true;
+            post.save(function (err, doc) {
+                if (err)
+                    res.send(err)
+                else
+                    res.send(doc)
+            });
+        }
+        //console.log('2');
     });
-    Responsee.find({},function (err,responses) {
-        console.log(responses.length)
-    });
+
+
 
 });
 

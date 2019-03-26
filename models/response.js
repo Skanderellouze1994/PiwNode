@@ -9,7 +9,8 @@ var responseSchema = new mongoose.Schema({
         type: String
     },
     status: {
-        type: String
+        type: Boolean,
+        default: false
     },
     dateResponse :{
         type: Date,
@@ -18,4 +19,4 @@ var responseSchema = new mongoose.Schema({
     userResponse: {type:mongoose.Schema.Types.ObjectId,ref:'User'}
 });
 
-module.exports = mongoose.model('Response', responseSchema);
+ module.exports=responseSchema
