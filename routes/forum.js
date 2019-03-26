@@ -2,13 +2,14 @@ var mongoose=require('mongoose');
 var express = require('express');
 var router = express.Router();
 var Post = require('../models/post');
+var User = require('../models/user');
 var Responsee = require('../models/response');
 
 
 
 //get all posts
 router.get('/', function(req, res, next) {
-    Post.find({},function (err,posts) {
+    Post.find({}).populate('userPost').exec(function (err,posts) {
 
         if(!err){
             res.json(posts);
@@ -33,11 +34,17 @@ router.get('/:id', function(req, res, next) {
 });
 
 //create a new post
-router.post('/add', function(req, res, next) {
+router.post('/add/:id', function(req, res, next) {
 
-    var p = new Post(req.body);
-    p.save();
-    res.json(p);
+    User.find({ _id: req.params.id }).exec(function (err, user) {
+        console.log(user)
+        var p = new Post(req.body);
+        p.userPost=user
+        p.save();
+        res.json(p);
+    })
+
+
 });
 
 
