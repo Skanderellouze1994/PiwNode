@@ -12,7 +12,7 @@ var responseSchema = new mongoose.Schema({
     rightResponse: {
         type: String
     },
-    student: user
+    student: {type:mongoose.Schema.Types.ObjectId,ref:'User'}
 });
 var questionSchema = new mongoose.Schema({
 
