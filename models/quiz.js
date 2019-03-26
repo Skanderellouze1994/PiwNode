@@ -12,10 +12,9 @@ var responseSchema = new mongoose.Schema({
     rightResponse: {
         type: String
     },
-    student: user
+    student: {type:mongoose.Schema.Types.ObjectId,ref:'User'}
 });
 var questionSchema = new mongoose.Schema({
-
     name: {
         type: String
     },
@@ -24,16 +23,13 @@ var questionSchema = new mongoose.Schema({
     rightResponse: {
         type: String
     }
-
 });
-
 var quizSchema = new mongoose.Schema({
-
     name: {
         type: String
     },
     tutor: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
-    questions: questionSchema
+    questions: [questionSchema]
 });
 
 module.exports = mongoose.model('Quiz', quizSchema);

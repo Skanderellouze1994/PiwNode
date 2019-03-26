@@ -22,7 +22,7 @@ function loginCam() {
             .then(
                 user => {
                     dispatch(success(user));
-                    window.location.reload();
+                    setTimeout(()=>window.location.reload(),1000);
                     history.push('/profil');
                 },
                 error => {
@@ -43,7 +43,7 @@ function login(username, password) {
             .then(
                 user => { 
                     dispatch(success(user));
-                   window.location.reload();
+                 setTimeout(()=>window.location.reload(),0);
                     history.push('/profil');
                 },
                 error => {
