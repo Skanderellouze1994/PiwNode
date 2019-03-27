@@ -1,3 +1,7 @@
-csmajs2019@gmail.com
-piweb2019
+gmail:
+	csmajs2019@gmail.com
+	piweb2019
+atlas:
+	csmajs2019@gmail.com
+	piweb2019*
 
