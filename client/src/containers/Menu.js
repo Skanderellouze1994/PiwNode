@@ -43,7 +43,10 @@ class Menu extends Component {
                                 </li>
 
                                 <li className="nav-item nav-item__has-dropdown">
-                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Courses</Link>
+                                    <Link to="/addTrainingSession" className="nav-link dropdown-toggle" data-toggle="dropdown">Training Sessions</Link>
+                                    <ul className="dropdown-menu">
+                                        <li><Link to="/addTrainingSession" className="nav-link__list">Add a training session</Link></li>
+                                    </ul>
                                 </li>
 
                                 <li className="nav-item nav-item__has-dropdown">

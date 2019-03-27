@@ -22,12 +22,7 @@ module.exports=function (passport) {
                 if(doc){
                     var valid = doc.comparePassword(password,doc.password);
                     if(valid){
-                        done(null,{
-                            username:doc.username,
-                            password:doc.password,
-                            email:doc.email,
-                            role:doc.role
-                        })
+                        done(null,doc)
                     }
                     else{
                         done(null,false,{message:"aaaaaa"})
