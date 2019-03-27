@@ -12,7 +12,7 @@ var scrappingRouter = require('./routes/scrapping')
 var forumRouter = require('./routes/forum');
 var chatsRouter = require('./routes/chats');
 var profileRouter = require('./routes/profile');
-
+var quizRouter = require('./routes/quiz');
 var trainingRouter = require('./routes/trainingSession');
 var auth = require('./routes/auth')(passport);
 require('./passport')(passport);
@@ -50,6 +50,7 @@ app.use('/chats',chatsRouter);
 app.use('/trainingSession' , trainingRouter);
 app.use('/profil' , profileRouter);
 app.use('/scrapping' , scrappingRouter);
+app.use('/quiz' , quizRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
