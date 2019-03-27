@@ -91,7 +91,8 @@ var userSchema = new mongoose.Schema({
         type: String
     },
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+    profile:{type:mongoose.Schema.Types.ObjectId,ref:'User'}
 });
 
 userSchema.methods.hashPassword = function(password){

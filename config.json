@@ -1,0 +1,12 @@
+{
+  "email": "csmajs2019@gmail.com",
+  "password": "piweb2019",
+  "relatedProfilesKeywords": ["esprit"],
+  "maxConcurrentCrawlers": 5,
+  "saveDirectory": "./crawledProfiles",
+  "hasToLog": false,
+  "isHeadless": true,
+  "proxyAddress": null,
+  "rootProfiles": [
+     ]
+}

@@ -8,9 +8,10 @@ var session = require('express-session');
 var passport = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var scrappingRouter = require('./routes/scrapping')
 var forumRouter = require('./routes/forum');
 var chatsRouter = require('./routes/chats');
+var profileRouter = require('./routes/profile');
 
 var trainingRouter = require('./routes/trainingSession');
 var auth = require('./routes/auth')(passport);
@@ -47,6 +48,8 @@ app.use('/forum', forumRouter);
 app.use('/auth', auth);
 app.use('/chats',chatsRouter);
 app.use('/trainingSession' , trainingRouter);
+app.use('/profil' , profileRouter);
+app.use('/scrapping' , scrappingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

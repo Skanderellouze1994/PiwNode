@@ -1,29 +1,18 @@
 const mongoose = require('mongoose');
-
-var skillsSchema = new mongoose.Schema({
-
-    type: {
-        type: String
-    },
-    level:{
-        type:Number
-    }
-});
-
-var anteriorCurriculumsSchema = new mongoose.Schema({
-
-    name: {
-        type: String
-    }
-});
-
+var skills = require('./skills')
+const educations = require('../models/educations')
+const positions = require('../models/positions')
 var profileSchema = new mongoose.Schema({
 
-    score: {
-        type: int
-    },
-    skills: [skillsSchema],
-    anteriorCurriculums : [anteriorCurriculumsSchema]
-});
 
-module.exports = module.exports = mongoose.model('Profile', profileSchema);
+    skills: [skills],
+
+    name: {type: String},
+    headline:{type:String},
+    location:{type:String},
+    summary:{type:String},
+
+    education:[educations],
+    position:[positions]
+});
+ module.exports = mongoose.model('Profile', profileSchema);
