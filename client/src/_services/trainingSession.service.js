@@ -1,5 +1,7 @@
+
 export const trainingSessionService = {
-    addTrainingSession
+    addTrainingSession,
+    getAll
 };
 
 function addTrainingSession(id , session) {
@@ -14,4 +16,14 @@ function addTrainingSession(id , session) {
            localStorage.setItem('session', JSON.stringify(session));
             return session;
         });
+}
+
+function getAll() {
+    const requestOptions = {
+        method: 'GET'
+    };
+    return fetch(`http://localhost:4000/trainingSession/all`, requestOptions).then(sessions => {
+        localStorage.setItem('sessions', JSON.stringify(sessions));
+        return sessions;
+    }).then(console.log(sessionStorage));
 }
