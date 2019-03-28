@@ -122,7 +122,7 @@ router.get('/get/tutor/:id', function (req,res,next) {
 
 /***************************************Get training sessions by id**************************************************/
 router.get('/get/:id', function (req,res,next) {
-    TrainingSession.findById(req.params.id).populate('courses').exec(function (err,session) {
+    TrainingSession.findById({_id:req.params.id}).populate('tutor').populate('courses').exec(function (err,session) {
         if(err){
             res.status(500).send("error")
         }else{
@@ -204,6 +204,17 @@ router.get('/get/course', function (req,res,next) {
             res.json(doc);
         }
     })
+});
+/********************************************Get course by id*******************************************************/
+router.get('/get/course/:id', function (req,res,next) {
+    Course.findById({_id:req.params.id}).populate('tutorCreator').exec(function (err,course) {
+        if(err){
+            res.status(500).send("error")
+        }else{
+            res.json(course);
+        }
+    })
+
 });
 
 /****************************************Update a course by the creator**********************************************/
