@@ -1,0 +1,123 @@
+{
+  "profile": {
+    "name": "nouha asfour ",
+    "headline": "élève ingénieure/dev full stack/Stagiaire pfe chez Groupe Keyrus",
+    "location": "Gouvernorat de l’Ariana, Tunisia",
+    "summary": "Software engineering student enthusiastic about developing practical and time-saving software solutions. Adept at identifying issues with existing software and creating innovative new software programs. Committed to working within client and project specifications to deliver cost-effective timely results.",
+    "connections": "226 relations"
+  },
+  "positions": [
+    {
+      "title": "Stagiaire été",
+      "companyName": "Sofrecom Tunisie",
+      "description": "Développement d’une application web de tests automatisés Angular 6 qui consomme des web services réalisés avec Spring boot",
+      "date1": "juil. 2018 – sept. 2018",
+      "date2": "3 mois"
+    },
+    {
+      "title": "Stagiaire été",
+      "companyName": "radio tataouine",
+      "description": "Développement d’une imitation de l'application de gestion de l'utilisateur de la station de radio",
+      "date1": "juin 2016",
+      "date2": "1 mois"
+    }
+  ],
+  "educations": [
+    {
+      "title": "Institut Supèrieur des Sciences Appliquées et de Technologie de Sousse - ISSAT Sousse",
+      "degree": "Ingénierie informatique",
+      "date1": "2014",
+      "date2": "2017"
+    },
+    {
+      "title": "Ecole Supérieure Privée d'Ingénierie et de Technologies - ESPRIT",
+      "date1": "2017",
+      "date2": "2018"
+    }
+  ],
+  "skills": [
+    {
+      "title": "jsf javaee developer",
+      "count": "1"
+    },
+    {
+      "title": "Symfony developer",
+      "count": "1"
+    },
+    {
+      "title": "jequery and javascript expert",
+      "count": "1"
+    },
+    {
+      "title": "Laravel"
+    },
+    {
+      "title": ".NET framework"
+    },
+    {
+      "title": "using scrum as a main methodology in software development"
+    },
+    {
+      "title": "java spring"
+    },
+    {
+      "title": "angular 6"
+    },
+    {
+      "title": "TypeScript"
+    },
+    {
+      "title": "spring boot"
+    }
+  ],
+  "recommendations": {
+    "givenCount": "0",
+    "receivedCount": "0",
+    "given": [],
+    "received": []
+  },
+  "accomplishments": [],
+  "peopleAlsoViewed": [
+    {
+      "user": "https://www.linkedin.com/in/ing-maroua-mhiri/",
+      "text": "Étudiante en 5eme année cycle d’ingénieur en Informatique Génie Logiciel (ISSATso) Stagiaire PFE"
+    },
+    {
+      "user": "https://www.linkedin.com/in/issam-hazzoug-492bab91/",
+      "text": "Directeur administratif et financier chez CONTACT"
+    },
+    {
+      "user": "https://www.linkedin.com/in/ahlem-abdelhak/",
+      "text": "Embedded software engineer at Focus Corporation on behalf of Continental"
+    },
+    {
+      "user": "https://www.linkedin.com/in/njeh-mariem-1a2012117/",
+      "text": "Développeur front-end chez Softtodo"
+    },
+    {
+      "user": "https://www.linkedin.com/in/dejla-aouini-817760139/",
+      "text": "Stagiaire chez Keyrus"
+    },
+    {
+      "user": "https://www.linkedin.com/in/najla-abidi-a41a21167/",
+      "text": "développeur web"
+    },
+    {
+      "user": "https://www.linkedin.com/in/farah-b%C3%A9doui-a4a619156/",
+      "text": "Engineering student at ISSAT Sousse"
+    },
+    {
+      "user": "https://www.linkedin.com/in/fahmi-zouari/",
+      "text": "Élève ingénieur en génie logiciel"
+    },
+    {
+      "user": "https://www.linkedin.com/in/ikbel-sdiri/",
+      "text": "Étudiant à Ecole Supérieure Privée d'Ingénierie et de Technologies - ESPRIT"
+    },
+    {
+      "user": "https://www.linkedin.com/in/ghafer-baccouche-b482249a/",
+      "text": "Ingénieur développement logiciels chez imbus"
+    }
+  ],
+  "volunteerExperience": []
+}
