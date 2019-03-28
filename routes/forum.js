@@ -47,6 +47,13 @@ router.post('/add/:id', function(req, res, next) {
 
 });
 
+router.post('/add', function(req, res, next) {
+
+    var p = new Post(req.body);
+    p.save();
+    res.json(p);
+});
+
 
 //add a new response to a post
 router.post('/response/add/:id', function(req, res, next) {

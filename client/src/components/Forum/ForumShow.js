@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import axios from 'axios';
-
-class Forum extends Component {
+class ForumShow extends Component {
 
     constructor(props){
         super(props)
-        this.state={forum:[]};
+        this.state={forum:''};
     }
     componentWillMount() {
         axios.get('http://localhost:4000/forum/').then(res=>this.setState({forum:res.data}))
@@ -51,6 +50,7 @@ class Forum extends Component {
                                                 <div className="media">
                                                     <img className="iconbox" src="assets/img/avatar/4.jpg" alt />
                                                     <div className="media-body ml-4">
+                                                        <a href="#" className="text-primary">{f.userPost.username}</a> <br />
                                                         {f.datePost}
                                                     </div>
                                                 </div>
@@ -79,5 +79,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedHomePage = connect(mapStateToProps)(Forum);
-export { connectedHomePage as Forum };
+const connectedHomePage = connect(mapStateToProps)(ForumShow);
+export { connectedHomePage as ForumShow };

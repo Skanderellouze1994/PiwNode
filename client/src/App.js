@@ -41,6 +41,7 @@ class App extends Component {
                     <PrivateRoute  exact  path="/tutor" component={HomeTutor}/>
                     <PrivateRoute  exact  path="/student" component={HomeStudent}/>
                     <PrivateRoute  exact  path="/forum" component={Forum}/>
+                    <PrivateRoute  exact  path="/addforum" component={AddForum}/>
                     <PrivateRoute  exact  path="/forum/add" component={AddForum}/>
                     <PrivateRoute exact path="/addTrainingSession" component={AddTrainingSession} />
                     <PrivateRoute exact path="/all" component={TrainingSessionList} />
