@@ -20,6 +20,7 @@ import {AddForum} from "./components/Forum/AddForum";
 import {AddTrainingSession} from "./components/AddTrainingSession";
 import {TrainingSessionList} from "./components/TrainingSessionList";
 import {TrainingSessionDetail} from "./components/TrainingSessionDetail";
+import {ForumShow} from "./components/Forum/ForumShow";
 
 class App extends Component {
     render() {
@@ -40,8 +41,8 @@ class App extends Component {
                     <PrivateRoute  exact  path="/tutor" component={HomeTutor}/>
                     <PrivateRoute  exact  path="/student" component={HomeStudent}/>
                     <PrivateRoute  exact  path="/forum" component={Forum}/>
+                    <PrivateRoute  exact  path="/forumshow/:id" component={ForumShow}/>
                     <PrivateRoute  exact  path="/addforum" component={AddForum}/>
-                    <PrivateRoute  exact  path="/forum/add" component={AddForum}/>
                     <PrivateRoute exact path="/addTrainingSession" component={AddTrainingSession} />
                     <PrivateRoute exact path="/all" component={TrainingSessionList} />
                     <PrivateRoute exact path="/allCourses/:id" component={TrainingSessionDetail} />
