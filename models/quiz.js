@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 var user = require('./user');
 
 var propositionSchema = new mongoose.Schema({
-
     name: {
         type: String
     }
 });
 var responseSchema = new mongoose.Schema({
-
     rightResponse: {
         type: String
     },
