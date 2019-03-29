@@ -15,6 +15,12 @@ import {HomeTutor} from "./components/tutor/HomeTutor";
 import HomeStudent from "./components/student/HomeStudent";
 import {ForgetPassword} from "./components/ForgetPassword";
 import {ResetPassword} from "./components/ResetPassword";
+import {Forum} from "./components/Forum/Forum";
+import {AddForum} from "./components/Forum/AddForum";
+import {AddTrainingSession} from "./components/AddTrainingSession";
+import {TrainingSessionList} from "./components/TrainingSessionList";
+import {TrainingSessionDetail} from "./components/TrainingSessionDetail";
+import {CourseDetail} from "./components/CourseDetails";
 
 class App extends Component {
     render() {
@@ -34,6 +40,13 @@ class App extends Component {
                     <PrivateRoute  exact  path="/profil" component={Profil}/>
                     <PrivateRoute  exact  path="/tutor" component={HomeTutor}/>
                     <PrivateRoute  exact  path="/student" component={HomeStudent}/>
+                    <PrivateRoute  exact  path="/forum" component={Forum}/>
+                    <PrivateRoute  exact  path="/addforum" component={AddForum}/>
+                    <PrivateRoute  exact  path="/forum/add" component={AddForum}/>
+                    <PrivateRoute exact path="/addTrainingSession" component={AddTrainingSession} />
+                    <PrivateRoute exact path="/all" component={TrainingSessionList} />
+                    <PrivateRoute exact path="/allCourses/:id" component={TrainingSessionDetail} />
+                    <PrivateRoute exact path="/course/:id" component={CourseDetail} />
 
 
                 <Footer/>
