@@ -42,7 +42,7 @@ class AddForum extends Component {
             subject: this.state.subject
         }
 
-            axios.post('http://localhost:4000/forum/add/',newPost)
+            axios.post('http://localhost:4000/forum/add/'+this.props.user.user._id,newPost)
                 .then(res => console.log(res.data));
 
 
