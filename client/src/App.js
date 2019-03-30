@@ -17,9 +17,9 @@ import {ForgetPassword} from "./components/ForgetPassword";
 import {ResetPassword} from "./components/ResetPassword";
 import {Forum} from "./components/Forum/Forum";
 import {AddForum} from "./components/Forum/AddForum";
-import {AddTrainingSession} from "./components/AddTrainingSession";
-import {TrainingSessionList} from "./components/TrainingSessionList";
-import {TrainingSessionDetail} from "./components/TrainingSessionDetail";
+import {AddTrainingSession} from "./components/TrainingSession/AddTrainingSession";
+import {TrainingSessionList} from "./components/TrainingSession/TrainingSessionList";
+import {TrainingSessionDetail} from "./components/TrainingSession/TrainingSessionDetail";
 import {ForumShow} from "./components/Forum/ForumShow";
 import {CourseDetail} from "./components/CourseDetails";
 
