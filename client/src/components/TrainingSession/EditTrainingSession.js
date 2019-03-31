@@ -69,7 +69,7 @@ class EditTrainingSession extends Component {
                                                    data-toggle="datetimepicker" data-target="#ec-datetimepicker"
                                                     />
                                         </div>
-                                        <button type="submit" className="btn btn-block btn-primary">Add training session</button>
+                                        <button type="submit" className="btn btn-block btn-primary">Edit training session</button>
                                     </form>
                                 </div>
                             </div>
