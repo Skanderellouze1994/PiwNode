@@ -64,6 +64,12 @@ class TrainingSessionDetail extends Component {
                                 <h1>
                                     {this.state.session.name}
                                 </h1>
+                                <div className="input-group-append">
+                                    <Link to={"/allCourses/"+ this.state.session._id +"/edit"} className="btn btn-info rounded" type="submit">
+                                        Edit this training session
+                                        <i className="ti-angle-right small"/>
+                                    </Link>
+                                </div>
 
                                 <div className="col-12 mt-4">
                                     <ul className="nav tab-line tab-line tab-line--3x border-bottom mb-5"
