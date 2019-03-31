@@ -65,10 +65,14 @@ class TrainingSessionDetail extends Component {
                                     {this.state.session.name}
                                 </h1>
                                 <div className="input-group-append">
-                                    <Link to={"/allCourses/"+ this.state.session._id +"/edit"} className="btn btn-info rounded" type="submit">
+                                    {this.state.session.tutor !== undefined &&
+                                    this.state.session.tutor._id === this.props.user.user._id &&
+                                    <Link to={"/allCourses/" + this.state.session._id + "/edit"}
+                                          className="btn btn-info rounded" type="submit">
                                         Edit this training session
                                         <i className="ti-angle-right small"/>
                                     </Link>
+                                    }
                                 </div>
 
                                 <div className="col-12 mt-4">
