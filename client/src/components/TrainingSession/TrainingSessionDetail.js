@@ -161,7 +161,7 @@ class TrainingSessionDetail extends Component {
                                             </div>
                                         </div>
                                         {/* END tab-pane */}
-                                        <AddCourse/> {/* END tab-pane*/}
+                                        <AddCourse id={this.state.session._id}/> {/* END tab-pane*/}
                                     </div>
                                     {/* END tab-content*/}
                                 </div>
