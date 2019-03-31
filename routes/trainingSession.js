@@ -18,6 +18,7 @@ var Course = require('../models/course');
        Add a student who participated to the training session
        Add a course in a training session by the tutor
        Get a course by name
+       Get a course by id
        Update a course
 */
 /************************************Add a training session by the tutor*********************************************/
@@ -64,6 +65,13 @@ router.delete('/delete/:user/:session', function (req,res,next) {
 
 /********************************************Update a training session***********************************************/
 router.put('/update/:user/:session', function (req,res,next) {
+    TrainingSession.findByIdAndUpdate({_id : req.params.session},req.body , function (err,session) {
+        if(err){
+            res.status(500).send('database error');
+        }else{
+            res.send("success");
+        }
+    })
 
 });
 
@@ -219,6 +227,10 @@ router.get('/get/course/:id', function (req,res,next) {
 
 /****************************************Update a course by the creator**********************************************/
 router.put('/course/update/:course/:user', function (req,res,next) {
+    Course.findByIdAndUpdate({_id:req.params.course}, req.body , function (err,course) {
+        if(err) res.status(500).send(err);
+        else res.send("success");
+    })
 
 });
 
