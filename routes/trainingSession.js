@@ -65,7 +65,7 @@ router.delete('/delete/:user/:session', function (req,res,next) {
 
 /********************************************Update a training session***********************************************/
 router.put('/update/:user/:session', function (req,res,next) {
-    TrainingSession.findByIdAndUpdate({_id : req.params.session},req.body , function (err,session) {
+    TrainingSession.findOneAndUpdate({_id : req.params.session},req.body , function (err,session) {
         if(err){
             res.status(500).send('database error');
         }else{
@@ -226,8 +226,8 @@ router.get('/get/course/:id', function (req,res,next) {
 });
 
 /****************************************Update a course by the creator**********************************************/
-router.put('/course/update/:course/:user', function (req,res,next) {
-    Course.findByIdAndUpdate({_id:req.params.course}, req.body , function (err,course) {
+router.put('/course/update/:course', function (req,res,next) {
+    Course.findOneAndUpdate({_id:req.params.course}, req.body , function (err,course) {
         if(err) res.status(500).send(err);
         else res.send("success");
     })

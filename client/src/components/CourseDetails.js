@@ -21,6 +21,7 @@ class CourseDetail extends Component{
 
     render() {
         console.log(this.state.course);
+        console.log(this.props);
 
         return(
             <div>
@@ -93,6 +94,17 @@ class CourseDetail extends Component{
                             <h1>
                                 {this.state.course.title}
                             </h1>}
+                            <div className="input-group-append">
+                                {this.state.course !== undefined &&
+                                this.state.course.tutorCreator !== undefined &&
+                                this.state.course.tutorCreator._id === this.props.user.user._id &&
+                                <Link to={"/course/" + this.state.course._id + "/edit"}
+                                      className="btn btn-info rounded" type="submit">
+                                    Edit this course
+                                    <i className="ti-angle-right small"/>
+                                </Link>
+                                }
+                            </div>
                             <div className="row mt-3">
                                 <div className="col-lg-3 col-md-6 my-2">
                                     <div className="media border-right height-100p">
@@ -244,7 +256,10 @@ class CourseDetail extends Component{
     }
 }
 function mapStateToProps(state) {
+    const { authentication } = state;
+    const { user } = authentication;
     return {
+        user,
        course: state.course
     };
 }
