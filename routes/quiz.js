@@ -26,6 +26,15 @@ router.get('/', function (req, res) {
         else res.json(quizz)
     });
 });
+/*FIND QUIZ*/
+router.get('/:id', function (req, res) {
+    var id = req.params.id;
+    Quiz.findById(id).exec(function (err, quiz) {
+        if (err)
+        {res.send(err)}
+        else res.json(quiz)
+    });
+});
 /*UPDATE QUIZ*/
 router.put('/:id', function (req, res) {
     Quiz.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, quiz) => {
@@ -33,6 +42,16 @@ router.put('/:id', function (req, res) {
         return res.send(quiz);
     })
 });
+/*DELETE QUIZ*/
+router.delete('/:id', function (req, res) {
+    var id = req.params.id;
+    Quiz.findByIdAndDelete(id, function (err, quiz) {
+        if (err)
+        {res.send(err)}
+        else res.send()
+    });
+});
+/**************************************************QUESTIONS***********************************************************/
 /*Add questions*/
 router.post('/:id/question', function (req, res) {
     var id = req.params.id;
@@ -50,7 +69,7 @@ router.post('/:id/question', function (req, res) {
         });
     })
 });
-/*READ question*/
+/*READ questions*/
 router.get('/:id/questions', function (req, res) {
     Quiz.findById(req.params.id,function (err, quizz) {
         if (err)
@@ -60,14 +79,63 @@ router.get('/:id/questions', function (req, res) {
         else res.send(quizz.questions)
     });
 });
+/*FIND question*/
+router.get('/:id/question/:idq', function (req, res) {
+    Quiz.findById(req.params.id,function (err, quizz) {
+        if (err)
+        {res.send(err)}
+        if (!quizz)
+        {res.status(404).send()}
+        else res.send(quizz.questions.id(req.params.idq))
+    });
+});
 /*UPDATE question*/
-router.put('/question/:id', function (req, res) {
+router.put('/:id/question/:idq', function (req, res) {
+    Quiz.findById(req.params.id,function (err, quizz) {
+        if (err)
+        {res.send(err)}
+        if (!quizz)
+        {res.status(404).send()}
+        else {
+            quizz.questions.id(req.params.idq).name = req.body.name;
+            quizz.questions.id(req.params.idq).rightResponse = req.body.rightResponse;
+            quizz.save(function(err) {
+                if (err)
+                    res.send(err);
+
+                res.json(quizz);
+            });
+        }
+    });
+});
+/*DELETE question*/
+router.delete('/:id/question/:idq', function (req, res) {
+    Quiz.findById(req.params.id,function (err, quiz) {
+        if (err)
+        {res.send(err)}
+        if (!quiz)
+        {res.status(404).send()}
+        else {
+            quiz.questions.splice(quiz.questions.id(req.params.idq),1);
+            quiz.save(function(err) {
+                if (err)
+                    res.send(err);
+
+                res.json(quiz);
+            });
+        }
+    });
+});
+/**************************************************PROPOSITIONS********************************************************/
+/*Add proposition*/
+router.post('/:id/question/:idq', function (req, res) {
     var id = req.params.id;
     Quiz.findById(id, function (err,quiz) {
         if (err)
             res.send(err);
-        quiz.questions.splice(fav.indexOf(id),1)
-        quiz.questions.push(req.body);
+
+        quiz.questions.id(req.params.idq).propositions.push(req.body)
+
         quiz.save(function(err) {
             if (err)
                 res.send(err);
@@ -76,4 +144,5 @@ router.put('/question/:id', function (req, res) {
         });
     })
 });
+
 module.exports = router;
