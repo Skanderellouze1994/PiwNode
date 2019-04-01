@@ -1,6 +1,7 @@
 import {trainingSessionService} from "../_services";
 import {alertActions} from "./alert.actions";
 import {userConstants} from "../_constants";
+import {history} from "../_helpers";
 
 export const trainingSessionAction ={
     addTrainingSession,
@@ -9,11 +10,13 @@ export const trainingSessionAction ={
 
 function addTrainingSession(id , session) {
     return dispatch => {
-        dispatch(request({ id }));
+        dispatch(request({ session }));
         trainingSessionService.addTrainingSession(id, session)
             .then(
                 session => {
+                    console.log(session);
                     dispatch(success(session));
+                    //history.push('/all');
               },
                 error => {
                     dispatch(failure("error.toString()"));

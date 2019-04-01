@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import connect from "react-redux/es/connect/connect";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class CourseDetail extends Component{
     constructor(props) {
@@ -19,7 +20,8 @@ class CourseDetail extends Component{
     }
 
     render() {
-        console.log(this.props)
+        console.log(this.state.course);
+        console.log(this.props);
 
         return(
             <div>
@@ -28,16 +30,16 @@ class CourseDetail extends Component{
                         <div className="row align-items-center">
                             <div className="col-lg-6 my-2 text-white">
                                 <ol className="breadcrumb breadcrumb-double-angle bg-transparent p-0">
-                                    <li className="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li className="breadcrumb-item"><a href="#">Training sessions</a></li>
-                                    <li className="breadcrumb-item">All training session's courses</li>
+                                    <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+                                    <li className="breadcrumb-item"><Link to="/all">Training sessions</Link></li>
+                                    <li className="breadcrumb-item"><Link to="#">Training session</Link></li>
+                                    <li className="breadcrumb-item">Course</li>
                                 </ol>
+                                {this.state.course !== undefined &&
                                 <h2 className="h1">
-                                    All Courses Gird
+                                    {this.state.course.title}
                                 </h2>
-                                <p className="lead">
-                                    <span className="text-primary">6,178</span> courses found
-                                </p>
+                                }
                             </div>
                             <form className="col-lg-5 my-2 ml-auto">
                                 <div className="input-group bg-white rounded p-1">
@@ -53,6 +55,85 @@ class CourseDetail extends Component{
                         </div>
                     </div>
                 </div>
+                <section className="py-3">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12 z-index-10" data-offset-top-md={-40}>
+                                <ul className="list-inline d-inline-block py-2 px-4 shadow-v3 bg-white rounded-pill">
+                                    <li className="list-inline-item">Share <span className="d-none d-md-inline-block">this course:</span></li>
+                                    <li className="list-inline-item mx-0">
+                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <i className="ti-facebook" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item mx-0">
+                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <i className="ti-twitter" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item mx-0">
+                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <i className="ti-linkedin" />
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item mx-0">
+                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <i className="ti-google" />
+                                        </a>
+                                    </li>
+                                </ul>
+                                <a href="#" className="btn btn-white iconbox"><i className="ti-heart" /></a>
+                            </div>
+                        </div> {/* END row*/}
+                    </div>
+                </section>
+                <section className="paddingBottom-100">
+                    <div className="container">
+                        <div className="col-lg-9 marginTop-30">
+                            {this.state.course !== undefined &&
+                            <h1>
+                                {this.state.course.title}
+                            </h1>}
+                            <div className="input-group-append">
+                                {this.state.course !== undefined &&
+                                this.state.course.tutorCreator !== undefined &&
+                                this.state.course.tutorCreator._id === this.props.user.user._id &&
+                                <Link to={"/course/" + this.state.course._id + "/edit"}
+                                      className="btn btn-info rounded" type="submit">
+                                    Edit this course
+                                    <i className="ti-angle-right small"/>
+                                </Link>
+                                }
+                            </div>
+                            <div className="row mt-3">
+                                <div className="col-lg-3 col-md-6 my-2">
+                                    <div className="media border-right height-100p">
+                                        <img className="iconbox mr-3" src="assets/img/avatar/4.jpg" alt="true" />
+                                        <div className="media-body">
+                                            <span className="text-gray d-block">Instructor:</span>
+                                            {this.state.course !== undefined &&
+                                            <a href="#" className="h6">{this.state.course.tutorCreator.username}</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-3 col-md-6 my-2">
+                                    <div className="border-right height-100p">
+                                        <span className="text-gray">Reviews:</span>
+                                        <p className="mb-0">
+                                            <i className="fas fa-star text-warning small" />
+                                            <i className="fas fa-star text-warning small" />
+                                            <i className="fas fa-star text-warning small" />
+                                            <i className="fas fa-star text-warning small" />
+                                            <i className="fas fa-star-half small" />
+                                            <span className="text-dark">4.9</span>
+                                            <span>(793)</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                 <section className="paddingBottom-100">
                     <div className="container">
                         <div className="row">
@@ -77,11 +158,12 @@ class CourseDetail extends Component{
                                     <div className="tab-content">
                                         <div className="tab-pane fade show active" id="tabDescription" role="tabpanel">
                                             <h4>
-                                                Training Session Description
+                                                Course Description
                                             </h4>
+                                            {this.state.course !== undefined &&
                                             <p>
-                                                description
-                                            </p>
+                                                {this.state.course.description}
+                                            </p>}
                                             <div className="row mt-5">
                                                 <div className="col-12">
                                                     <h4>
@@ -90,11 +172,9 @@ class CourseDetail extends Component{
                                                 </div>
                                                 <div className="col-md-6 my-2">
                                                     <ul className="list-unstyled list-style-icon list-icon-check">
-                                                        <li>Learn how to captivate your audience</li>
-                                                        <li>Get rid of negative self talk that brings you down before your presentations</li>
-                                                        <li>Take your business / job to the next level</li>
-                                                        <li>Overcome the fear of public speaking</li>
-                                                    </ul>
+                                                        {this.state.course !== undefined &&
+                                                        <li>{this.state.course.objectives}</li>
+                                                        }</ul>
                                                 </div>
                                                 <div className="col-md-6 my-2">
                                                     <ul className="list-unstyled list-style-icon list-icon-check">
@@ -103,10 +183,13 @@ class CourseDetail extends Component{
                                                 </div>
                                                 <div className="col-md-6 my-2">
                                                     <h4>
-                                                        Course Requirments
+                                                        Course Category
                                                     </h4>
                                                     <ul className="list-unstyled list-style-icon list-icon-bullet">
                                                         <li>Learn how to captivate your audience</li>
+                                                        {this.state.course !== undefined &&
+                                                        <li>{this.state.course.category}</li>
+                                                        }
                                                     </ul>
                                                 </div>
                                                 <div className="col-md-6 my-2">
@@ -115,10 +198,6 @@ class CourseDetail extends Component{
                                                     </h4>
                                                     <ul className="list-unstyled list-style-icon list-icon-bullet">
                                                         <li>Learn how to captivate your audience</li>
-                                                        <li>Take your business / job to the next level</li>
-                                                        <li>Overcome the fear of public speaking</li>
-                                                        <li>Learn how to captivate your audience</li>
-                                                        <li>Take your business / job to the next level</li>
                                                     </ul>
                                                 </div>
                                             </div> {/* END row*/}
@@ -130,12 +209,13 @@ class CourseDetail extends Component{
                                             <div className="border-bottom mb-4 pb-4">
                                                 <div className="d-md-flex mb-4">
                                                     <a href="#">
-                                                        <img className="iconbox iconbox-xxxl" src="assets/img/262x230/5.jpg" alt />
+                                                        <img className="iconbox iconbox-xxxl" src="assets/img/262x230/5.jpg" alt="true" />
                                                     </a>
                                                     <div className="media-body ml-md-4 mt-4 mt-md-0">
+                                                        {this.state.course !== undefined &&
                                                         <h6>
-
-                                                        </h6>
+                                                            {this.state.course.tutorCreator.username}
+                                                        </h6>}
                                                         <p className="mb-2">
                                                             <i className="ti-world mr-2" /> Web Developer and Instructor
                                                         </p>
@@ -170,13 +250,17 @@ class CourseDetail extends Component{
                         </div>
                     </div>
                 </section>
+                    </div></section>
             </div>
         )
     }
 }
 function mapStateToProps(state) {
+    const { authentication } = state;
+    const { user } = authentication;
     return {
-       state
+        user,
+       course: state.course
     };
 }
 

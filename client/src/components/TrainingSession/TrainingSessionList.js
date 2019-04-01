@@ -1,6 +1,5 @@
 import React,{Component} from "react";
 import connect from "react-redux/es/connect/connect";
-import {trainingSessionAction} from "../_actions";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -40,16 +39,12 @@ class TrainingSessionList extends Component{
                         <div className="row align-items-center">
                             <div className="col-lg-6 my-2 text-white">
                                 <ol className="breadcrumb breadcrumb-double-angle bg-transparent p-0">
-                                    <li className="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li className="breadcrumb-item"><a href="#">Training sessions</a></li>
+                                    <li className="breadcrumb-item"><Link to="/">Home</Link></li>
                                     <li className="breadcrumb-item">All training sessions</li>
                                 </ol>
                                 <h2 className="h1">
                                     All Training sessions Gird
                                 </h2>
-                                <p className="lead">
-                                    <span className="text-primary">6,178</span> courses found
-                                </p>
                             </div>
                             <form className="col-lg-5 my-2 ml-auto">
                                 <div className="input-group bg-white rounded p-1">
@@ -111,7 +106,7 @@ class TrainingSessionList extends Component{
                     <div className="container">
                         <div className="list-card align-items-center shadow-v1 marginTop-30">
                             <div className="col-lg-4 px-lg-4 my-4">
-                                <img className="w-100" src="assets/img/360x220/4.jpg" alt />
+                                <img className="w-100" src="assets/img/360x220/4.jpg" alt="" />
                             </div>
                             <div className="col-lg-8 paddingRight-30 my-4">
                                 <div className="media justify-content-between">
@@ -133,9 +128,9 @@ class TrainingSessionList extends Component{
                                             </li>
                                         </ul>
                                     </div>
-                                    <a href="#" className="btn btn-opacity-primary iconbox iconbox-sm" data-container="body" data-toggle="tooltip" data-placement="top" data-skin="light" title data-original-title="Add to wishlist">
+                                    <Link to="/all" className="btn btn-opacity-primary iconbox iconbox-sm" data-container="body" data-toggle="tooltip" data-placement="top" data-skin="light" title data-original-title="Add to wishlist">
                                         <i className="ti-heart" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <p>
                                     {session.description}
@@ -189,8 +184,14 @@ class TrainingSessionList extends Component{
     }
 }
 function mapStateToProps(state) {
+    const {alert} = state;
+    const { authentication } = state;
+    const { user } = authentication;
+
     return {
-        sessions: state.sessions
+        sessions: state.sessions,
+        alert,
+        user
     };
 }
 
