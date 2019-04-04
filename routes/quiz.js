@@ -144,5 +144,69 @@ router.post('/:id/question/:idq', function (req, res) {
         });
     })
 });
+/*READ propositions*/
+router.get('/:id/question/:idq/propositions', function (req, res) {
+    Quiz.findById(req.params.id,function (err, quizz) {
+        if (err)
+        {res.send(err)}
+        if (!quizz)
+        {res.status(404).send()}
+        else res.send(quizz.questions.id(req.params.idq).propositions)
+    });
+});
+/*DELETE proposition*/
+router.delete('/:id/question/:idq/proposition/:idp', function (req, res) {
+    Quiz.findById(req.params.id,function (err, quiz) {
+        if (err)
+        {res.send(err)}
+        if (!quiz)
+        {res.status(404).send()}
+        else {
+            quiz.questions.id(req.params.idq).propositions.splice(quiz.questions.id(req.params.idq).propositions.id(req.params.idp),1)
+            quiz.save(function(err) {
+                if (err)
+                    res.send(err);
 
+                res.json(quiz);
+            });
+        }
+    });
+});
+/*find prop*/
+router.get('/:id/question/:idq/proposition/:idp', function (req, res) {
+    Quiz.findById(req.params.id,function (err, quizz) {
+        if (err)
+        {res.send(err)}
+        if (!quizz)
+        {res.status(404).send()}
+        else res.send(quizz.questions.id(req.params.idq).propositions.id(req.params.idp))
+    });
+});
+/**************************************************RESPONSE********************************************************/
+/*Add response*/
+router.post('/:id/question/:idq/resp', function (req, res) {
+    var id = req.params.id;
+    Quiz.findById(id, function (err,quiz) {
+        if (err)
+            res.send(err);
+
+        quiz.questions.id(req.params.idq).response.push(req.body)
+        quiz.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json(quiz);
+        });
+    })
+});
+/*READ response*/
+router.get('/:id/question/:idq/resp', function (req, res) {
+    Quiz.findById(req.params.id,function (err, quizz) {
+        if (err)
+        {res.send(err)}
+        if (!quizz)
+        {res.status(404).send()}
+        else res.send(quizz.questions.id(req.params.idq).response)
+    });
+});
 module.exports = router;

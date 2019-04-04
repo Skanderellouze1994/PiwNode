@@ -17,7 +17,7 @@ var questionSchema = new mongoose.Schema({
         type: String
     },
     propositions: [propositionSchema],
-    response: responseSchema,
+    response: [responseSchema],
     rightResponse: {
         type: String
     }
