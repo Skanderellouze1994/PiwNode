@@ -3,6 +3,7 @@ import connect from "react-redux/es/connect/connect";
 import SimpleReactValidator from "simple-react-validator";
 import {trainingSessionAction} from "../../_actions/index";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 class AddTrainingSession extends Component {
     constructor(props){
@@ -44,12 +45,17 @@ class AddTrainingSession extends Component {
         if (this.validator.allValid()) {
             console.log(this.state.session);
             dispatch(trainingSessionAction.addTrainingSession(this.props.user.user._id , this.state));
-            console.log("after dispatch")
+            console.log("after dispatch");
             /*axios
                 .post(`http://localhost:4000/trainingSession/add/${this.props.user.user._id}`,+`/`+session)
                 .then(response => {
                     console.log(response.data);
                 })*/
+            Swal.fire(
+                'Good job!',
+                'You added a new training session!',
+                'success'
+            );
 
         }else {
             this.validator.showMessages();

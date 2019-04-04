@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import connect from "react-redux/es/connect/connect";
 import SimpleReactValidator from "simple-react-validator";
+import Swal from 'sweetalert2';
 
 class EditCourse extends Component {
     constructor(props) {
@@ -52,7 +53,11 @@ class EditCourse extends Component {
         if (this.validator.allValid()) {
             axios.put(`http://localhost:4000/trainingSession/course/update/${this.props.match.params.id}`,course)
                 .then(res => console.log(res.data));
-            alert("Your course has been updated successfully!")
+            Swal.fire(
+                'Good job!',
+                'You changed this course!',
+                'success'
+            )
 
         }else {
             this.validator.showMessages();
