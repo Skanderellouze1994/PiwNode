@@ -3,6 +3,8 @@ import axios from "axios";
 import connect from "react-redux/es/connect/connect";
 import SimpleReactValidator from "simple-react-validator";
 
+import Swal from 'sweetalert2';
+
 class AddCourse extends Component {
     constructor(props) {
         super(props);
@@ -45,6 +47,11 @@ class AddCourse extends Component {
 
         axios.post(`http://localhost:4000/trainingSession/add/course/${this.props.user.user._id}/${this.props.id}`,course)
             .then(res => console.log(res.data));
+        Swal.fire(
+            'Good job!',
+            'You added a new course!',
+            'success'
+        );
 
 
         this.setState({
@@ -94,9 +101,9 @@ class AddCourse extends Component {
                                         <input name="startDate"
                                                placeholder="Start date 03/27/2018 8:09 PM" type="text"
                                                className="form-control datetimepicker-input" id="ec-datetimepicker"
-                                               data-toggle="datetimepicker" data-target="#ec-datetimepicker"/>
+                                               data-toggle="datetimepicker" data-target="#ec-datetimepicker"
                                         value={this.state.course.startDate}
-                                        onChange={this.onChange}
+                                        onChange={this.onChange}/>
                                     </div>
                                     <div className="input-group input-group--focus mb-3">
                                         <div className="input-group-prepend">

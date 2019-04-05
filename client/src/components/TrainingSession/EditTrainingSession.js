@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import axios from 'axios';
 import SimpleReactValidator from "simple-react-validator";
+import Swal from'sweetalert2';
 
 
 class EditTrainingSession extends Component {
@@ -49,7 +50,11 @@ class EditTrainingSession extends Component {
                 .then(response => {
                     console.log(response.data);
                 });
-            alert("Your training session has been updated successfully!")
+            Swal.fire(
+                'Good job!',
+                'You changed this training session successfully !',
+                'success'
+            );
 
         }else {
             this.validator.showMessages();
