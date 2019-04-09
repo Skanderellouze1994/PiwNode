@@ -18,6 +18,13 @@ import {ResetPassword} from "./components/ResetPassword";
 import {Forum} from "./components/Forum/Forum";
 import {AddForum} from "./components/Forum/AddForum";
 import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
+import {AddTrainingSession} from "./components/TrainingSession/AddTrainingSession";
+import {TrainingSessionList} from "./components/TrainingSession/TrainingSessionList";
+import {TrainingSessionDetail} from "./components/TrainingSession/TrainingSessionDetail";
+import {ForumShow} from "./components/Forum/ForumShow";
+import {CourseDetail} from "./components/CourseDetails";
+import {EditTrainingSession} from "./components/TrainingSession/EditTrainingSession";
+import {EditCourse} from "./components/TrainingSession/EditCourse";
 
 class App extends Component {
     render() {
@@ -38,7 +45,14 @@ class App extends Component {
                     <PrivateRoute  exact  path="/tutor" component={HomeTutor}/>
                     <PrivateRoute  exact  path="/student" component={HomeStudent}/>
                     <PrivateRoute  exact  path="/forum" component={Forum}/>
-                    <PrivateRoute  exact  path="/forum/add" component={AddForum}/>
+                    <PrivateRoute  exact  path="/forumshow/:id" component={ForumShow}/>
+                    <PrivateRoute  exact  path="/addforum" component={AddForum}/>
+                    <PrivateRoute exact path="/addTrainingSession" component={AddTrainingSession} />
+                    <PrivateRoute exact path="/all" component={TrainingSessionList} />
+                    <PrivateRoute exact path="/allCourses/:id" component={TrainingSessionDetail} />
+                    <PrivateRoute exact path="/course/:id" component={CourseDetail} />
+                    <PrivateRoute exact path="/course/:id/edit" component={EditCourse} />
+                    <PrivateRoute exact path="/allCourses/:id/edit" component={EditTrainingSession} />
 
 
                 <Footer/>

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
 import SimpleReactValidator from "simple-react-validator";
-import {trainingSessionAction} from "../_actions";
+import {trainingSessionAction} from "../../_actions/index";
+import axios from "axios";
+import Swal from 'sweetalert2';
 
 class AddTrainingSession extends Component {
     constructor(props){
@@ -26,26 +28,44 @@ class AddTrainingSession extends Component {
     }
     handleChange(e) {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        const { session } = this.state;
+        this.setState({
+            session: {
+                ...session,
+                [name]: value
+            }
+        });
+//        console.log(session);
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const { session } = this.state;
+        const { session } = this.state.session;
         const { dispatch } = this.props;
-        const {id} =this.props.user.user._id;
         if (this.validator.allValid()) {
-
-            dispatch(trainingSessionAction.addTrainingSession(session, id));
+            console.log(this.state.session);
+            dispatch(trainingSessionAction.addTrainingSession(this.props.user.user._id , this.state));
+            console.log("after dispatch");
+            /*axios
+                .post(`http://localhost:4000/trainingSession/add/${this.props.user.user._id}`,+`/`+session)
+                .then(response => {
+                    console.log(response.data);
+                })*/
+            Swal.fire(
+                'Good job!',
+                'You added a new training session!',
+                'success'
+            );
 
         }else {
             this.validator.showMessages();
             this.forceUpdate();
-            }
+        }
     }
     render() {
         const {session}= this.state;
-        const {authentication} = this.props;
+        console.log(this.props);
+        console.log(this.state);
         return (
             <section className="padding-y-100 bg-light">
                 <div className="container">
@@ -63,7 +83,7 @@ class AddTrainingSession extends Component {
                                         {alert.message}
                                     </div>
                                     }
-                                    <form name="form" onSubmit={this.handleSubmit} className="px-lg-4">
+                                    <form name="form" onSubmit={this.handleSubmit}>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user" />
@@ -71,7 +91,7 @@ class AddTrainingSession extends Component {
                                             <input name="name" type="text" className="form-control border-left-0 pl-0" placeholder="Name"
                                                    value={session.name} onChange={this.handleChange}/>
                                         </div>
-                                        {this.validator.message('name', session.name, 'required')}
+                                        {this.validator.message('Name', session.name, 'required')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user" />
@@ -79,6 +99,7 @@ class AddTrainingSession extends Component {
                                             <input name="description" type="text" className="form-control border-left-0 pl-0" placeholder="Description"
                                                    value={session.description} onChange={this.handleChange} />
                                         </div>
+                                        {this.validator.message('Description ', session.description, 'required')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user" />
@@ -89,6 +110,7 @@ class AddTrainingSession extends Component {
                                                    data-toggle="datetimepicker" data-target="#ec-datetimepicker"
                                                    value={session.startDate} onChange={this.handleChange} />
                                         </div>
+                                        {this.validator.message('Start Date', session.startDate, 'required')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user" />
@@ -99,7 +121,8 @@ class AddTrainingSession extends Component {
                                                    data-toggle="datetimepicker" data-target="#ec-datetimepicker"
                                                    value={session.endDate} onChange={this.handleChange} />
                                         </div>
-                                        <button className="btn btn-block btn-primary">Add training session</button>
+                                        {this.validator.message('End Date', session.endDate, 'required')}
+                                        <button type="submit" className="btn btn-block btn-primary">Add training session</button>
                                     </form>
                                 </div>
                             </div>
@@ -112,14 +135,16 @@ class AddTrainingSession extends Component {
     }
 }
 function mapStateToProps(state) {
+    const { session } = state.registration;
     const {alert} = state;
-    const { users, authentication } = state;
+    const { authentication } = state;
     const { user } = authentication;
 
     return {
         alert,
         user,
-        authentication
+        authentication,
+        session
     };
 }
 

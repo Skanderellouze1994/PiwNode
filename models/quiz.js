@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 var user = require('./user');
 
 var propositionSchema = new mongoose.Schema({
-
     name: {
         type: String
     }
 });
 var responseSchema = new mongoose.Schema({
-
     rightResponse: {
         type: String
     },
@@ -19,7 +17,7 @@ var questionSchema = new mongoose.Schema({
         type: String
     },
     propositions: [propositionSchema],
-    response: responseSchema,
+    response: [responseSchema],
     rightResponse: {
         type: String
     }

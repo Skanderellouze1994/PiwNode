@@ -36,15 +36,23 @@ router.get('/:id', function(req, res, next) {
 //create a new post
 router.post('/add/:id', function(req, res, next) {
 
-    User.find({ _id: req.params.id }).exec(function (err, user) {
+    User.findById(req.params.id,function (err,user) {
         console.log(user)
         var p = new Post(req.body);
-        p.userPost=user
+        p.userPost=user;
         p.save();
+        console.log(p);
         res.json(p);
     })
 
 
+});
+
+router.post('/add', function(req, res, next) {
+
+    var p = new Post(req.body);
+    p.save();
+    res.json(p);
 });
 
 

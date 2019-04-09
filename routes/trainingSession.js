@@ -12,10 +12,13 @@ var Course = require('../models/course');
        Update a training session
        Get a training session by name
        Get a training session by date
+       Get a training session by id
+       Get all training sessions
        Get training sessions by creator
        Add a student who participated to the training session
        Add a course in a training session by the tutor
        Get a course by name
+       Get a course by id
        Update a course
 */
 /************************************Add a training session by the tutor*********************************************/
@@ -26,7 +29,7 @@ router.post('/add/:id', function(req, res, next) {
     var endDate = body.endDate;
     var description = body.description;
     var tutor = new User();
-    tutor = User.findOne(req.params.id);
+    tutor = req.params.id;
     TrainingSession.findOne({name:name},function (err,doc) {
         if(err){
             res.status(500).send('error occured');
@@ -62,6 +65,13 @@ router.delete('/delete/:user/:session', function (req,res,next) {
 
 /********************************************Update a training session***********************************************/
 router.put('/update/:user/:session', function (req,res,next) {
+    TrainingSession.findOneAndUpdate({_id : req.params.session},req.body , function (err,session) {
+        if(err){
+            res.status(500).send('database error');
+        }else{
+            res.send("success");
+        }
+    })
 
 });
 
@@ -76,6 +86,17 @@ router.get('/get', function (req,res,next) {
         else{
             res.json(doc);
         }
+    })
+});
+/**********************************************Get all training sessions*********************************************/
+router.get('/all', function (req,res,next) {
+    TrainingSession.find().populate('tutor').exec(function (err, sessions) {
+        if(err)
+            res.send(err);
+        if(!sessions)
+            res.status(404).send();
+        else
+            res.json(sessions);
     })
 });
 
@@ -107,17 +128,23 @@ router.get('/get/tutor/:id', function (req,res,next) {
     })
 });
 
-/***************************************Get training sessions by student*********************************************/
-router.get('/get/student/:id', function (req,res,next) {
+/***************************************Get training sessions by id**************************************************/
+router.get('/get/:id', function (req,res,next) {
+    TrainingSession.findById({_id:req.params.id}).populate('tutor').populate('courses').exec(function (err,session) {
+        if(err){
+            res.status(500).send("error")
+        }else{
+            res.json(session);
+        }
+    })
 
 });
 
 /****************************Add a student who participated to the training session**********************************/
 router.post('/add/student/:student/:session', function (req,res,next) {
-    var student = new User();
-    student = User.find(req.params.student);
-    TrainingSession.findById(req.params.session).exec( function (err,session) {
-        session.studentsList.push(student);
+    TrainingSession.findById({_id :req.params.session}).exec( function (err,session) {
+        session.studentsList.push(req.params.student);
+        console.log(session);
         session.save(function (err,trainingSession) {
             if(err){
                 res.status(500).send('database error');
@@ -138,8 +165,7 @@ router.post('/add/course/:user/:session', function(req, res, next) {
     var endDate = body.endDate;
     var description = body.description;
     var category = body.category;
-    var tutor = new User();
-    tutor = User.findOne(req.params.user);
+
     Course.findOne({title:title},function (err,doc) {
         if(err){
             res.status(500).send('error occured');
@@ -155,7 +181,7 @@ router.post('/add/course/:user/:session', function(req, res, next) {
                 cours.endDate = endDate;
                 cours.description = description;
                 cours.category = category;
-                cours.tutorCreator = tutor;
+                cours.tutorCreator = req.params.user;
                 cours.save(function (err,cours) {
                     if(err){
                         res.status(500).send('database error');
@@ -187,9 +213,24 @@ router.get('/get/course', function (req,res,next) {
         }
     })
 });
+/********************************************Get course by id*******************************************************/
+router.get('/get/course/:id', function (req,res,next) {
+    Course.findById({_id:req.params.id}).populate('tutorCreator').exec(function (err,course) {
+        if(err){
+            res.status(500).send("error")
+        }else{
+            res.json(course);
+        }
+    })
+
+});
 
 /****************************************Update a course by the creator**********************************************/
-router.put('/course/update/:course/:user', function (req,res,next) {
+router.put('/course/update/:course', function (req,res,next) {
+    Course.findOneAndUpdate({_id:req.params.course}, req.body , function (err,course) {
+        if(err) res.status(500).send(err);
+        else res.send("success");
+    })
 
 });
 

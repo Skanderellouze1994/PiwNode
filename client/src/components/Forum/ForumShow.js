@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import axios from 'axios';
-
-class Forum extends Component {
+class ForumShow extends Component {
 
     constructor(props){
         super(props)
-        this.state={forum:[]};
+        this.state={forum:''};
     }
     componentWillMount() {
         axios.get('http://localhost:4000/forum/').then(res=>this.setState({forum:res.data}))
@@ -40,9 +39,9 @@ class Forum extends Component {
                                     <div className="col-md-12 px-md-0">
                                         <div className="card height-100p shadow-v1">
                                             <div className="card-body">
-                                                <Link to={"form/show/"+f._id} className="h4 mb-3">
+                                                <a href="#" className="h4 mb-3">
                                                     {f.subject}
-                                                </Link>
+                                                </a>
                                                 <p className="mb-0">
                                                     {f.description}
                                                 </p>
@@ -80,5 +79,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedHomePage = connect(mapStateToProps)(Forum);
-export { connectedHomePage as Forum };
+const connectedHomePage = connect(mapStateToProps)(ForumShow);
+export { connectedHomePage as ForumShow };
