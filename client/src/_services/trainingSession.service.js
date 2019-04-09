@@ -18,8 +18,8 @@ function addTrainingSession(id , session) {
             return session;
 
         });
-}
-        }).then(console.log(localStorage));
+
+
 }
 
 function getAll() {
