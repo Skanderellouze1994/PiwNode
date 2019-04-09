@@ -17,6 +17,7 @@ import {ForgetPassword} from "./components/ForgetPassword";
 import {ResetPassword} from "./components/ResetPassword";
 import {Forum} from "./components/Forum/Forum";
 import {AddForum} from "./components/Forum/AddForum";
+import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 
 class App extends Component {
     render() {
@@ -27,7 +28,7 @@ class App extends Component {
 
                 <Menu/>
 
-
+                    <Route exact path="/linkedin" component={LinkedInPopUp} />
                     <Route exact path="/login" component={Login}/>
                     <Route exact  path="/forgot" component={ForgetPassword}/>
                     <Route exact  path="/reset" component={ResetPassword}/>

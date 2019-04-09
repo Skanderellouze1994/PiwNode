@@ -15,4 +15,5 @@ var profileSchema = new mongoose.Schema({
     education:[educations],
     position:[positions]
 });
+
  module.exports = mongoose.model('Profile', profileSchema);
