@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import {history} from "../../_helpers";
 
 
 class AddForum extends Component {
@@ -43,13 +44,18 @@ class AddForum extends Component {
         }
 
             axios.post('http://localhost:4000/forum/add/'+this.props.user.user._id,newPost)
-                .then(res => console.log(res.data));
+                .then(
+                    res => {
+                        setTimeout(()=>window.location.reload(),0);
+                        history.push('/forum/show/'+res.data._id);
+                    })
 
 
         this.setState({
             description: '',
             subject: ''
         })
+
     }
 
 

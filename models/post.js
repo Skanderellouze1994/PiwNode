@@ -9,7 +9,9 @@ var postSchema = new mongoose.Schema({
         type: String
     },
     description: {
-        type: String
+        type: String,
+        minLength:20,
+        maxLength:5000
     },
     datePost :{
         type: Date,

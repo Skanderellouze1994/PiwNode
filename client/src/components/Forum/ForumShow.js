@@ -4,16 +4,24 @@ import {Link} from "react-router-dom";
 import axios from 'axios';
 class ForumShow extends Component {
 
-    constructor(props){
-        super(props)
-        this.state={forum:''};
+    constructor(props) {
+        super(props);
+
+        this.state ={
+            post:{}
+        };
     }
-    componentWillMount() {
-        axios.get('http://localhost:4000/forum/').then(res=>this.setState({forum:res.data}))
+
+    componentDidMount(){
+        axios
+            .get(`http://localhost:4000/forum/${this.props.match.params.id}`)
+            .then(response => {
+                this.setState({ post: response.data });
+                console.log(response.data)
+            })
     }
     render() {
-        if(!this.state.forum)
-            return null
+
 
         return (
 
@@ -22,49 +30,43 @@ class ForumShow extends Component {
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
-                                <h2>Forum</h2>
+                                <h2>{this.state.post.subject}</h2>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                <section className="pt-5 paddingBottom-100 bg-light-v2">
+                <section className="pt-5 paddingBottom-150 bg-light-v2">
                     <div className="container">
-                        {this.state.forum.map(f=>
-                        {return(                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="list-card marginTop-40">
+                        <div className="row">
+                            <div className="col-lg-12 mt-4">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h2 className="my-4">
+                                            {this.state.post.subject}
+                                        </h2>
+                                        <p>
+                                            {this.state.post.description}
+                                        </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div className="card shadow-v5 mt-5 padding-40">
+                            <h4>
+                                Leave a Reply
+                            </h4>
 
-                                    <div className="col-md-12 px-md-0">
-                                        <div className="card height-100p shadow-v1">
-                                            <div className="card-body">
-                                                <a href="#" className="h4 mb-3">
-                                                    {f.subject}
-                                                </a>
-                                                <p className="mb-0">
-                                                    {f.description}
-                                                </p>
-                                            </div>
-                                            <div className="card-footer">
-                                                <div className="media">
-                                                    <img className="iconbox" src="assets/img/avatar/4.jpg" alt />
-                                                    <div className="media-body ml-4">
-                                                        <a href="#" className="text-primary">{f.userPost.username}</a> <br />
-                                                        {f.datePost}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> {/* END col-md-8*/}
-                                </div> {/* END list-card*/}
+                            <form action="#" method="POST">
 
-                            </div> {/* END col-lg-9 */}
-
-                        </div> )})}
-
-                    </div> {/* END container*/}
+                                <textarea className="form-control mb-4" rows="5" placeholder="Your text *"></textarea>
+                                <button className="btn btn-primary">Post Comment</button>
+                            </form>
+                        </div>
+                    </div>
                 </section>
+
+
             </div>
         );
     }

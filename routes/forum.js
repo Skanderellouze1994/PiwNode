@@ -57,7 +57,7 @@ router.post('/add', function(req, res, next) {
 
 
 //add a new response to a post
-router.post('/response/add/:id', function(req, res, next) {
+router.post('/response/add/:id/:idU', function(req, res, next) {
     Post.findById(req.params.id,function (err,post) {
         if(err)
             res.send(err)
