@@ -17,11 +17,14 @@ import {ForgetPassword} from "./components/ForgetPassword";
 import {ResetPassword} from "./components/ResetPassword";
 import {Forum} from "./components/Forum/Forum";
 import {AddForum} from "./components/Forum/AddForum";
-import {AddTrainingSession} from "./components/AddTrainingSession";
-import {TrainingSessionList} from "./components/TrainingSessionList";
-import {TrainingSessionDetail} from "./components/TrainingSessionDetail";
+import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
+import {AddTrainingSession} from "./components/TrainingSession/AddTrainingSession";
+import {TrainingSessionList} from "./components/TrainingSession/TrainingSessionList";
+import {TrainingSessionDetail} from "./components/TrainingSession/TrainingSessionDetail";
 import {ForumShow} from "./components/Forum/ForumShow";
 import {CourseDetail} from "./components/CourseDetails";
+import {EditTrainingSession} from "./components/TrainingSession/EditTrainingSession";
+import {EditCourse} from "./components/TrainingSession/EditCourse";
 
 class App extends Component {
     render() {
@@ -32,7 +35,7 @@ class App extends Component {
 
                 <Menu/>
 
-
+                    <Route exact path="/linkedin" component={LinkedInPopUp} />
                     <Route exact path="/login" component={Login}/>
                     <Route exact  path="/forgot" component={ForgetPassword}/>
                     <Route exact  path="/reset" component={ResetPassword}/>
@@ -48,6 +51,8 @@ class App extends Component {
                     <PrivateRoute exact path="/all" component={TrainingSessionList} />
                     <PrivateRoute exact path="/allCourses/:id" component={TrainingSessionDetail} />
                     <PrivateRoute exact path="/course/:id" component={CourseDetail} />
+                    <PrivateRoute exact path="/course/:id/edit" component={EditCourse} />
+                    <PrivateRoute exact path="/allCourses/:id/edit" component={EditTrainingSession} />
 
 
                 <Footer/>

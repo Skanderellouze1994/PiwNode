@@ -100,14 +100,20 @@ function getById(id) {
 
     return fetch(`/users/${id}`, requestOptions).then(handleResponse);
 }
-function loginFacebook() {
+function loginFacebook(id) {
     const requestOptions = {
-        method: 'GET',
-        headers: authHeader(),
-        mode: 'no-cors'
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({id:id})
     };
 
-    return fetch('http://localhost:4000/auth/google', requestOptions).then(handleResponse);
+    return fetch('http://localhost:4000/auth/loginfacebook/', requestOptions).then(handleResponse).then(user => {
+        //console.log(user);
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify(user));
+
+        return user;
+    });
 }
 
 function register(user) {

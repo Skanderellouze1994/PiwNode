@@ -8,31 +8,31 @@ router.post('/', function(req, res, next) {
     var profil = new Profil(req.body);
     profil.save(function (err,prof) {
         if(err)
-            res.send(err)
+            res.send(err);
         else
             res.send(prof)
     })});
 router.get('/',function (req,res) {
     Profil.find(function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else
             res.json(profil)
     })
-})
+});
 
 router.get('/:id',function (req,res) {
     Profil.findById(req.params.id,function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else
             res.json(profil)
     })
-})
+});
 router.delete('/:id',function (req,res) {
     Profil.findByIdAndRemove(req.params.id,function (err,profil) {
         if(err)
@@ -40,7 +40,7 @@ router.delete('/:id',function (req,res) {
         else
             res.send();
     })
-})
+});
 router.put('/:id',function (req,res,next) {
     Profil.findByIdAndUpdate(
         // the id of the item to find
@@ -61,19 +61,19 @@ router.put('/:id',function (req,res,next) {
             return res.send(profil);
         }
     )
-})
+});
 //skills
 router.delete('/:id/skills/:idskills', function(req, res, next) {
     Profil.findById(req.params.id,function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.skills.id(req.params.idskills).remove();
             profil.save(function (err,pro) {
                 if(err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send()
             });
@@ -85,14 +85,14 @@ router.delete('/:id/skills/:idskills', function(req, res, next) {
 router.post('/:id/skills', function(req, res, next) {
     Profil.findById(req.params.id,function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.skills.push(req.body);
             profil.save(function (err,pro) {
                 if(err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send(pro)
             });
@@ -104,15 +104,15 @@ router.post('/:id/skills', function(req, res, next) {
 router.put('/:id/skills/:idskills',function (req,res,next) {
     Profil.findById(req.params.id, function (err, profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.skills.id(req.params.idskills).type=req.body.type;
             profil.skills.id(req.params.idskills).level=req.body.level;
             profil.save(function (err, pro) {
                 if (err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send(pro)
             });
@@ -120,19 +120,19 @@ router.put('/:id/skills/:idskills',function (req,res,next) {
 
         }
     })
-})
+});
 //education
 router.delete('/:id/education/:idedu', function(req, res, next) {
     Profil.findById(req.params.id,function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.education.id(req.params.idedu).remove();
             profil.save(function (err,pro) {
                 if(err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send()
             });
@@ -144,14 +144,14 @@ router.delete('/:id/education/:idedu', function(req, res, next) {
 router.post('/:id/education', function(req, res, next) {
     Profil.findById(req.params.id,function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.education.push(req.body);
             profil.save(function (err,pro) {
                 if(err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send(pro)
             });
@@ -163,9 +163,9 @@ router.post('/:id/education', function(req, res, next) {
 router.put('/:id/skills/:idedu',function (req,res,next) {
     Profil.findById(req.params.id, function (err, profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.education.id(req.params.idedu).titre=req.body.titre;
             profil.education.id(req.params.idedu).degree=req.body.degree;
@@ -174,7 +174,7 @@ router.put('/:id/skills/:idedu',function (req,res,next) {
 
             profil.save(function (err, pro) {
                 if (err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send(pro)
             });
@@ -182,19 +182,19 @@ router.put('/:id/skills/:idedu',function (req,res,next) {
 
         }
     })
-})
+});
 //position
 router.delete('/:id/position/:idpos', function(req, res, next) {
     Profil.findById(req.params.id,function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.position.id(req.params.idpos).remove();
             profil.save(function (err,pro) {
                 if(err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send()
             });
@@ -206,14 +206,14 @@ router.delete('/:id/position/:idpos', function(req, res, next) {
 router.post('/:id/position', function(req, res, next) {
     Profil.findById(req.params.id,function (err,profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.education.push(req.body);
             profil.save(function (err,pro) {
                 if(err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send(pro)
             });
@@ -225,9 +225,9 @@ router.post('/:id/position', function(req, res, next) {
 router.put('/:id/position/:idpos',function (req,res,next) {
     Profil.findById(req.params.id, function (err, profil) {
         if (err)
-            res.send(err)
+            res.send(err);
         if (!profil)
-            res.status(400).send()
+            res.status(400).send();
         else {
             profil.position.id(req.params.idpos).titre=req.body.titre;
             profil.position.id(req.params.idpos).companyName=req.body.companyName;
@@ -237,7 +237,7 @@ router.put('/:id/position/:idpos',function (req,res,next) {
 
             profil.save(function (err, pro) {
                 if (err)
-                    res.send(err)
+                    res.send(err);
                 else
                     res.send(pro)
             });
@@ -245,6 +245,7 @@ router.put('/:id/position/:idpos',function (req,res,next) {
 
         }
     })
-})
+});
+
 
 module.exports = router;

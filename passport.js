@@ -96,10 +96,10 @@ module.exports=function (passport) {
                 }
             )}));
 
-    passport.use(new LinkedInStrategy({
+    passport.use('linkedin-authz',new LinkedInStrategy({
         clientID: '862ekdwlfwuu6j',
         clientSecret: 'Qpd24YBESAt2esEH',
-        callbackURL: "http://127.0.0.1:4000/auth/linkedin/callback",
+        callbackURL: "http://127.0.0.1:3000/linkedin",
         scope: ['r_emailaddress', 'r_basicprofile'],
     }, function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -107,7 +107,7 @@ module.exports=function (passport) {
             console.log(profile)
                 var existe = User.findOne({'linkedin.id':profile.id},function (err,user) {
                     if(user){
-                        return done(null,user)
+                        return done(null,profile)
                     }
                     else
                     {
