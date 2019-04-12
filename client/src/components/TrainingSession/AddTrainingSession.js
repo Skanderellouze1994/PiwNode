@@ -40,11 +40,11 @@ class AddTrainingSession extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const { session } = this.state.session;
+        const { session } = this.state;
         const { dispatch } = this.props;
         if (this.validator.allValid()) {
-            console.log(this.state.session);
-            dispatch(trainingSessionAction.addTrainingSession(this.props.user.user._id , this.state));
+            console.log(session);
+            dispatch(trainingSessionAction.addTrainingSession(this.props.user.user._id , session));
             console.log("after dispatch");
             /*axios
                 .post(`http://localhost:4000/trainingSession/add/${this.props.user.user._id}`,+`/`+session)
@@ -64,8 +64,8 @@ class AddTrainingSession extends Component {
     }
     render() {
         const {session}= this.state;
-        console.log(this.props);
-        console.log(this.state);
+       // console.log(this.props);
+       // console.log(this.state);
         return (
             <section className="padding-y-100 bg-light">
                 <div className="container">

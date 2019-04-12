@@ -182,6 +182,7 @@ router.post('/add/course/:user/:session', function(req, res, next) {
                 cours.description = description;
                 cours.category = category;
                 cours.tutorCreator = req.params.user;
+
                 cours.save(function (err,cours) {
                     if(err){
                         res.status(500).send('database error');
