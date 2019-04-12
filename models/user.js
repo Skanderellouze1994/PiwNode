@@ -21,8 +21,13 @@ var userSchema = new mongoose.Schema({
     birthday:{
         type:Date
     },
-    address:{
-        type:String
+    answers:{
+        type:Number,
+        default:0
+    },
+    validatedAnswers:{
+        type:Number,
+        default:0
     },
     badge:{
         type:String

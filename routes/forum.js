@@ -69,6 +69,11 @@ router.post('/add', function(req, res, next) {
 
 //add a new response to a post
 router.post('/response/add/:id/:idU', function(req, res, next) {
+    User.findById(req.params.idU,function (err,user) {
+        user.answers = user.answers + 1;
+        console.log(user)
+        user.save();
+    });
     Post.findById(req.params.id,function (err,post) {
         if(err)
             res.send(err)
@@ -101,6 +106,10 @@ router.put('/:idP/response/validate/:id', function(req, res, next) {
             res.status(400).send()
         else {
             //console.log(post)
+            User.findById(post.responses.id(req.params.id).userResponse._id , function (err , user) {
+                user.validatedAnswers = user.validatedAnswers +1
+                user.save()
+            })
             post.responses.id(req.params.id).status=true;
             post.save(function (err, doc) {
                 if (err)
