@@ -6,10 +6,20 @@ var User = require('../models/user');
 var Responsee = require('../models/response');
 
 
+router.get('/a', function(req, res, next) {
+     var x=[]
+    var d=[]
+    var d=[]
+    Post.find({}).populate('userPost').exec(function (err,posts) {
 
+        posts.forEach((e)=>x.push(e.responses))
+        x.forEach((e)=>d.push(e.status))
+        res.json(x[0])
+    })
+});
 //get all posts
 router.get('/', function(req, res, next) {
-    Post.find({}).populate('userPost').exec(function (err,posts) {
+    Post.find({}).sort({datePost: 'desc'}).populate('userPost').exec(function (err,posts) {
 
         if(!err){
             res.json(posts);
@@ -22,7 +32,7 @@ router.get('/', function(req, res, next) {
 
 //find one form
 router.get('/:id', function(req, res, next) {
-    Post.findById(req.params.id,function (err,post) {
+    Post.findById(req.params.id).populate('responses.userResponse').exec(function (err,post) {
 
         if(!err){
             res.json(post);
@@ -37,6 +47,7 @@ router.get('/:id', function(req, res, next) {
 router.post('/add/:id', function(req, res, next) {
 
     User.findById(req.params.id,function (err,user) {
+
         console.log(user)
         var p = new Post(req.body);
         p.userPost=user;
@@ -65,7 +76,9 @@ router.post('/response/add/:id/:idU', function(req, res, next) {
             res.status(400).send()
         else {
             //console.log(post)
+
             post.responses.push(req.body)
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa '+req.body.userResponse+' bbbbbbbbbbbbbbbbbbbbbb')
             post.save(function (err, doc) {
                 if (err)
                     res.send(err)
@@ -98,8 +111,6 @@ router.put('/:idP/response/validate/:id', function(req, res, next) {
         }
         //console.log('2');
     });
-
-
 
 });
 

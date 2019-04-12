@@ -8,6 +8,13 @@ var postSchema = new mongoose.Schema({
     subject: {
         type: String
     },
+    status: {
+        type: Boolean,
+        default: false
+    },
+    pic: {
+        type: String
+    },
     description: {
         type: String,
         minLength:20,
