@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import {history} from "../../_helpers";
 
 
 class AddForum extends Component {
@@ -9,9 +10,11 @@ class AddForum extends Component {
         super(props)
         this.onChangePostSubject = this.onChangePostSubject.bind(this);
         this.onChangePostDescription = this.onChangePostDescription.bind(this);
+        this.onChangePostPic = this.onChangePostPic.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
+            pic: '',
             description: '',
             subject: ''
         }
@@ -21,6 +24,11 @@ class AddForum extends Component {
         this.setState({
             description: e.target.value
         });
+    }
+    onChangePostPic(e) {
+        this.setState({
+            pic: e.target.value
+    });
     }
 
     onChangePostSubject(e) {
@@ -35,21 +43,25 @@ class AddForum extends Component {
         console.log(`Form submitted:`);
         console.log(`post Description: ${this.state.description}`);
         console.log(`post subject: ${this.state.subject}`);
+        console.log(`post pic: ${this.state.pic}`);
 
 
         const newPost = {
             description: this.state.description,
-            subject: this.state.subject
+            subject: this.state.subject,
+            pic: this.state.pic
         }
 
             axios.post('http://localhost:4000/forum/add/'+this.props.user.user._id,newPost)
-                .then(res => console.log(res.data));
+                .then(
+                    res => {
+                        setTimeout(()=>window.location.reload(),0);
+                        history.push('/forum/show/'+res.data._id);
+                    })
 
 
-        this.setState({
-            description: '',
-            subject: ''
-        })
+
+
     }
 
 
@@ -90,6 +102,7 @@ class AddForum extends Component {
                             value={this.state.description}
                             onChange={this.onChangePostDescription}/>
                 </div>
+
                 <div className="form-group">
                     <input type="submit" value="Create post" className="btn btn-primary" />
                 </div>

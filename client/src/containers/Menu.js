@@ -50,8 +50,8 @@ class Menu extends Component {
                                     </ul>
                                 </li>
 
-                                <li className="nav-item nav-item__has-dropdown">
-                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Blog </Link>
+                                <li className="nav-item ">
+                                    <Link to="/forum" className="nav-link "> Blog </Link>
                                 </li>
 
                                 <li className="nav-item nav-item__has-dropdown">

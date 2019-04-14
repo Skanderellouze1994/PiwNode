@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import axios from 'axios';
+var dateFormat = require('dateformat');
 
 class Forum extends Component {
 
@@ -10,12 +11,14 @@ class Forum extends Component {
         this.state={forum:[]};
     }
     componentWillMount() {
-        axios.get('http://localhost:4000/forum/').then(res=>this.setState({forum:res.data}))
+        axios.get('http://localhost:4000/forum/').then(res=>this.setState({forum:res.data})
+       )
+
     }
     render() {
         if(!this.state.forum)
             return null
-
+        console.log(this.state.forum)
         return (
 
             <div>
@@ -40,7 +43,7 @@ class Forum extends Component {
                                     <div className="col-md-12 px-md-0">
                                         <div className="card height-100p shadow-v1">
                                             <div className="card-body">
-                                                <Link to={"form/show/"+f._id} className="h4 mb-3">
+                                                <Link to={"/forum/show/"+f._id} className="h4 mb-3">
                                                     {f.subject}
                                                 </Link>
                                                 <p className="mb-0">
@@ -52,8 +55,13 @@ class Forum extends Component {
                                                     <img className="iconbox" src="assets/img/avatar/4.jpg" alt />
                                                     <div className="media-body ml-4">
                                                         <a href="#" className="text-primary">{f.userPost.username}</a> <br />
-                                                        {f.datePost}
+
+                                                        {dateFormat(f.datePost, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+                                                        <p className="float-right">
+                                                            {f.responses.length} responses
+                                                        </p>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>

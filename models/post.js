@@ -8,8 +8,17 @@ var postSchema = new mongoose.Schema({
     subject: {
         type: String
     },
-    description: {
+    status: {
+        type: Boolean,
+        default: false
+    },
+    pic: {
         type: String
+    },
+    description: {
+        type: String,
+        minLength:20,
+        maxLength:5000
     },
     datePost :{
         type: Date,

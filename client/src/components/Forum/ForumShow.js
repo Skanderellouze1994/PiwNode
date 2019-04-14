@@ -2,17 +2,98 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import {history} from "../../_helpers";
+import Swal from "sweetalert2";
+var dateFormat = require('dateformat');
+
+
 class ForumShow extends Component {
 
-    constructor(props){
-        super(props)
-        this.state={forum:''};
+    constructor(props) {
+        super(props);
+        this.onChangeResponseDescription = this.onChangeResponseDescription.bind(this);
+        this.validateResponse = this.validateResponse.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
+
+        this.state ={
+            post:{},
+            resp:[],
+            u:[{}],
+            description: ''
+        };
     }
-    componentWillMount() {
-        axios.get('http://localhost:4000/forum/').then(res=>this.setState({forum:res.data}))
+
+
+
+    componentDidMount(){
+        axios
+            .get(`http://localhost:4000/forum/${this.props.match.params.id}`)
+            .then(response => {
+                this.setState({ post: response.data });
+                this.setState({ resp: response.data.responses });
+                console.log(response.data)
+            })
     }
+
+    onChangeResponseDescription(e) {
+        this.setState({
+            description: e.target.value
+        });
+    }
+
+
+
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        console.log(`Form submitted:`);
+        console.log(`response Description: ${this.state.description}`);
+
+
+
+        const newResponse = {
+            description: this.state.description,
+            userResponse: this.props.user.user
+        }
+
+        axios.post('http://localhost:4000/forum/response/add/'+this.state.post._id+'/'+this.props.user.user._id,newResponse)
+            .then(
+                res => {
+                    setTimeout(()=>window.location.reload(),0);
+
+                })
+
+
+
+
+    }
+
+
+    validateResponse(e,id) {
+        axios.put('http://localhost:4000/forum/'+this.state.post._id+'/response/validate/'+e)
+            .then(
+                res => {
+                    Swal.fire({
+                            title:'Done !',
+                            text:'You validated this response',
+                            type:'success',
+
+                        }
+                    )
+                    Swal.clickConfirm(setTimeout(window.location.reload(),4000))
+                })
+
+
+    }
+
+
+
     render() {
-        if(!this.state.forum)
+
+
+        if(!this.state.post)
             return null
 
         return (
@@ -22,52 +103,101 @@ class ForumShow extends Component {
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
-                                <h2>Forum</h2>
+                                <h2>{this.state.post.subject}</h2>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                <section className="pt-5 paddingBottom-100 bg-light-v2">
+                <section className="pt-5 paddingBottom-150 bg-light-v2">
                     <div className="container">
-                        {this.state.forum.map(f=>
-                        {return(                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="list-card marginTop-40">
+                        <div className="row">
+                            <div className="col-lg-12 mt-4">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h2 className="my-4">
+                                            {this.state.post.subject}
+                                        </h2>
+                                        <p>
+                                            {this.state.post.description}
 
-                                    <div className="col-md-12 px-md-0">
-                                        <div className="card height-100p shadow-v1">
-                                            <div className="card-body">
-                                                <a href="#" className="h4 mb-3">
-                                                    {f.subject}
-                                                </a>
-                                                <p className="mb-0">
-                                                    {f.description}
-                                                </p>
-                                            </div>
-                                            <div className="card-footer">
-                                                <div className="media">
-                                                    <img className="iconbox" src="assets/img/avatar/4.jpg" alt />
-                                                    <div className="media-body ml-4">
-                                                        <a href="#" className="text-primary">{f.userPost.username}</a> <br />
-                                                        {f.datePost}
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                                        </p>
+                                        <div className="card shadow-v5 mt-5 padding-40">
+                                        {this.state.resp.map(f=>
+                                        {return(
+
+                                                <ol className="list-unstyled comments-area">
+                                                    <li>
+
+                                                        <div className="media mb-5">
+                                                            <img className="iconbox iconbox-lg mr-3" src="assets/img/avatar/5.jpg" alt=""/>
+                                                            <div className="media-body">
+
+                                                                {this.props.user.user.role == 'tutor' && f.status==false  ? <a onClick={(e) => this.validateResponse(f._id, e)}
+                                                                   className="float-right btn btn-outline-primary btn-pill btn-sm">
+                                                                    <i className="ti-check"></i> VALIDATE
+                                                                </a> : <p></p>}
+                                                                {this.props.user.user.role == 'tutor' && f.status==true  ? <p
+                                                                                                                               className="float-right btn btn-outline-primary btn-pill btn-sm">
+                                                                    <i className="ti-check"></i> VALIDATED
+                                                                </p> : <p></p>}
+                                                                {this.props.user.user.role == 'Student' && f.status==true  ? <p
+                                                                                                            className="float-right btn btn-outline-primary btn-pill btn-sm">
+                                                                    <i className="ti-check"></i> VALIDATED
+                                                                </p> : <p></p>}
+
+
+                                                                <h4 className="h5 mb-0">
+                                                                    {f.userResponse.username}
+                                                                </h4>
+                                                                <p className="text-gray">
+                                                                    {dateFormat(f.dateResponse, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+                                                                </p>
+                                                                <p>
+                                                                    {f.description}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+
+                                            )})}
                                         </div>
-                                    </div> {/* END col-md-8*/}
-                                </div> {/* END list-card*/}
+                                        </div>
+                                </div>
+                            </div>
 
-                            </div> {/* END col-lg-9 */}
 
-                        </div> )})}
 
-                    </div> {/* END container*/}
+                        </div>
+                        <div className="card shadow-v5 mt-5 padding-40">
+                            <h4>
+                                Leave a Reply
+                            </h4>
+
+                            <form onSubmit={this.onSubmit}>
+
+                                <textarea className="form-control mb-4"
+                                          rows="5" placeholder="Your text *"
+                                          type="text"
+                                          className="form-control"
+                                          value={this.state.description}
+                                          onChange={this.onChangeResponseDescription}
+                                />
+                                <input type="submit" value="Post Comment" className="btn btn-primary" />
+
+                            </form>
+                        </div>
+                    </div>
                 </section>
+
+
             </div>
         );
     }
+
+
 }
 
 function mapStateToProps(state) {
