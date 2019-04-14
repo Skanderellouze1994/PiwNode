@@ -3,6 +3,10 @@ import { Link} from "react-router-dom";
 import {userActions} from "../_actions/user.actions";
 import {connect} from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
+import FacebookLogin from 'react-facebook-login';
+
+
+
 
 class Login extends Component {
     constructor(props) {
@@ -29,6 +33,11 @@ class Login extends Component {
         const { dispatch } = this.props;
         dispatch(userActions.loginCam())
 
+    }
+    responseFacebook = (response) => {
+        const { dispatch } = this.props;
+        dispatch(userActions.loginFacebook(response.id))
+        //console.log(response);
     }
     handleChange(e) {
         const { name, value } = e.target;
@@ -71,10 +80,15 @@ class Login extends Component {
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col my-2">
-                                            <button className="btn btn-block btn-facebook">
-                                                <i className="ti-facebook mr-1"/>
-                                                <span>Facebook Sign in</span>
-                                            </button>
+                                            <FacebookLogin
+                                                appId="426024058143152"
+                                                autoLoad={false}
+                                                fields="name,email,picture,birthday"
+                                                callback={this.responseFacebook}
+                                                cssClass="btn btn-block btn-facebook"
+                                                icon="fa-facebook"
+                                            />
+
                                         </div>
                                         <div className="col my-2">
                                             <button className="btn btn-block btn-google-plus">

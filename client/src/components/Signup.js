@@ -1,48 +1,57 @@
 import React, {Component} from 'react';
-import {userActions} from "../_actions";
-import { connect } from 'react-redux';
+import {alertActions, userActions} from "../_actions";
+import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import SimpleReactValidator from 'simple-react-validator';
-import FacebookLogin from 'react-facebook-login';
+import {LinkedIn} from 'react-linkedin-login-oauth2';
+import FacebookLogin from "react-facebook-login";
+
+const axios = require('axios');
+
 
 class Signup extends Component {
     constructor(props) {
         super(props);
         this.validator = new SimpleReactValidator(
-            {element: message => <div className="alert text-danger bg-danger-0_1 px-4 py-3" role="alert">
+            {
+                element: message => <div className="alert text-danger bg-danger-0_1 px-4 py-3" role="alert">
                     {message}
-                </div>}
+                </div>
+            }
         );
         this.state = {
             user: {
 
                 username: '',
-                email:'',
+                email: '',
                 password: '',
-                role:'',
-                name:'',
-                address:'',
-                birthday:'',
-                profile_photo:'',
-                size:''
+                role: '',
+                name: '',
+                address: '',
+                birthday: '',
+                profile_photo: '',
+                size: '',
+                tel: '',
+                facebook: {id: ''}
 
             },
             submitted: false,
-            selectedFile:null,
-            accepted:false,
+            selectedFile: null,
+            accepted: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleChangee = this.handleChangee.bind(this);
         this.huandleLoginFacebook = this.huandleLoginFacebook.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.responseFacebook = this.responseFacebook.bind(this);
 
     }
 
     handleChange(event) {
-        const { name, value } = event.target;
-        const { user } = this.state;
-        console.log(value);
+        const {name, value} = event.target;
+        const {user} = this.state;
+        console.log(user);
         this.setState({
             user: {
                 ...user,
@@ -56,37 +65,70 @@ class Signup extends Component {
     handleChangee(event) {
         const {accepted} = this.state;
         this.setState({
-            accepted:!accepted
+            accepted: !accepted
         })
 
     }
-    huandleLoginFacebook(event){
+
+    huandleLoginFacebook(event) {
         console.log("dkhal");
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
         dispatch(userActions.loginFacebook())
     }
+
+    handleSuccess = (data) => {
+
+        console.log(data)
+    }
+
+    handleFailure = (error) => {
+        console.log(error)
+    }
+
     handleSubmit(event) {
         event.preventDefault();
 
-        this.setState({ submitted: true });
-        const { user } = this.state;
-        const { dispatch } = this.props;
+        this.setState({submitted: true});
+        const {user} = this.state;
+        const {dispatch} = this.props;
         if (this.validator.allValid()) {
 
             dispatch(userActions.register(user));
 
-        }else {
+        } else {
             this.validator.showMessages();
             // rerender to show messages for the first time
             this.forceUpdate();
         }
     }
+
     responseFacebook(response) {
-        console.log(response);
+
+        console.log(response)
+        const {user} = this.state;
+        const { dispatch } = this.props;
+
+        dispatch(userActions.loginFacebook(response.id))
+        setTimeout(()=>dispatch(alertActions.clear()),1000)
+        try {
+            this.setState({
+                user: {
+                    ...user,
+                    profile_photo: response.picture.data.url,
+                    facebook: {id: response.id},
+                    email: response.email,
+                    name: response.name
+                }
+            })
+        }catch (e) {
+            
+        }
+
     }
+
     render() {
         const {alert} = this.props;
-        const { user } = this.state;
+        const {user} = this.state;
         return (
             <section className="padding-y-100 bg-light">
                 <div className="container">
@@ -98,20 +140,20 @@ class Signup extends Component {
                                         Sign Up and Start Learning!
                                     </h4>
                                 </div>
-                                <FacebookLogin
-                                    appId="426024058143152"
-                                    autoLoad={true}
-                                    fields="name,email,picture"
-                                        scope="public_profile,user_friends"
-                                    callback={this.responseFacebook}
-                                />
+
+
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col my-2">
-                                            <button className="btn btn-block btn-facebook" onClick={this.huandleLoginFacebook}>
-                                                <i className="ti-facebook mr-1"/>
-                                                <span>Facebook Sign in</span>
-                                            </button>
+                                            <FacebookLogin
+                                                appId="426024058143152"
+                                                autoLoad={false}
+                                                fields="name,email,picture,birthday"
+                                                callback={this.responseFacebook}
+                                                cssClass="btn btn-block btn-facebook"
+                                                icon="fa-facebook"
+                                                textButton="Signup with Facebook"
+                                            />
                                         </div>
                                         <div className="col my-2">
                                             <button className="btn btn-block btn-google-plus">
@@ -134,7 +176,7 @@ class Signup extends Component {
                                                 <span className="input-group-text bg-white ti-user"/>
                                             </div>
                                             <input type="text" className="form-control border-left-0 pl-0" name="name"
-                                                   placeholder="Name"  value={user.name} onChange={this.handleChange}/>
+                                                   placeholder="Name" value={user.name} onChange={this.handleChange}/>
                                         </div>
                                         {this.validator.message('name', user.name, 'required')}
 
@@ -144,16 +186,20 @@ class Signup extends Component {
                                                 <span className="input-group-text bg-white ti-location-arrow"/>
                                             </div>
 
-                                            <input type="text" className="form-control border-left-0 pl-0" name="address"
-                                                   placeholder="Address"  value={user.address} onChange={this.handleChange}/>
+                                            <input type="text" className="form-control border-left-0 pl-0"
+                                                   name="address"
+                                                   placeholder="Address" value={user.address}
+                                                   onChange={this.handleChange}/>
                                         </div>
                                         {this.validator.message('address', user.address, 'required|min:10')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-time"/>
                                             </div>
-                                            <input type="date" className="form-control border-left-0 pl-0" name="birthday"
-                                                   placeholder="birthday"  value={user.birthday} onChange={this.handleChange}/>
+                                            <input type="date" className="form-control border-left-0 pl-0"
+                                                   name="birthday"
+                                                   placeholder="birthday" value={user.birthday}
+                                                   onChange={this.handleChange}/>
                                         </div>
                                         {this.validator.message('birthday', user.birthday, 'required')}
 
@@ -161,8 +207,10 @@ class Signup extends Component {
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-user"/>
                                             </div>
-                                            <input type="text" className="form-control border-left-0 pl-0" name="username"
-                                                   placeholder="Username"  value={user.username} onChange={this.handleChange}/>
+                                            <input type="text" className="form-control border-left-0 pl-0"
+                                                   name="username"
+                                                   placeholder="Username" value={user.username}
+                                                   onChange={this.handleChange}/>
                                         </div>
                                         {this.validator.message('username', user.username, 'required')}
 
@@ -171,23 +219,33 @@ class Signup extends Component {
                                                 <span className="input-group-text bg-white ti-email"/>
                                             </div>
                                             <input type="email" className="form-control border-left-0 pl-0" name="email"
-                                                   placeholder="Email"  value={user.email} onChange={this.handleChange}/>
+                                                   placeholder="Email" value={user.email} onChange={this.handleChange}/>
                                         </div>
                                         {this.validator.message('email', user.email, 'required|email')}
-
+                                        <div className="input-group input-group--focus mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text bg-white ti-email"/>
+                                            </div>
+                                            <input type="tel" className="form-control border-left-0 pl-0" name="tel"
+                                                   placeholder="Tel" value={user.tel} onChange={this.handleChange}/>
+                                        </div>
+                                        {this.validator.message('tel', user.tel, 'required|phone')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text bg-white ti-lock"/>
                                             </div>
-                                            <input type="password" className="form-control border-left-0 pl-0" name="password"
-                                                   placeholder="Password"  value={user.password} onChange={this.handleChange}/>
+                                            <input type="password" className="form-control border-left-0 pl-0"
+                                                   name="password"
+                                                   placeholder="Password" value={user.password}
+                                                   onChange={this.handleChange}/>
                                         </div>
                                         {this.validator.message('password', user.password, 'required|min:8')}
 
                                         <label className="ec-radio radio-thin radio-sm mb-3 mr-4">
-                                            <input type="radio" name="role" value="Student" onChange={this.handleChange}/>
-                                                <span className="ec-radio__control"/>
-                                                <span className="ec-radio__label">Student</span>
+                                            <input type="radio" name="role" value="Student"
+                                                   onChange={this.handleChange}/>
+                                            <span className="ec-radio__control"/>
+                                            <span className="ec-radio__label">Student</span>
                                         </label>
                                         <label className="ec-radio radio-thin radio-sm mb-3 mr-4">
                                             <input type="radio" name="role" value="Tutor" onChange={this.handleChange}/>
@@ -199,17 +257,19 @@ class Signup extends Component {
 
                                         <div className="my-4">
                                             <label className="ec-checkbox check-sm my-2 clearfix">
-                                                <input type="checkbox" name="accepted"   onChange={this.handleChangee} />
+                                                <input type="checkbox" name="accepted" onChange={this.handleChangee}/>
                                                 <span className="ec-checkbox__control mt-1"/>
                                                 <span className="ec-checkbox__lebel">
                                                         By signing up, you agree to our
-                                                         <Link  className="text-primary"> Terms of Use </Link>
+                                                         <Link className="text-primary"> Terms of Use </Link>
                                                             and
-                                                         <Link  className="text-primary"> Privacy Policy. </Link>
+                                                         <Link className="text-primary"> Privacy Policy. </Link>
                                                  </span>
                                             </label>
                                         </div>
-                                        <button className="btn btn-block btn-primary" disabled={!this.state.accepted}>Register Now</button>
+                                        <button className="btn btn-block btn-primary"
+                                                disabled={!this.state.accepted}>Register Now
+                                        </button>
                                         <p className="my-5 text-center">
                                             Already have an account? <Link className="text-primary">Login</Link>
                                         </p>
@@ -223,8 +283,9 @@ class Signup extends Component {
         )
     }
 }
+
 function mapStateToProps(state) {
-    const { registering } = state.registration;
+    const {registering} = state.registration;
     const {alert} = state;
     return {
         registering,
@@ -233,4 +294,4 @@ function mapStateToProps(state) {
 }
 
 const connectedRegisterPage = connect(mapStateToProps)(Signup);
-export { connectedRegisterPage as Signup };
+export {connectedRegisterPage as Signup};

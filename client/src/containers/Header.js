@@ -21,7 +21,8 @@ console.log('aaaaa');
        try {
 
 
-           this.setState({username: this.props.user.user.username})
+           this.setState({username: this.props.user.user.username,})
+           this.setState({profile_photo: this.props.user.user.profile_photo,})
        }
        catch (e) {
            this.setState({username:""})
@@ -89,7 +90,10 @@ this.state={username:""};
                                     <div className="dropdown" style={{zIndex : 9999}}>
                                         <Link to="/" className="dropdown-toggle" data-toggle="dropdown">
                                             <span><b>{this.state.username}</b></span>
-                                            <img className="iconbox iconbox-sm mx-1" src="assets/img/avatar/4.jpg" alt="aaa"  />
+                                            <img className="iconbox iconbox-sm mx-1"
+                                                 src={this.state.profile_photo ? this.state.profile_photo : "assets/img/person.png"}
+
+                                                 alt="aaa"  />
                                         </Link>
                                         <div className="dropdown-menu">
                                             <Link to="/profil" className="dropdown-item">

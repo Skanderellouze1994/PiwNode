@@ -15,8 +15,19 @@ var userSchema = new mongoose.Schema({
     name:{
         type:String
     },
+    tel:{
+        type:String
+    },
     birthday:{
         type:Date
+    },
+    answers:{
+        type:Number,
+        default:0
+    },
+    validatedAnswers:{
+        type:Number,
+        default:0
     },
     badge:{
         type:String
@@ -106,5 +117,10 @@ userSchema.methods.validPassword = function( pwd ) {
     // EXAMPLE CODE!
     return ( this.password === pwd );
 };
+var autoPopulateLead = function(next) {
+    this.populate('profile');
+    next();
 
+};
+//userSchema.pre('find',autoPopulateLead).pre('findOne',autoPopulateLead);
 module.exports = mongoose.model('User', userSchema);

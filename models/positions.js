@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 var positionsSchema = new mongoose.Schema({
 
-    titre: {
+    title: {
         type: String
     },
     companyName: {
@@ -15,6 +15,7 @@ var positionsSchema = new mongoose.Schema({
     },date2: {
         type: String
     },
+
 
 });
 module.exports = positionsSchema;

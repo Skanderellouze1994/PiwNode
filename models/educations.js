@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 var educationSchema = new mongoose.Schema({
 
-    titre: {
+    title: {
         type: String
     },
     degree: {
@@ -10,6 +10,9 @@ var educationSchema = new mongoose.Schema({
     },date1: {
         type: String
     },date2: {
+        type: String
+    },
+    description: {
         type: String
     },
 

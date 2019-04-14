@@ -11,12 +11,17 @@ function addTrainingSession(id , session) {
         body: JSON.stringify({ session })
     };
 
+
     return fetch(`http://localhost:4000/trainingSession/add/${id}`, requestOptions)
         .then(handleResponse)
         .then(session => {
+            console.log(session);
            localStorage.setItem('session', JSON.stringify(session));
             return session;
-        }).then(console.log(localStorage));
+
+        });
+
+
 }
 
 function getAll() {

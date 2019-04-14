@@ -52,6 +52,7 @@ router.get('/detail/:id', (req, res, next) => {
                         res.json('No chat msgs here'+err);
                     }
                     else {
+
                         res.json(result);
                     }
                 });

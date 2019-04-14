@@ -12,8 +12,34 @@ export const userActions = {
     logout,
     register,
     getAll,
-    delete: _delete
+    delete: _delete,
+    updateProfile
 };
+function updateProfile(user) {
+
+    return dispatch => {
+        dispatch(request({user} ));
+console.log(user)
+        userService.update(user)
+            .then(
+                user => {
+                    dispatch(success(user));
+                    setTimeout(()=>window.location.reload(),0);
+                    history.push('/profil');
+                },
+                error => {
+                    dispatch(failure("error.toString()"));
+                    dispatch(alertActions.error("Username and password invalid"));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+
+
+}
 function loginCam() {
     return dispatch => {
         dispatch(request({username: "aaa"}));
@@ -41,7 +67,7 @@ function login(username, password) {
 
         userService.login(username, password)
             .then(
-                user => { 
+                user => {
                     dispatch(success(user));
                  setTimeout(()=>window.location.reload(),0);
                     history.push('/profil');
@@ -104,19 +130,24 @@ function getNewPassword(password , confirmpassword, token) {
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
-function loginFacebook () {
+function loginFacebook (id) {
     return dispatch => {
         dispatch(request({ username:"aaa" }));
 
-        userService.loginFacebook()
+        userService.loginFacebook(id)
             .then(
                 user => {
-                    dispatch(success(user));
-                    history.push('/profil');
+                    dispatch(alertActions.clear())
+                    dispatch(success(user))
+                    //console.log(user)
+                    setTimeout(()=>window.location.reload(),0);
+                    history.push('/profil')
                 },
                 error => {
-                    dispatch(failure("Username and password invalid"));
-                    dispatch(alertActions.password(error));
+                    dispatch(failure("error.toString()"));
+                    dispatch(alertActions.error("No account exist"));
+                    history.push('/signup')
+                    //dispatch(alertActions.password(error));
                 }
             );
     };
@@ -137,7 +168,7 @@ function register(user) {
 
         userService.register(user)
             .then(
-                user => { 
+                user => {
                     dispatch(success());
                     history.push('/login');
                     dispatch(alertActions.success('Registration successful'));

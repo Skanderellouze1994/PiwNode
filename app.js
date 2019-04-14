@@ -16,6 +16,7 @@ var quizRouter = require('./routes/quiz');
 var ressourceRouter = require('./routes/ressources');
 var trainingRouter = require('./routes/trainingSession');
 var auth = require('./routes/auth')(passport);
+var cron = require('./routes/cronTask')
 require('./passport')(passport);
 var cors = require('cors');
 const fileUpload = require('express-fileupload');
