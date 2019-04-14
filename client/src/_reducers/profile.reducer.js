@@ -1,6 +1,16 @@
 import {profileConstants} from "../_constants/profile.constants";
 
-export function profile(state = {}, action) {
+const iState = {
+    loaded: false,
+    profile: {
+        position: [],
+        education: [],
+        skills: [],
+
+    }
+}
+
+export function profile(state = iState, action) {
     switch (action.type) {
         case profileConstants.GETPROFILE_REQUEST:
             return {
@@ -8,6 +18,29 @@ export function profile(state = {}, action) {
             };
         case profileConstants.GETPROFILE_SUCCESS:
             return {
+                profile: action.profile,
+                loaded: true
+            };
+        case profileConstants.ADD_POSITION:
+            return {
+                profile: action.position,
+                loaded: true
+            };
+        case profileConstants.DELETE_POSITION:
+            return {
+                profile: action.position,
+                loaded: true
+
+
+            };
+        case profileConstants.UPDATE_POSITION:
+            return {
+                profile: action.position,
+                loaded: true
+            };
+        case profileConstants.UPDATE_PROFILE:
+            return {
+                loaded: true,
                 profile: action.profile
             };
         default:

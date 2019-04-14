@@ -133,7 +133,13 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`http://localhost:4000/auth/user/${user._id}`, requestOptions).then(handleResponse).then(user => {
+        console.log(user);
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify({user:user}));
+
+        return user;
+    });;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

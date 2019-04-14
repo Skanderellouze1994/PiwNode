@@ -2,21 +2,30 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {Route, Switch} from "react-router";
-import updateProfile from "./updateProfile";
-import { BrowserRouter as Router } from 'react-router-dom'
-function tabs() {
-    return(<updateProfile/>)
-}
+import {BrowserRouter as Router} from 'react-router-dom'
+import {Tab, TabList, TabPanel, Tabs} from "react-context-tabs";
+import {UpdateProfile} from "./updateProfile";
+import {About} from "./about";
+import {profileAction} from "../../_actions/profile.actions";
+
 
 class Profil extends Component {
     constructor(props) {
         super(props)
+        this.state={
+            profile:this.props.profile.profile
+        }
     }
 
     componentWillMount() {
         const {dispatch} = this.props;
+        const {profile} = this.props;
         const {user} = this.props;
-       // dispatch(profileAction.getProfile(user.user.profile))
+        console.log(profile.loaded)
+
+if(!profile.loaded) {
+    dispatch(profileAction.getProfile(user.user.profile))
+}
     }
 
 
@@ -44,7 +53,8 @@ class Profil extends Component {
                             <div className="col-lg-4 mt-4">
                                 <div className="card shadow-v1">
                                     <div className="card-header text-center border-bottom pt-5 mb-4">
-                                        <img alt="aaa" className="rounded-circle mb-4" src={user.user.profile_photo?user.user.profile_photo:"assets/img/person.png"}
+                                        <img alt="aaa" className="rounded-circle mb-4"
+                                             src={user.user.profile_photo ? user.user.profile_photo : "assets/img/person.png"}
                                              width={200} height={200}/>
                                         <h4>
                                             {user.user.name}
@@ -79,11 +89,13 @@ class Profil extends Component {
                                             </li>
                                             <li className="mb-3">
                                                 <span className="d-block">Phone:</span>
-                                                <Link to="/" className="h6" href="mailto:saifullah@gmail.com">{user.user.tel}</Link>
+                                                <Link to="/" className="h6"
+                                                      href="mailto:saifullah@gmail.com">{user.user.tel}</Link>
                                             </li>
                                             <li className="mb-3">
                                                 <span className="d-block">Location:</span>
-                                                <Link to="/" className="h6" href="mailto:saifullah@gmail.com">{user.user.address}</Link>
+                                                <Link to="/" className="h6"
+                                                      href="mailto:saifullah@gmail.com">{user.user.address}</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -119,43 +131,60 @@ class Profil extends Component {
                             {/* END col-md-4 */}
                             <div className="col-lg-8 mt-4">
                                 <div className="card shadow-v1 padding-30">
-                                    <ul className="nav tab-line tab-line border-bottom mb-4" role="tablist">
-                                        <li className="nav-item">
-                                            <Link to="/" className="nav-link active" data-toggle="tab" href="#Tabs_1-1"
-                                                  role="tab" aria-selected="true">
-                                                About
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/" className="nav-link" data-toggle="tab" href="#Tabs_1-2"
-                                                  role="tab" aria-selected="true">
-                                                Courses
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/" className="nav-link" data-toggle="tab" href="#Tabs_1-3"
-                                                  role="tab" aria-selected="true">
-                                                Reviews
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/" className="nav-link" data-toggle="tab" href="#Tabs_1-4"
-                                                  role="tab" aria-selected="true">
-                                                Message
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/update" className="nav-link" data-toggle="tab" role="tab"
-                                                  aria-selected="true">
-                                                Settings
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                    <div className="tab-content">
-                                        <p>aaa</p>
-                                        {/* END tab-pane */}
-                                    </div>
-                                    {/* END tab-content*/}
+                                    <Tabs defaultTabId="about">
+                                        <TabList>
+                                            <ul className="nav tab-line tab-line border-bottom mb-4" role="tablist">
+                                                <li className="nav-item">
+                                                    <Tab tabId="about">
+                                                        <Link to="/" className="nav-link active" data-toggle="tab"
+
+                                                              role="tab" aria-selected="true">
+                                                            About
+                                                        </Link>
+                                                    </Tab>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link to="/" className="nav-link" data-toggle="tab"
+                                                          role="tab" aria-selected="true">
+                                                        Courses
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link to="/" className="nav-link" data-toggle="tab"
+                                                          role="tab" aria-selected="true">
+                                                        Reviews
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link to="/" className="nav-link" data-toggle="tab"
+                                                          role="tab" aria-selected="true">
+                                                        Message
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Tab tabId="settings">
+                                                    <Link to="" className="nav-link" data-toggle="tab" role="tab"
+                                                          aria-selected="true">
+                                                        Settings
+                                                    </Link>
+                                                    </Tab>
+                                                </li>
+                                            </ul>
+                                        </TabList>
+                                        <div className="tab-content">
+                                            <TabPanel tabId="about">
+                                                <About/>
+                                            </TabPanel>
+                                            <TabPanel tabId="settings">
+                                                {this.profile&&
+                                                    <UpdateProfile/>
+                                                }
+                                            </TabPanel>
+
+                                            {/* END tab-pane */}
+                                        </div>
+                                        {/* END tab-content*/}
+                                    </Tabs>
                                 </div>
                                 {/* END card*/}
                             </div>
@@ -173,11 +202,12 @@ class Profil extends Component {
 }
 
 function mapStateToProps(state) {
-    const {users, authentication} = state;
+    const {users, authentication,profile} = state;
     const {user} = authentication;
     return {
         user,
-        users
+        users,
+        profile
     };
 }
 

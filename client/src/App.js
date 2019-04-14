@@ -7,7 +7,7 @@ import {Menu} from './containers/Menu';
 import {Login} from './components/Login';
 import {Signup} from './components/Signup';
 import {Home} from './components/Home';
-import {Profil} from './components/profil';
+import {Profil} from './components/profile/profil';
 import {history} from '../src/_helpers';
 import {Router} from "react-router";
 import {PrivateRoute} from "./_components";

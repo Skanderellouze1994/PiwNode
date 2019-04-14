@@ -6,20 +6,26 @@
   "dependencies": {
     "aws-amplify": "^1.1.22",
     "axios": "^0.18.0",
+    "cloudinary": "^1.14.0",
+    "cloudinary-react": "^1.1.0",
     "form-data": "^2.3.3",
     "react": "^16.8.4",
+    "react-context-tabs": "^2.0.0-alpha4",
     "react-dom": "^16.8.4",
+    "react-dropdown-date": "0.0.17",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.0.2",
     "react-linkedin-login": "^1.0.4",
     "react-linkedin-login-oauth2": "^1.0.6",
     "react-linkedin-sdk": "^1.0.12",
     "react-redux": "^6.0.1",
+    "react-responsive-modal": "^3.6.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8",
     "react-service-worker": "^0.1.1",
-    "simple-react-validator": "^1.0.5"
+    "simple-react-validator": "^1.0.5",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",

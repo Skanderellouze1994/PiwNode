@@ -12,8 +12,34 @@ export const userActions = {
     logout,
     register,
     getAll,
-    delete: _delete
+    delete: _delete,
+    updateProfile
 };
+function updateProfile(user) {
+
+    return dispatch => {
+        dispatch(request({user} ));
+console.log(user)
+        userService.update(user)
+            .then(
+                user => {
+                    dispatch(success(user));
+                    setTimeout(()=>window.location.reload(),0);
+                    history.push('/profil');
+                },
+                error => {
+                    dispatch(failure("error.toString()"));
+                    dispatch(alertActions.error("Username and password invalid"));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+
+
+}
 function loginCam() {
     return dispatch => {
         dispatch(request({username: "aaa"}));
