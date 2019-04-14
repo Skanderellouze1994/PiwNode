@@ -24,6 +24,7 @@ import {ForumShow} from "./components/Forum/ForumShow";
 import {CourseDetail} from "./components/CourseDetails";
 import {EditTrainingSession} from "./components/TrainingSession/EditTrainingSession";
 import {EditCourse} from "./components/TrainingSession/EditCourse";
+import {AddQuiz} from "./components/Quiz/addQuiz";
 
 class App extends Component {
     render() {
@@ -52,6 +53,7 @@ class App extends Component {
                     <PrivateRoute exact path="/course/:id" component={CourseDetail} />
                     <PrivateRoute exact path="/course/:id/edit" component={EditCourse} />
                     <PrivateRoute exact path="/allCourses/:id/edit" component={EditTrainingSession} />
+                    <PrivateRoute  exact  path="/addquiz" component={AddQuiz}/>
 
 
                 <Footer/>

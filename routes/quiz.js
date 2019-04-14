@@ -182,7 +182,7 @@ router.get('/:id/question/:idq/proposition/:idp', function (req, res) {
         else res.send(quizz.questions.id(req.params.idq).propositions.id(req.params.idp))
     });
 });
-/**************************************************RESPONSE********************************************************/
+/*****************************************************RESPONSE*********************************************************/
 /*Add response*/
 router.post('/:id/question/:idq/resp', function (req, res) {
     var id = req.params.id;
