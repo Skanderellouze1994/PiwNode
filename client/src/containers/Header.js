@@ -102,6 +102,13 @@ this.state={username:""};
                                                         My profile
                                                 </span>
                                             </Link>
+                                            {auth.user.user.role ==="tutor" &&
+                                            <Link to="/dashboard" className="dropdown-item">
+                                                <i className="ti-user mr-2" />
+                                                <span className="mr-2">
+                                                        My Dashboard
+                                                </span>
+                                            </Link>}
                                             <div className="dropdown-divider" />
                                             <Link to="/login" className="dropdown-item" >
                                                 <i className="ti-back-left mr-2" />

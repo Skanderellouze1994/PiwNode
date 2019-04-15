@@ -7,45 +7,45 @@ var Ressource = require('../models/ressources');
 /*CREATE QUIZ*/
 router.post('/:idTutor', function (req, res) {
     var idTutor = req.params.idTutor;
-    var quiz = new Quiz(req.body);
-    quiz.tutor=idTutor;
-    quiz.save(function (err, quiz) {
+    var ressource = new Ressource(req.body);
+    ressource.tutor=idTutor;
+    ressource.save(function (err, ressource) {
         if(err)
             res.send(err);
         else
-            res.json(quiz);
+            res.json(ressource);
     })
 });
 /*READ QUIZ*/
 router.get('/', function (req, res) {
-    Quiz.find(function (err, quizz) {
+    Ressource.find(function (err, ressource) {
         if (err)
         {res.send(err)}
-        if (!quizz)
+        if (!ressource)
         {res.status(404).send()}
-        else res.json(quizz)
+        else res.json(ressource)
     });
 });
 /*FIND QUIZ*/
 router.get('/:id', function (req, res) {
     var id = req.params.id;
-    Quiz.findById(id).exec(function (err, quiz) {
+    Ressource.findById(id).exec(function (err, ressource) {
         if (err)
         {res.send(err)}
-        else res.json(quiz)
+        else res.json(ressource)
     });
 });
 /*UPDATE QUIZ*/
 router.put('/:id', function (req, res) {
-    Quiz.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, quiz) => {
+    Ressource.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, ressource) => {
         if (err) return res.status(500).send(err);
-        return res.send(quiz);
+        return res.send(ressource);
     })
 });
 /*DELETE QUIZ*/
 router.delete('/:id', function (req, res) {
     var id = req.params.id;
-    Quiz.findByIdAndDelete(id, function (err, quiz) {
+    Ressource.findByIdAndDelete(id, function (err, ressource) {
         if (err)
         {res.send(err)}
         else res.send()
