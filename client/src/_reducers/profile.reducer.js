@@ -30,8 +30,6 @@ export function profile(state = iState, action) {
             return {
                 profile: action.position,
                 loaded: true
-
-
             };
         case profileConstants.UPDATE_POSITION:
             return {
@@ -42,6 +40,21 @@ export function profile(state = iState, action) {
             return {
                 loaded: true,
                 profile: action.profile
+            };
+        case profileConstants.ADD_EDUCATION:
+            return {
+                profile: action.profile,
+                loaded: true
+            };
+        case profileConstants.DELETE_EDUCATION:
+            return {
+                profile: action.profile,
+                loaded: true
+            };
+        case profileConstants.UPDATE_EDUCATION:
+            return {
+                profile: action.profile,
+                loaded: true
             };
         default:
             return state
