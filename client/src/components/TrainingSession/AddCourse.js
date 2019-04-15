@@ -4,6 +4,7 @@ import connect from "react-redux/es/connect/connect";
 import SimpleReactValidator from "simple-react-validator";
 
 import Swal from 'sweetalert2';
+import DatePicker from "react-datepicker/es";
 
 class AddCourse extends Component {
     constructor(props) {
@@ -102,7 +103,7 @@ class AddCourse extends Component {
                                             <span className="input-group-text bg-white ti-calendar"/>
                                         </div>
                                         <input name="startDate"
-                                               placeholder="Start date 03/27/2018 8:09 PM" type="text"
+                                               placeholder="Start date 2019-01-01 8:09 PM" type="text"
                                                className="form-control datetimepicker-input" id="ec-datetimepicker"
                                                data-toggle="datetimepicker" data-target="#ec-datetimepicker"
                                         value={this.state.course.startDate}

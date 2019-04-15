@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import connect from "react-redux/es/connect/connect";
 import axios from "axios";
 import { Link } from "react-router-dom";
+var dateFormat = require('dateformat');
 
 class TrainingSessionList extends Component{
     /*componentWillMount() {
@@ -101,9 +102,60 @@ class TrainingSessionList extends Component{
                         </form>
                     </div>
                 </section>
-                {this.state.sessions.map(session => (
                 <section className="paddingTop-50 paddingBottom-100 bg-light-v2">
                     <div className="container">
+                        <div className="list-card align-items-center shadow-v2 px-3">
+                            <div className="col-lg-4 py-4">
+                                <img className="w-100" src="assets/img/384x320/1.jpg" alt="true" />
+                            </div>
+                            <div className="col-lg-8 py-4">
+                                <div className="d-md-flex justify-content-between align-items-center">
+                                    <ul className="list-inline mb-md-0">
+                                        <li className="list-inline-item mr-3"></li>
+                                        <li className="list-inline-item mr-3"></li>
+                                        <li className="list-inline-item mr-3"></li>
+                                    </ul>
+                                    <span className="badge badge-danger">Starting soon</span>
+                                </div>
+                                <a href="#" className="h4">
+                                   Upcoming Course
+                                </a>
+                                <ul className="list-inline text-gray mt-3">
+                                    <li className="list-inline-item mr-2">
+                                        <i className="ti-time text-primary mr-1" />
+                                        April 15-04, 2019
+                                    </li>
+                                    <li className="list-inline-item mr-2">
+                                        <i className="ti-location-pin text-primary mr-1" />
+                                        Esprit, TN
+                                    </li>
+                                </ul>
+                                <p>
+                                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius claritas est conctetur adipi sicing eiusmod tempor.
+                                </p>
+                                <ul className="list-inline mt-4" data-countdown="2019/01/01">
+                                    <li className="list-inline-item iconbox iconbox-xxxl border border-light mb-2">
+                                        <h2 className="countdown-days mb-0 text-primary" />
+                                        <span>Days</span>
+                                    </li>
+                                    <li className="list-inline-item iconbox iconbox-xxxl border border-light mb-2">
+                                        <h2 className="countdown-hours mb-0 text-primary" />
+                                        <span>Hours</span>
+                                    </li>
+                                    <li className="list-inline-item iconbox iconbox-xxxl border border-light mb-2">
+                                        <h2 className="countdown-minutes mb-0 text-primary" />
+                                        <span>Minutes</span>
+                                    </li>
+                                    <li className="list-inline-item iconbox iconbox-xxxl border border-light mb-2">
+                                        <h2 className="countdown-seconds mb-0 text-primary" />
+                                        <span>Second</span>
+                                    </li>
+                                </ul>
+                                <button className="btn btn-outline-success shadow-success mr-3 mb-3">
+                                    <Link to="/currentSession">Join now</Link></button>
+                            </div>
+                        </div>
+                        {this.state.sessions.map(session => (
                         <div className="list-card align-items-center shadow-v1 marginTop-30">
                             <div className="col-lg-4 px-lg-4 my-4">
                                 <img className="w-100" src="assets/img/360x220/4.jpg" alt="" />
@@ -115,10 +167,11 @@ class TrainingSessionList extends Component{
                                             {session.name}
                                         </Link>
                                         <ul className="list-inline mt-3">
+                                            {session.tutor !== undefined &&
                                             <li className="list-inline-item mr-2">
                                                 <i className="ti-user mr-2" />
                                                 {session.tutor.username}
-                                            </li>
+                                            </li>}
                                             <li className="list-inline-item mr-2">
                                                 <i className="fas fa-star text-warning" />
                                                 <i className="fas fa-star text-warning" />
@@ -128,7 +181,7 @@ class TrainingSessionList extends Component{
                                             </li>
                                         </ul>
                                     </div>
-                                    <Link to="/all" className="btn btn-opacity-primary iconbox iconbox-sm" data-container="body" data-toggle="tooltip" data-placement="top" data-skin="light" title data-original-title="Add to wishlist">
+                                    <Link to="/all" className="btn btn-opacity-primary iconbox iconbox-sm" data-container="body" data-toggle="tooltip" data-placement="top" data-skin="light" title="true" data-original-title="Add to wishlist">
                                         <i className="ti-heart" />
                                     </Link>
                                 </div>
@@ -138,14 +191,14 @@ class TrainingSessionList extends Component{
                                 <ul className="list-inline mb-0">
                                     <li className="list-inline-item mr-3">
                                         <i className="ti-time small mr-2" />
-                                        {session.startDate}
+                                        {dateFormat(session.startDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
                                     </li>
                                 </ul>
                             </div>
                         </div>
+                        ))}
                     </div>
                 </section>
-                ))}
                 <div className="row">
                     <div className="col-12 marginTop-70">
                         <ul className="pagination pagination-primary justify-content-center">
@@ -189,7 +242,6 @@ function mapStateToProps(state) {
     const { user } = authentication;
 
     return {
-        sessions: state.sessions,
         alert,
         user
     };

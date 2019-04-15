@@ -64,7 +64,7 @@ class AddTrainingSession extends Component {
     }
     render() {
         const {session}= this.state;
-       // console.log(this.props);
+        console.log(this.props);
        // console.log(this.state);
         return (
             <section className="padding-y-100 bg-light">
@@ -135,7 +135,7 @@ class AddTrainingSession extends Component {
     }
 }
 function mapStateToProps(state) {
-    const { session } = state.registration;
+    const { session } = state;
     const {alert} = state;
     const { authentication } = state;
     const { user } = authentication;

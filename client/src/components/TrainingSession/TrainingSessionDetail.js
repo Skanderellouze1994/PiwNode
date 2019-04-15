@@ -18,14 +18,14 @@ class TrainingSessionDetail extends Component {
         axios
             .get(`http://localhost:4000/trainingSession/get/${this.props.match.params.id}`)
             .then(response => {
-                this.setState({ session: response.data});
+                this.setState({session: response.data});
                 this.setState({courses: response.data.courses});
                 //console.log(response.data.courses);
             })
     }
 
     render() {
-        //console.log(this.props.user.user._id)
+        console.log(this.props.user.user._id)
         return (
             <div>
                 <div className="padding-y-60 bg-cover" data-dark-overlay={6}
@@ -74,6 +74,34 @@ class TrainingSessionDetail extends Component {
                                     </Link>
                                     }
                                 </div>
+                                <br/>
+                                <div className="card padding-30 shadow-v3">
+                                    <h4>
+                                        Features Includes:
+                                    </h4>
+                                    <ul className="list-inline mb-0 mt-2">
+                                        <li className="list-inline-item my-2 pr-md-4">
+                                            <i className="ti-headphone small text-primary" />
+                                            <span className="ml-2">246 lectures</span>
+                                        </li>
+                                        <li className="list-inline-item my-2 pr-md-4">
+                                            <i className="ti-time small text-primary" />
+                                            <span className="ml-2">27.5 Hours</span>
+                                        </li>
+                                        <li className="list-inline-item my-2 pr-md-4">
+                                            <i className="ti-user small text-primary" />
+                                            <span className="ml-2">98,250 students entrolled</span>
+                                        </li>
+                                        <li className="list-inline-item my-2 pr-md-4">
+                                            <i className="ti-reload small text-primary" />
+                                            <span className="ml-2">Lifetime access</span>
+                                        </li>
+                                        <li className="list-inline-item my-2 pr-md-4">
+                                            <i className="ti-crown small text-primary" />
+                                            <span className="ml-2">Certificate of Completion</span>
+                                        </li>
+                                    </ul>
+                                </div>
 
                                 <div className="col-12 mt-4">
                                     <ul className="nav tab-line tab-line tab-line--3x border-bottom mb-5"
@@ -91,7 +119,13 @@ class TrainingSessionDetail extends Component {
                                             </a>
                                         </li>
                                         <li className="nav-item">
-                                            { this.state.session.tutor !== undefined &&
+                                            <a className="nav-link" data-toggle="tab" href="#tabCourses" role="tab"
+                                               aria-selected="true">
+                                                Courses' list
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            {this.state.session.tutor !== undefined &&
                                             this.state.session.tutor._id === this.props.user.user._id &&
                                             <a className="nav-link" data-toggle="tab" href="#tabAddCourse" role="tab"
                                                aria-selected="true">
@@ -161,6 +195,43 @@ class TrainingSessionDetail extends Component {
                                             </div>
                                         </div>
                                         {/* END tab-pane */}
+                                        <div className="tab-pane fade" id="tabCourses" role="tabpanel">
+                                            <h4 className="mb-4">
+                                                Courses' list
+                                            </h4>
+                                            <div id="accordionCurriculum">
+                                                <div className="accordion-item list-group mb-3">
+                                                    <div className="list-group-item bg-light">
+                                                        <a className="row" href="#accordionCurriculum_1"
+                                                           data-toggle="collapse" aria-expanded="true">
+                                                            <span className="col-9 col-md-8">
+                                                                <span className="accordion__icon text-primary mr-2">
+                                                                  <i className="ti-plus"/>
+                                                                  <i className="ti-minus"/>
+                                                                </span>
+                                                                <span className="h6 d-inline">Getting Started</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div id="accordionCurriculum_1" className="collapse show" data-parent="#accordionCurriculum">
+                                                        {this.state.courses.map(course => (
+                                                        <div className="list-group-item">
+                                                              <span className="row">
+                                                                  <Link className="col-9 col-md-8" to={"/course/" + course._id} >
+                                                                  <i className="ti-file text-primary small mr-1" />
+                                                                      {course.title}</Link>
+                                                                <span className="col-2 d-none d-md-block text-right">
+                                                                  <Link to={"/course/" + course._id} className="h5"></Link>
+                                                                </span>
+                                                                  {course.period !== null &&
+                                                                <span className="col-3 col-md-2 ml-auto text-right">{course.period} hours</span>}
+                                                              </span>
+                                                        </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <AddCourse id={this.state.session._id}/> {/* END tab-pane*/}
                                     </div>
                                     {/* END tab-content*/}
@@ -169,55 +240,6 @@ class TrainingSessionDetail extends Component {
                             </div>
                         </div>
                     </div>
-                </section>
-                <section className="padding-y-60 bg-light-v2">
-                    <div className="container">
-                        <div className="row">
-                            {this.state.courses.map(course => (
-                                <div className="col-lg-4 col-md-6 marginTop-30">
-                                    <div className="card height-100p text-gray shadow-v1">
-                                        <img className="card-img-top" src="./assets/img/360x220/1.jpg" alt="true"/>
-                                        <div className="card-body">
-                                        <span className="badge position-absolute top-0 bg-success text-white"
-                                              data-offset-top={-13}>
-                                                    Best selling
-                                        </span>
-                                            <Link to={"/course/" + course._id} className="h5">
-                                                {course.title}
-                                            </Link>
-                                            <p className="my-3">
-                                                <i className="ti-user mr-2"/>
-                                                Andrew Mead
-                                            </p>
-                                            <p className="mb-0">
-                                                <i className="fas fa-star text-warning"/>
-                                                <i className="fas fa-star text-warning"/>
-                                                <i className="fas fa-star text-warning"/>
-                                                <i className="fas fa-star text-warning"/>
-                                                <i className="fas fa-star text-warning"/>
-                                                <span className="text-dark">5</span>
-                                                <span>(4578)</span>
-                                            </p>
-                                        </div>
-                                        <div className="card-footer media align-items-center justify-content-between">
-                                            <ul className="list-unstyled mb-0">
-                                                <li className="mb-1">
-                                                    <i className="ti-headphone small mr-2"/>
-                                                    {course.startDate}
-                                                </li>
-                                                <li className="mb-1">
-                                                    <i className="ti-time small mr-2"/>
-                                                    {course.endDate}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        {/* END row*/}
-                    </div>
-                    {/* END container*/}
                 </section>
                 <div className="col-12 marginTop-70">
                     <ul className="pagination pagination-primary justify-content-center">
@@ -242,10 +264,10 @@ class TrainingSessionDetail extends Component {
 }
 
 function mapStateToProps(state) {
-    const { session }= state;
+    const {session} = state;
     const {alert} = state;
-    const { authentication } = state;
-    const { user } = authentication;
+    const {authentication} = state;
+    const {user} = authentication;
     return {
         session,
         alert,
