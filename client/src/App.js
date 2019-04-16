@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom';
 import './App.css';
 import {Header} from './containers/Header';
 import Footer from './containers/Footer';
+import {Chats} from './containers/chats';
 import {Menu} from './containers/Menu';
 import {Login} from './components/Login';
 import {Signup} from './components/Signup';
@@ -33,6 +34,9 @@ class App extends Component {
     render() {
         return (
             <div>
+                <div style={{position: 'relative',zIndex:'2'}}>
+                </div>
+                <div style={{position: 'relative',zIndex:'1'}}>
                 <Router history={history}>
                 <Header />
 
@@ -63,6 +67,7 @@ class App extends Component {
 
                 <Footer/>
                 </Router>
+                </div>
             </div>
         );
     }
