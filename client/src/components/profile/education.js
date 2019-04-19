@@ -5,23 +5,11 @@ import {connect} from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
 import Modal from "react-responsive-modal";
 import costum from "./costum.css";
-import {MonthPicker, YearPicker} from "react-dropdown-date";
+import {YearPicker} from "react-dropdown-date";
 
 const style = {display: 'flex', justifyContent: 'space-between'}
-const month = ["janv.", "févr.", "mars", "avril.", 'mai', "juin", "juil.", "août", "sept.", "oct.", "nov.", ".dec"]
 
-function monthsub(e) {
-    const a = e.date1.substring(e.date1.indexOf('-') + 2, e.date1.length)
-    const b = a.substring(0,a.indexOf(' ')-1)
-    return b
-}
-function splitdate(e) {
-    var tab = e.date1.split(' ')
-    return tab
-
-}
-
-class Experience extends Component {
+class Education extends Component {
     constructor(props) {
         super(props)
         const {e} = this.props
@@ -36,13 +24,11 @@ class Experience extends Component {
         this.state = {
             open: false,
             pos: {
-                _id: e._id,
-                title: e.title,
-                yeardate1: splitdate(e)[1],
-                monthdate1:month.indexOf(splitdate(e)[0]) ,
-                monthdate2:month.indexOf(splitdate(e)[3])===-1?0:month.indexOf(splitdate(e)[3]) ,
-                yeardate2:splitdate(e)[4]===undefined?"2019":splitdate(e)[4],
-                companyName: e.companyName,
+                _id:e._id,
+                title:e.title,
+                date1: e.date1,
+                date2: e.date2,
+                degree: e.degree,
                 description: e.description
             }
 
@@ -60,14 +46,14 @@ class Experience extends Component {
         if (this.validator.allValid()) {
             const position = {
                 _id:pos._id,
-                title: pos.title,
-                companyName: pos.companyName,
-                date1: month[pos.monthdate1]+" "+pos.yeardate1 + " - " + month[pos.monthdate2]+" "+pos.yeardate2 ,
-                date2: (pos.date2 - pos.date1)===0?(pos.yeardate2 - pos.yeardate1 + " ans"):pos.monthdate2 - pos.monthdate1 + " mois",
+                title:pos.title,
+                degree: pos.degree,
+                date1: pos.date1 ,
+                date2: pos.date2 ,
                 description: pos.description
             }
-            console.log(position)
-            dispatch(profileAction.updatePosition(profile.profile._id, position));
+            //console.log(position)
+            dispatch(profileAction.updateEducation(profile.profile._id,position));
             this.setState({open: false})
 
         } else {
@@ -80,8 +66,7 @@ class Experience extends Component {
     handleChange(event) {
         const {name, value} = event.target;
         const {pos} = this.state;
-        //console.log(this.props.e.date1.substr((this.props.e.date1.indexOf(' ') + 2), 4));
-
+        //console.log(user);
         this.setState({
             pos: {
                 ...pos,
@@ -93,7 +78,6 @@ class Experience extends Component {
     }
 
     onOpenModal = () => {
-        console.log(this.state.pos)
         this.setState({open: true});
     };
 
@@ -115,7 +99,7 @@ class Experience extends Component {
             .then((willDelete) => {
                 if (willDelete) {
                     console.log(id)
-                    dispatch(profileAction.deletePosition(id, this.props.e._id))
+                    dispatch(profileAction.deleteEducation(id, this.props.e._id))
                     swal("Poof! Your imaginary file has been deleted!", {
                         icon: "success",
                     });
@@ -133,15 +117,14 @@ class Experience extends Component {
                 <Modal classNames={costum} open={open} onClose={this.onCloseModal} center>
                     <div style={{width: 700}}>
                         <div className="modal-header">
-                            <h5 className="modal-title">Add experience</h5>
+                            <h5 className="modal-title">Add education</h5>
 
                         </div>
                         <form onSubmit={this.handleSubmit} name="form">
                             <div className="modal-body py-4">
                                 <div className="col-12 mx-auto">
                                     <div className="row form-group">
-                                        <label htmlFor="example-text-input" className="col-2 col-form-label text-right">Company
-                                            Name</label>
+                                        <label htmlFor="example-text-input" className="col-2 col-form-label text-right">Title</label>
                                         <div className="col-10">
                                             <input name="title" className="form-control" type="text"
                                                    value={this.state.pos.title} id="example-text-input"
@@ -151,14 +134,13 @@ class Experience extends Component {
                                         </div>
                                     </div>
                                     <div className="row form-group">
-                                        <label htmlFor="example-text-input" className="col-2 col-form-label text-right">Company
-                                            Name</label>
+                                        <label htmlFor="example-text-input" className="col-2 col-form-label text-right">Degree</label>
                                         <div className="col-10">
-                                            <input name="companyName" className="form-control" type="text"
-                                                   value={this.state.pos.companyName} id="example-text-input"
+                                            <input name="degree" className="form-control" type="text"
+                                                   value={this.state.pos.degree} id="example-text-input"
                                                    onChange={this.handleChange}/>
 
-                                            {this.validator.message('companyName', this.state.pos.companyName, 'required')}
+                                            {this.validator.message('degree', this.state.pos.degree, 'required')}
                                         </div>
                                     </div>
 
@@ -180,14 +162,14 @@ class Experience extends Component {
                                                 // default is false
                                                 // default is false
                                                 // mandatory
-                                                value={this.state.pos.yeardate1}
+                                                value={this.state.pos.date1}
                                                 // mandatory
                                                 onChange={(year) => {
                                                     const {pos} = this.state
                                                     this.setState({
                                                         pos: {
                                                             ...pos,
-                                                            yeardate1: year
+                                                            date1: year
 
                                                         }
                                                     });
@@ -198,41 +180,7 @@ class Experience extends Component {
                                                 classes={'form-control'}
                                                 optionClasses={'option classes'}
                                             />
-                                            {this.validator.message('yeardate1', this.state.pos.yeardate1, 'required')}
-                                            <MonthPicker
-                                                defaultValue={'select month'}
-                                                // to get months as numbers
-
-                                                // default is full name
-                                                short
-                                                // default is Titlecase
-
-                                                // mandatory if end={} is given in YearPicker
-                                                endYearGiven
-                                                // mandatory
-                                                year={this.state.pos.monthdate1}
-                                                // default is false
-
-                                                // mandatory
-                                                value={this.state.pos.monthdate1}
-                                                // mandatory
-                                                onChange={(month) => {
-                                                    const {pos} = this.state
-                                                    this.setState({
-                                                        pos:{
-                                                            ...pos,
-                                                            monthdate1: month
-                                                        }
-                                                    } );
-                                                    console.log(month);
-                                                }}
-                                                id={'example-text-input'}
-                                                name={'monthdate1'}
-                                                classes={'form-control'}
-                                                optionClasses={'option classes'}
-                                            />
-                                            {this.validator.message('monthdate1', this.state.pos.monthdate1, 'required')}
-
+                                            {this.validator.message('date1', this.state.pos.date1, 'required')}
                                         </div>
                                     </div>
 
@@ -246,20 +194,20 @@ class Experience extends Component {
                                                 // default is 1900
 
                                                 // default is current year
-                                                start={this.state.pos.yeardate1}
+                                                start={this.state.pos.date1}
                                                 // default is ASCENDING
                                                 reverse
                                                 // default is false
                                                 // default is false
                                                 // mandatory
-                                                value={this.state.pos.yeardate2}
+                                                value={this.state.pos.date2}
                                                 // mandatory
                                                 onChange={(year) => {
                                                     const {pos} = this.state
                                                     this.setState({
                                                         pos: {
                                                             ...pos,
-                                                            yeardate2: year
+                                                            date2: year
 
                                                         }
                                                     });
@@ -270,41 +218,7 @@ class Experience extends Component {
                                                 classes={'form-control'}
                                                 optionClasses={'option classes'}
                                             />
-                                            {this.validator.message('yeardate2', this.state.pos.yeardate2, 'required')}
-                                            <MonthPicker
-                                                defaultValue={'select month'}
-                                                // to get months as numbers
-
-                                                // default is full name
-                                                short
-                                                // default is Titlecase
-
-                                                // mandatory if end={} is given in YearPicker
-                                                endYearGiven
-                                                // mandatory
-
-                                                // default is false
-
-                                                // mandatory
-                                                value={this.state.pos.monthdate2}
-                                                // mandatory
-                                                onChange={(month) => {
-                                                    const {pos} = this.state
-                                                    this.setState({
-                                                        pos:{
-                                                            ...pos,
-                                                            monthdate2: month
-                                                        }
-                                                    } );
-                                                    console.log(month);
-                                                }}
-                                                id={'example-text-input'}
-                                                name={'monthdate1'}
-                                                classes={'form-control'}
-                                                optionClasses={'option classes'}
-                                            />
-                                            {this.validator.message('monthdate2', this.state.pos.monthdate2, 'required')}
-
+                                            {this.validator.message('date2', this.state.pos.date2, 'required')}
                                         </div>
                                     </div>
 
@@ -331,8 +245,8 @@ class Experience extends Component {
                 </Modal>
 
                 <li className="ec-timeline-portlet__item mb-4">
-                    <small>{this.props.e.date1}</small>
-                    <div style={style}><h6 className="mb-0">{this.props.e.companyName}</h6>
+                    <small>{this.props.e.date1} - {this.props.e.date2}</small>
+                    <div style={style}><h6 className="mb-0">{this.props.e.degree}</h6>
                         <div className="btn-group mr-2 mb-3">
                             <button className="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
                                     data-toggle="dropdown" aria-expanded="false">
@@ -354,8 +268,7 @@ class Experience extends Component {
 
                     <p className="mb-2">{this.props.e.title}</p>
 
-                    {this.props.e.description ? <p>{this.props.e.description}</p> :
-                        <button className="btn" onClick={this.onOpenModal}>Please update description</button>}
+                    {this.props.e.description?<p>{this.props.e.description}</p>:<button className="btn" onClick={this.onOpenModal}>Please update description</button>}
 
                 </li>
             </div>
@@ -375,5 +288,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedHomePage = connect(mapStateToProps)(Experience);
-export {connectedHomePage as Experience};
+const connectedHomePage = connect(mapStateToProps)(Education);
+export {connectedHomePage as Education};
