@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import connect from "react-redux/es/connect/connect";
 import {history} from "../../_helpers";
 
-class AddQuiz extends Component {
+class AddQuestion extends Component {
 
     constructor(props) {
         super(props);
@@ -14,8 +14,9 @@ class AddQuiz extends Component {
         this.onChange = this.onChange.bind(this);
 
         this.state = {
-            quiz: {
-                name: ''
+            question: {
+                name: '',
+                rightResponse: ''
             }
         };
         this.validator = new SimpleReactValidator(
@@ -27,10 +28,10 @@ class AddQuiz extends Component {
 
     onChange(e) {
         const { name, value } = e.target;
-        const { quiz } = this.state;
+        const { question } = this.state;
         this.setState({
-            quiz: {
-                ...quiz,
+            question: {
+                ...question,
                 [name]: value
             }
         });
@@ -39,14 +40,11 @@ class AddQuiz extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const {quiz} = this.state;
-
-        axios.post(`http://localhost:4000/quiz/${this.props.user.user._id}`,quiz)
+        const {question} = this.state;
+        axios.post(`http://localhost:4000/quiz/${this.props.match.params.id}/question`,question)
             .then(res => {
-                history.push('/addquestion/'+res.data._id);
+                history.push('/addproposition/'+this.props.match.params.id+'/'+res.data.questions[res.data.questions.length-1]._id);
             });
-
-
 
         this.setState({
         })
@@ -61,7 +59,7 @@ class AddQuiz extends Component {
                             <div className="card shadow-v2">
                                 <div className="card-header border-bottom">
                                     <h4 className="mt-4">
-                                        Add new quiz!
+                                        Add new question!
                                     </h4>
                                 </div>
                                 <div className="card-body">
@@ -73,15 +71,25 @@ class AddQuiz extends Component {
                                     <form name="form" onSubmit={this.onSubmit}>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user" />
+                                                <span className="input-group-text bg-white" />
                                             </div>
                                             <input name="name" type="text" className="form-control border-left-0 pl-0" placeholder="Name"
-                                                   value={this.state.quiz.name}
+                                                   value={this.state.question.name}
                                                    onChange={this.onChange}
                                             />
-                                            {this.validator.message('Name', this.state.quiz.name, 'required')}
+                                            {this.validator.message('Name', this.state.question.name, 'required')}
                                         </div>
-                                        <button type="submit" className="btn btn-block btn-primary">Add quiz</button>
+                                        <div className="input-group input-group--focus mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text bg-white" />
+                                            </div>
+                                            <input name="rightResponse" type="text" className="form-control border-left-0 pl-0" placeholder="Right response"
+                                                   value={this.state.question.rightResponse}
+                                                   onChange={this.onChange}
+                                            />
+                                            {this.validator.message('Name', this.state.question.rightResponse, 'required')}
+                                        </div>
+                                        <button type="submit" className="btn btn-block btn-primary">Add question</button>
                                     </form>
                                 </div>
                             </div>
@@ -97,15 +105,15 @@ function mapStateToProps(state) {
     const {alert} = state;
     const { authentication } = state;
     const { user } = authentication;
-    const { session } = state;
+    const { question } = state;
 
     return {
         alert,
         user,
         authentication,
-        session
+        question
     };
 }
 
-const connectedLoginPage = connect(mapStateToProps)(AddQuiz);
-export { connectedLoginPage as AddQuiz };
+const connectedLoginPage = connect(mapStateToProps)(AddQuestion);
+export { connectedLoginPage as AddQuestion };
