@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Profile = require('../models/profile');
 var nodemailer = require('nodemailer');
 var express = require('express');
 var app = express();
@@ -8,32 +9,46 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var async = require('async');
 var crypto = require('crypto');
+var cloudinary = require('cloudinary');
+var imageDataURI = require('image-data-uri')
+cloudinary.config({
+    cloud_name: 'dg0wqjixi',
+    api_key: '942843566416287',
+    api_secret: 'BpVp37x0nK-6e_CFPD5p1X51qDc'
+});
 
 /* GET home page. */
 
 module.exports = function (passport) {
-    router.post('/upload', function (req, res) {
-        let sampleFile;
-        let uploadPath;
+    router.put('/user/:id', function (req, res) {
+        User.findByIdAndUpdate(
+            // the id of the item to find
+            req.params.id,
 
-        if (Object.keys(req.files).length == 0) {
-            res.status(400).send('No files were uploaded.');
-            return;
-        }
+            // the change to be made. Mongoose will smartly combine your existing
+            // document with this change, which allows for partial updates too
+            req.body,
 
-        console.log('req.files >>>', req.files); // eslint-disable-line
+            // an option that asks mongoose to return the updated version
+            // of the document instead of the pre-updated one.
+            {new: true},
 
-        sampleFile = req.files.sampleFile;
-
-        uploadPath = 'C:\\Users\\asus\\Documents\\GitHub\\PiwNode\\client\\public\\assets\\img\\uploads\\' + sampleFile.name;
-
-        sampleFile.mv(uploadPath, function (err) {
-            if (err) {
-                return res.status(500).send(err);
+            // the callback function
+            (err, user) => {
+                // Handle any possible database errors
+                if (err) return res.status(500).send(err);
+                return res.send(user);
             }
+        )
+    })
+    router.post('/upload', function (req, res) {
+        cloudinary.v2.uploader.upload(imageDataURI.encode(req.files.myImage.data, 'jpg'),
+            function (error, result) {
+                res.send(result.url);
+            });
 
-            res.send('File uploaded to ' + uploadPath);
-        });
+        //console.log(req.files)
+
     });
     router.post('/signup', function (req, res, next) {
         var body = req.body;
@@ -54,6 +69,7 @@ module.exports = function (passport) {
                 if (doc) {
                     res.status(400).send({message: 'username ' + username + ' is already taken'});
                 } else {
+
                     var record = new User();
                     record.username = username;
                     record.password = record.hashPassword(password);
@@ -63,15 +79,24 @@ module.exports = function (passport) {
                     record.birthday = birthday;
                     record.tel = tel;
                     record.address = address;
-                    record.facebook= facebook;
-                    record.profile_photo= profile_photo;
-                    record.save(function (err, user) {
-                        if (err) {
-                            res.status(500).send('db error');
-                        } else {
-                            res.send(user);
-                        }
+                    record.facebook = facebook;
+                    record.profile_photo = profile_photo;
+                    var profile = new Profile({
+                        position: [],
+                        skills:[],
+                        education:[]
                     })
+                    profile.save(function (err, pro) {
+                        record.profile = pro._id
+                        record.save(function (err, user) {
+                            if (err) {
+                                res.status(500).send('db error');
+                            } else {
+                                res.send(user);
+                            }
+                        })
+                    })
+
                 }
             }
         })
@@ -83,13 +108,13 @@ module.exports = function (passport) {
     });
     router.post('/loginfacebook', function (req, res) {
         User.find({}, function (err, users) {
-           // console.log(users)
+            // console.log(users)
             const user = users.filter(u =>
                 u.facebook.id == req.body.id
             )
             console.log()
-            if(user[0])
-            res.send({user:user[0]})
+            if (user[0])
+                res.send({user: user[0]})
             else
                 res.status(500).send({message: "no Account"})
 

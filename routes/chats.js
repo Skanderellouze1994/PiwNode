@@ -67,7 +67,7 @@ router.post('/addMsg/:id', (req, res, next) => {
     const chatId = req.params.id;
     let newMsg = new ChatDetail({
         chatId: chatId,
-        textMessage: req.body.textMessage,
+        data: req.body.data,
         author: req.body.author,
         type:req.body.type
     });
@@ -80,7 +80,7 @@ router.post('/addMsg/:id', (req, res, next) => {
             });
         }
         else {
-             res.json ({success: true, msg: 'Successfully Send a msg'});
+             res.json (chatMsgs);
             io.on('connection', function (socket) {
                 console.log('A New msg send....');
                 socket.on('getMsgBy', function(data) {

@@ -13,6 +13,7 @@ var forumRouter = require('./routes/forum');
 var chatsRouter = require('./routes/chats');
 var profileRouter = require('./routes/profile');
 var quizRouter = require('./routes/quiz');
+var ressourceRouter = require('./routes/ressources');
 var trainingRouter = require('./routes/trainingSession');
 var auth = require('./routes/auth')(passport);
 var cron = require('./routes/cronTask')
@@ -53,6 +54,7 @@ app.use('/trainingSession' , trainingRouter);
 app.use('/profil' , profileRouter);
 app.use('/scrapping' , scrappingRouter);
 app.use('/quiz' , quizRouter);
+app.use('/ressource' , ressourceRouter);
 
 
 
