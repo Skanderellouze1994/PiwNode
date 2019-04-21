@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+var express = require('express');
 
 /**
  * Module dependencies.
@@ -105,6 +106,19 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
+
+app.get('/stream/',function(req,res){
+  res.redirect('index.html');
+});
+
+
+io.on('connection',function(socket){
+
+  socket.on('stream',function(image){
+    socket.broadcast.emit('stream',image);
+  });
+
+});
 
 function onListening() {
   var addr = server.address();
