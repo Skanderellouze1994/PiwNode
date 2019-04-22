@@ -24,7 +24,7 @@ profile={
 
 }
     //console.log(profile);
-    await saveProfileToDataBase(profile);
+   //à await saveProfileToDataBase(profile);
 
 
     const related = await extractRelatedProfiles(profile, profileId)

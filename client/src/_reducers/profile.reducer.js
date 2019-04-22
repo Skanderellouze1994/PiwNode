@@ -61,6 +61,11 @@ export function profile(state = initialState, action) {
                 profile: action.profile,
                 loaded: true
             };
+        case profileConstants.GET_LINKEDIN:
+            return {
+                ...state,
+                linkedin:action.profile
+            };
         case profileConstants.REMOVE_PROFILE:
             return iState;
         default:

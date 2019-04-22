@@ -48,10 +48,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <div style={{position: 'relative',zIndex:'2'}}>
-                    <Chats/>
-                </div>
-                <div style={{position: 'relative',zIndex:'1'}}>
+
+                <div>
                 <Router history={history}>
                 <Header />
                 <Menu/>

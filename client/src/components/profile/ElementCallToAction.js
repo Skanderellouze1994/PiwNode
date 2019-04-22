@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import Modal from 'react-responsive-modal';
 import {ClipLoader} from 'react-spinners';
 import SimpleReactValidator from "simple-react-validator";
-import {userActions} from "../../_actions";
+import {profileAction, userActions} from "../../_actions";
 import axios from 'axios/index';
 
 
@@ -43,6 +43,7 @@ class ElementCallToAction extends Component {
             axios.get('http://127.0.0.1:4000/scrapping/'+user._id).then(res=>{
                 console.log(res)
                 this.setState({open:false})
+                dispatch(profileAction.getLinkedin(res.data))
             })
 
         } else {
