@@ -21,13 +21,13 @@ User.findById(req.params.id,function (err,user) {
     else {
 config.rootProfiles.push(user.linkedin_url)
 config.user=user.id
-        scrap(config)
+        scrap(config).then(profile=>res.send(profile))
     }
 })
    //console.log(req.session);
 //config.user=req.params.id;
 //config.rootProfiles.push(req.params.url)
 //scrap(config)
-res.send("ok");
+//res.send("ok");
 })
 module.exports= router;

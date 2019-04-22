@@ -1,6 +1,8 @@
 import {profileService, trainingSessionService} from "../_services";
 import {alertActions} from "./alert.actions";
 import {profileConstants, userConstants} from "../_constants";
+import { history } from '../_helpers';
+
 
 export const profileAction ={
     getProfile,
@@ -10,9 +12,17 @@ export const profileAction ={
     updatePosition,
     addEducation,
     deleteEducation,
-    updateEducation
+    updateEducation,
+    removeProfile,
+    getLinkedin
 };
+function removeProfile() {
+    return dispatch=>{
+        dispatch(success("aaa"))
+    }
+    function success(profile) { return { type: profileConstants.REMOVE_PROFILE, profile } }
 
+}
 function getProfile(id) {
     return dispatch => {
         profileService.getProfile(id)
@@ -33,6 +43,16 @@ function getProfile(id) {
     function success(profile) { return { type: profileConstants.GETPROFILE_SUCCESS, profile } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
+function getLinkedin(profile) {
+    return dispatch => {
+        dispatch(success(profile))
+        history.push('/scrapping')
+    };
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(profile) { return { type: profileConstants.GET_LINKEDIN, profile } }
+    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
+
 function updateProfile(profile) {
     return dispatch => {
         profileService.updateProfile(profile)
@@ -49,7 +69,6 @@ function updateProfile(profile) {
                 }
             );
     };
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(profile) { return { type: profileConstants.UPDATE_PROFILE, profile } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }

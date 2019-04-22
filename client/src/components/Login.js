@@ -4,6 +4,7 @@ import {userActions} from "../_actions/user.actions";
 import {connect} from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
 import FacebookLogin from 'react-facebook-login';
+import { history } from '../_helpers';
 
 
 
@@ -52,6 +53,7 @@ class Login extends Component {
         const { dispatch } = this.props;
         if (this.validator.allValid()) {
             dispatch(userActions.login(username, password));
+           // history.push('/profil')
 
         }else {
         this.validator.showMessages();

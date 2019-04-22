@@ -23,12 +23,13 @@ profile={
   user:config.user
 
 }
-    console.log(profile);
-    await saveProfileToDataBase(profile);
+    //console.log(profile);
+   //à await saveProfileToDataBase(profile);
 
 
     const related = await extractRelatedProfiles(profile, profileId)
-    return related
+     //await console.log(related)
+    return [related,profile]
   } catch (e) {
     logger.error(`error on crawling profile: ${profileUrl} \n ${e}`)
   }

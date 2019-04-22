@@ -28,8 +28,8 @@ module.exports = function (profile) {
                     user.save(function (err,u) {
                         if(err)
                             console.log(err)
-                        else
-                            console.log(u)
+
+                            //console.log(u)
                     })
                 }
             })
