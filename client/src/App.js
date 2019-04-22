@@ -37,6 +37,7 @@ import {AddQuestion} from "./components/Quiz/addQuestion";
 import {AddProposition} from "./components/Quiz/addProposition";
 import {Dashboard} from "./components/tutor/Dashboard";
 import {CurrentSession} from "./components/TrainingSession/CurrentSession";
+import {StreamLink} from "./components/Streaming/StreamLink";
 
 
 class App extends Component {
@@ -66,6 +67,7 @@ class App extends Component {
                     <PrivateRoute  exact  path="/forum/add" component={AddForum}/>
                     <PrivateRoute  exact  path="/Responses" component={Responses}/>
                     <PrivateRoute  exact  path="/TutorStream" component={TutorStream}/>
+                    <PrivateRoute  exact  path="/streamlink/:id" component={StreamLink}/>
                     <PrivateRoute  exact  path="/TutorWebCam" component={TutorWebCam}/>
                     <PrivateRoute exact path="/addTrainingSession" component={AddTrainingSession} />
                     <PrivateRoute exact path="/all" component={TrainingSessionList} />
