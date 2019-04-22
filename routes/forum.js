@@ -3,18 +3,27 @@ var express = require('express');
 var router = express.Router();
 var Post = require('../models/post');
 var User = require('../models/user');
+var Vote = require('../models/vote');
 var Responsee = require('../models/response');
+var upload = require('express-fileupload');
 
 
-router.get('/a', function(req, res, next) {
-     var x=[]
-    var d=[]
-    var d=[]
-    Post.find({}).populate('userPost').exec(function (err,posts) {
+router.get('/vote', function(req, res, next) {
 
-        posts.forEach((e)=>x.push(e.responses))
-        x.forEach((e)=>d.push(e.status))
-        res.json(x[0])
+    Vote.find().populate('postVote')
+    Vote.find().populate('userVote').exec(function (err,vote) {
+        res.json(vote)
+    })
+
+
+});
+
+router.use(upload())
+router.get('/counter', function(req, res, next) {
+    User.find({answers:{$gte:0}}).sort({validatedAnswers: 'desc'}).exec(function (err,users) {
+
+        res.json(users)
+
     })
 });
 //get all posts
@@ -32,6 +41,7 @@ router.get('/', function(req, res, next) {
 
 //find one form
 router.get('/:id', function(req, res, next) {
+    Post.findById(req.params.id).populate('userPost')
     Post.findById(req.params.id).populate('responses.userResponse').exec(function (err,post) {
 
         if(!err){
@@ -47,7 +57,6 @@ router.get('/:id', function(req, res, next) {
 router.post('/add/:id', function(req, res, next) {
 
     User.findById(req.params.id,function (err,user) {
-
         console.log(user)
         var p = new Post(req.body);
         p.userPost=user;
@@ -58,6 +67,20 @@ router.post('/add/:id', function(req, res, next) {
 
 
 });
+
+
+//vote for a post
+router.post('/vote/:idU/:idP', function(req, res, next) {
+
+    var v = new Vote();
+    v.userVote=req.params.idU
+    v.postVote=req.params.idP
+    v.save()
+    res.json(v)
+
+});
+
+
 
 router.post('/add', function(req, res, next) {
 
@@ -108,6 +131,14 @@ router.put('/:idP/response/validate/:id', function(req, res, next) {
             //console.log(post)
             User.findById(post.responses.id(req.params.id).userResponse._id , function (err , user) {
                 user.validatedAnswers = user.validatedAnswers +1
+                if(user.validatedAnswers>5)
+                    user.badge='malla 5ra'
+                if(user.validatedAnswers>10)
+                    user.badge='kesa7'
+                if(user.validatedAnswers>20)
+                    user.badge='kesa7 el 5ra'
+                if(user.validatedAnswers>50)
+                    user.badge='ti ay ay ay'
                 user.save()
             })
             post.responses.id(req.params.id).status=true;

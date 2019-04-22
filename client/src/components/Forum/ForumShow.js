@@ -123,6 +123,7 @@ class ForumShow extends Component {
 
 
                                         </p>
+
                                         <div className="card shadow-v5 mt-5 padding-40">
                                         {this.state.resp.map(f=>
                                         {return(

@@ -3,9 +3,8 @@ import SimpleReactValidator from "simple-react-validator";
 import axios from "axios";
 import Swal from "sweetalert2";
 import connect from "react-redux/es/connect/connect";
-import {history} from "../../_helpers";
 
-class AddQuiz extends Component {
+class AddProposition extends Component {
 
     constructor(props) {
         super(props);
@@ -14,9 +13,11 @@ class AddQuiz extends Component {
         this.onChange = this.onChange.bind(this);
 
         this.state = {
-            quiz: {
+            proposition: {
                 name: ''
-            }
+            },
+            question: {},
+            propositions: []
         };
         this.validator = new SimpleReactValidator(
             {element: message => <div className="alert text-danger bg-danger-0_1 px-4 py-3" role="alert">
@@ -27,10 +28,10 @@ class AddQuiz extends Component {
 
     onChange(e) {
         const { name, value } = e.target;
-        const { quiz } = this.state;
+        const { proposition } = this.state;
         this.setState({
-            quiz: {
-                ...quiz,
+            proposition: {
+                ...proposition,
                 [name]: value
             }
         });
@@ -39,17 +40,28 @@ class AddQuiz extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const {quiz} = this.state;
+        const {proposition} = this.state;
 
-        axios.post(`http://localhost:4000/quiz/${this.props.user.user._id}`,quiz)
-            .then(res => {
-                history.push('/addquestion/'+res.data._id);
-            });
-
-
+        axios.post(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}`,proposition)
+            .then(res => setTimeout(()=>window.location.reload(),0));
 
         this.setState({
         })
+    }
+
+    componentDidMount(){
+        axios
+            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}`)
+            .then(response => {
+                this.setState({ question: response.data });
+                console.log(response.data)
+            })
+        axios
+            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/propositions`)
+            .then(response => {
+                this.setState({ propositions: response.data });
+                console.log(response.data)
+            })
     }
 
     render() {
@@ -61,7 +73,7 @@ class AddQuiz extends Component {
                             <div className="card shadow-v2">
                                 <div className="card-header border-bottom">
                                     <h4 className="mt-4">
-                                        Add new quiz!
+                                        Add new proposition!
                                     </h4>
                                 </div>
                                 <div className="card-body">
@@ -70,18 +82,32 @@ class AddQuiz extends Component {
                                         {alert.message}
                                     </div>
                                     }
+                                    <h4>question: {this.state.question.name}</h4>
+                                    {this.state.propositions.map(p=>
+                                    {return(
+
+                                        <ol className="list-unstyled comments-area">
+                                            <li>
+                                                <p>
+                                                    {p.name}
+                                                </p>
+
+                                            </li>
+                                        </ol>
+
+                                    )})}
                                     <form name="form" onSubmit={this.onSubmit}>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user" />
+                                                <span className="input-group-text bg-white" />
                                             </div>
                                             <input name="name" type="text" className="form-control border-left-0 pl-0" placeholder="Name"
-                                                   value={this.state.quiz.name}
+                                                   value={this.state.proposition.name}
                                                    onChange={this.onChange}
                                             />
-                                            {this.validator.message('Name', this.state.quiz.name, 'required')}
+                                            {this.validator.message('Name', this.state.proposition.name, 'required')}
                                         </div>
-                                        <button type="submit" className="btn btn-block btn-primary">Add quiz</button>
+                                        <button type="submit" className="btn btn-block btn-primary">Add proposition</button>
                                     </form>
                                 </div>
                             </div>
@@ -97,15 +123,15 @@ function mapStateToProps(state) {
     const {alert} = state;
     const { authentication } = state;
     const { user } = authentication;
-    const { session } = state;
+    const { proposition } = state;
 
     return {
         alert,
         user,
         authentication,
-        session
+        proposition
     };
 }
 
-const connectedLoginPage = connect(mapStateToProps)(AddQuiz);
-export { connectedLoginPage as AddQuiz };
+const connectedLoginPage = connect(mapStateToProps)(AddProposition);
+export { connectedLoginPage as AddProposition };

@@ -17,6 +17,7 @@ var ressourceRouter = require('./routes/ressources');
 var trainingRouter = require('./routes/trainingSession');
 var auth = require('./routes/auth')(passport);
 var cron = require('./routes/cronTask')
+var stream = require('./routes/stream')
 require('./passport')(passport);
 var cors = require('cors');
 const fileUpload = require('express-fileupload');
@@ -54,6 +55,8 @@ app.use('/profil' , profileRouter);
 app.use('/scrapping' , scrappingRouter);
 app.use('/quiz' , quizRouter);
 app.use('/ressource' , ressourceRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

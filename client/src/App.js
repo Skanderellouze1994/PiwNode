@@ -26,12 +26,21 @@ import {ForumShow} from "./components/Forum/ForumShow";
 import {CourseDetail} from "./components/CourseDetails";
 import {EditTrainingSession} from "./components/TrainingSession/EditTrainingSession";
 import {EditCourse} from "./components/TrainingSession/EditCourse";
+
+import {ResponsesPost} from "./components/Forum/ResponsesPost";
+import {Responses} from "./components/Forum/Responses";
+import {TutorStream} from "./components/Streaming/TutorStream";
+import {TutorWebCam} from "./components/Streaming/TutorWebCam";
+
 import {AddQuiz} from "./components/Quiz/addQuiz";
+import {AddQuestion} from "./components/Quiz/addQuestion";
+import {AddProposition} from "./components/Quiz/addProposition";
 import {Dashboard} from "./components/tutor/Dashboard";
 import {CurrentSession} from "./components/TrainingSession/CurrentSession";
 import {ElementCallToAction} from "./components/profile/ElementCallToAction";
 import Scrapping from "./components/profile/scrapping";
 import Modal from 'react-responsive-modal';
+
 
 
 class App extends Component {
@@ -58,8 +67,12 @@ class App extends Component {
                     <PrivateRoute  exact  path="/tutor" component={HomeTutor}/>
                     <PrivateRoute  exact  path="/student" component={HomeStudent}/>
                     <PrivateRoute  exact  path="/forum" component={Forum}/>
+                    <PrivateRoute  exact  path="/responses" component={ResponsesPost}/>
                     <PrivateRoute  exact  path="/forum/show/:id" component={ForumShow}/>
                     <PrivateRoute  exact  path="/forum/add" component={AddForum}/>
+                    <PrivateRoute  exact  path="/Responses" component={Responses}/>
+                    <PrivateRoute  exact  path="/TutorStream" component={TutorStream}/>
+                    <PrivateRoute  exact  path="/TutorWebCam" component={TutorWebCam}/>
                     <PrivateRoute exact path="/addTrainingSession" component={AddTrainingSession} />
                     <PrivateRoute exact path="/all" component={TrainingSessionList} />
                     <PrivateRoute exact path="/allCourses/:id" component={TrainingSessionDetail} />
@@ -67,6 +80,8 @@ class App extends Component {
                     <PrivateRoute exact path="/course/:id/edit" component={EditCourse} />
                     <PrivateRoute exact path="/allCourses/:id/edit" component={EditTrainingSession} />
                     <PrivateRoute  exact  path="/addquiz" component={AddQuiz}/>
+                    <PrivateRoute  exact  path="/addquestion/:id" component={AddQuestion}/>
+                    <PrivateRoute  exact  path="/addproposition/:idquiz/:idquestion" component={AddProposition}/>
                     <PrivateRoute exact path="/dashboard" component={Dashboard} />
                     <PrivateRoute exact path="/currentSession" component={CurrentSession} />
 
