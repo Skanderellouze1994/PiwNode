@@ -21,10 +21,11 @@ module.exports = async (config,profileScraper, rootProfiles, injection) => new P
     logger.info(`starting scraping: ${profileUrl}`)
 
     const relatedProfiles = await scrapProfile(config,profileScraper, profileUrl)
-    console.log(relatedProfiles)
-    nextProfilesToCrawl = nextProfilesToCrawl.concat(relatedProfiles)
+   // console.log(relatedProfiles[1])
+    await resolve(relatedProfiles[1])
+    nextProfilesToCrawl = nextProfilesToCrawl.concat(relatedProfiles[0])
 
-    logger.info(`finished scraping: ${profileUrl} , ${relatedProfiles.length} profile(s) found!`)
+    logger.info(`finished scraping: ${profileUrl} , ${relatedProfiles[0].length} profile(s) found!`)
     parallelCrawlers--
   }
 
@@ -32,14 +33,14 @@ module.exports = async (config,profileScraper, rootProfiles, injection) => new P
     if (currentProfilesToCrawl.length === 0 && nextProfilesToCrawl.length === 0) {
       logger.info('crawler finished: there are no more profiles found with specified keywords')
       clearInterval(interval)
-      resolve()
+
     } else if (currentProfilesToCrawl.length === 0) {
       logger.info(`a depth of crawling was finished, starting a new depth with ${nextProfilesToCrawl.length} profile(s)`)
       currentProfilesToCrawl = nextProfilesToCrawl
       nextProfilesToCrawl = []
     } else if (parallelCrawlers < config.maxConcurrentCrawlers) {
       const profileUrl = currentProfilesToCrawl.shift()
-      crawl(profileUrl)
+     crawl(profileUrl)
     }
   }, WORKER_INTERVAL_MS)
 })

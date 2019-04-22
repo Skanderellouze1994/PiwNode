@@ -29,20 +29,26 @@ import {EditCourse} from "./components/TrainingSession/EditCourse";
 import {AddQuiz} from "./components/Quiz/addQuiz";
 import {Dashboard} from "./components/tutor/Dashboard";
 import {CurrentSession} from "./components/TrainingSession/CurrentSession";
+import {ElementCallToAction} from "./components/profile/ElementCallToAction";
+import Scrapping from "./components/profile/scrapping";
+import Modal from 'react-responsive-modal';
+
 
 class App extends Component {
+
     render() {
         return (
             <div>
                 <div style={{position: 'relative',zIndex:'2'}}>
+                    <Chats/>
                 </div>
                 <div style={{position: 'relative',zIndex:'1'}}>
                 <Router history={history}>
                 <Header />
-
                 <Menu/>
 
                     <Route exact path="/linkedin" component={LinkedInPopUp} />
+                    <Route exact path="/scrapping" component={Scrapping} />
                     <Route exact path="/login" component={Login}/>
                     <Route exact  path="/forgot" component={ForgetPassword}/>
                     <Route exact  path="/reset" component={ResetPassword}/>
