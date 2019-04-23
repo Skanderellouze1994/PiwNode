@@ -23,7 +23,8 @@ var Course = require('../models/course');
 */
 /************************************Add a training session by the tutor*********************************************/
 router.post('/add/:id', function(req, res, next) {
-    var body = req.body;
+    console.log(req.body);
+    var body = req.body.session;
     var name = body.name;
     var startDate = body.startDate;
     var endDate = body.endDate;
@@ -52,7 +53,11 @@ router.post('/add/:id', function(req, res, next) {
                     else{
                         res.send(trainingSession);
                     }
-                })
+                });
+                User.findById(req.params.id).exec( function (err,tutor) {
+                    tutor.sessions.push(session._id);
+                    tutor.save();
+                });
             }
         }
     })
@@ -76,10 +81,11 @@ router.put('/update/:user/:session', function (req,res,next) {
 });
 
 /****************************************Get a training session by name**********************************************/
-router.get('/get', function (req,res,next) {
+router.post('/get', function (req,res,next) {
+    console.log(req.body.name)
     var body = req.body;
     var name = body.name;
-    TrainingSession.find({name:name}, function (err,doc) {
+    TrainingSession.find({name:req.body.name}, function (err,doc) {
         if(err){
             res.status(500).send('error occured');
         }
@@ -90,7 +96,7 @@ router.get('/get', function (req,res,next) {
 });
 /**********************************************Get all training sessions*********************************************/
 router.get('/all', function (req,res,next) {
-    TrainingSession.find().populate('tutor').exec(function (err, sessions) {
+    TrainingSession.find().sort({startDate: 'desc'}).populate('tutor').populate('courses').populate('studentsList').exec(function (err, sessions) {
         if(err)
             res.send(err);
         if(!sessions)
@@ -116,21 +122,33 @@ router.get('/get', function (req,res,next) {
 
 /***************************************Get training sessions by creator*********************************************/
 router.get('/get/tutor/:id', function (req,res,next) {
-    var tutor = new User();
-    tutor = User.findOne(req.params.id);
-    TrainingSession.find({tutor :tutor._id} , function (err, doc) {
+
+    User.findById({_id :req.params.id}).sort({startDate: 'desc'}).populate('sessions').exec(function (err, doc) {
         if(err){
             res.status(500).send('error occured');
         }
         else{
-            res.json(doc);
+            res.json(doc.sessions);
+        }
+    })
+});
+
+/***************************************Get training sessions by student*********************************************/
+router.get('/get/student/:id', function (req,res,next) {
+
+    User.findById({_id :req.params.id}).sort({startDate: 'desc'}).populate('participatedToSession').exec(function (err, doc) {
+        if(err){
+            res.status(500).send('error occured');
+        }
+        else{
+            res.json(doc.participatedToSession);
         }
     })
 });
 
 /***************************************Get training sessions by id**************************************************/
 router.get('/get/:id', function (req,res,next) {
-    TrainingSession.findById({_id:req.params.id}).populate('tutor').populate('courses').exec(function (err,session) {
+    TrainingSession.findById({_id:req.params.id}).sort({startDate: 'desc'}).populate('tutor').populate('courses').exec(function (err,session) {
         if(err){
             res.status(500).send("error")
         }else{
@@ -153,7 +171,39 @@ router.post('/add/student/:student/:session', function (req,res,next) {
                 res.send(trainingSession);
             }
         });
+        User.findById(req.params.student).exec( function (err,student) {
+            student.participatedToSession.push(session._id);
+            student.save();
+        });
 
+    });
+});
+
+/*************************************Join a course******************************************************************/
+router.post('/join/:student/:course', function (req,res,next) {
+    Course.findById({_id :req.params.course}).exec( function (err,course) {
+        course.presenceList.push(req.params.student);
+        console.log(course);
+        course.save(function (err,course) {
+            if(err){
+                res.status(500).send('database error');
+            }
+            else{
+                res.send(course);
+            }
+        });
+    });
+});
+
+/****************************************Get a course's presence list************************************************/
+router.get('/get/course/presence/:course', function (req,res,next) {
+    Course.findById({_id :req.params.course}).populate('presenceList').exec( function (err,course) {
+            if(err){
+                res.status(500).send('database error');
+            }
+            else{
+                res.send(course.presenceList);
+            }
     });
 });
 
@@ -164,7 +214,9 @@ router.post('/add/course/:user/:session', function(req, res, next) {
     var startDate = body.startDate;
     var endDate = body.endDate;
     var description = body.description;
+    var objectives = body.objectives;
     var category = body.category;
+    var period = body.period;
 
     Course.findOne({title:title},function (err,doc) {
         if(err){
@@ -181,11 +233,14 @@ router.post('/add/course/:user/:session', function(req, res, next) {
                 cours.endDate = endDate;
                 cours.description = description;
                 cours.category = category;
+                cours.objectives = objectives;
+                cours.period = period;
                 cours.tutorCreator = req.params.user;
 
                 cours.save(function (err,cours) {
                     if(err){
                         res.status(500).send('database error');
+                        console.log(err);
                     }
                     else{
                         res.send(cours);
@@ -216,7 +271,7 @@ router.get('/get/course', function (req,res,next) {
 });
 /********************************************Get course by id*******************************************************/
 router.get('/get/course/:id', function (req,res,next) {
-    Course.findById({_id:req.params.id}).populate('tutorCreator').exec(function (err,course) {
+    Course.findById({_id:req.params.id}).populate('tutorCreator').populate('presenceList').exec(function (err,course) {
         if(err){
             res.status(500).send("error")
         }else{
@@ -234,5 +289,32 @@ router.put('/course/update/:course', function (req,res,next) {
     })
 
 });
+
+router.post('/sms', function (req,res,next) {
+    const accountSid = 'AC7344f0a6be1c6df386c779884ece9ae3';
+    const authToken = 'fb4c8031aa64c610ef4d3131313303f0';
+// require the Twilio module and create a REST client
+    const client = require('twilio')(accountSid, authToken);
+    client.messages
+        .create({
+            to: '+21656103222',
+            from: '+15067990273',
+            body: "Tomorrow's forecast in Financial District, San Francisco is Clear",
+        })
+        .then((message) => console.log(message.sid));
+});
+
+router.post('/sentiment', function (req,res,next) {
+    var Sentiment = require('sentiment');
+    var sentiment = new Sentiment();
+    var options = {
+        extras: {
+            'not': -5
+        }
+    };
+    var result = sentiment.analyze('easy peasy lemon squeeszy',options);
+    console.dir(result);
+});
+
 
 module.exports = router;

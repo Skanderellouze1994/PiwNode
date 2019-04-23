@@ -2,9 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import connect from "react-redux/es/connect/connect";
 import SimpleReactValidator from "simple-react-validator";
-
 import Swal from 'sweetalert2';
-import DatePicker from "react-datepicker/es";
 
 class AddCourse extends Component {
     constructor(props) {
