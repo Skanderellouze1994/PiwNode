@@ -26,6 +26,12 @@ import {ForumShow} from "./components/Forum/ForumShow";
 import {CourseDetail} from "./components/CourseDetails";
 import {EditTrainingSession} from "./components/TrainingSession/EditTrainingSession";
 import {EditCourse} from "./components/TrainingSession/EditCourse";
+
+import {ResponsesPost} from "./components/Forum/ResponsesPost";
+import {Responses} from "./components/Forum/Responses";
+import {TutorStream} from "./components/Streaming/TutorStream";
+import {TutorWebCam} from "./components/Streaming/TutorWebCam";
+
 import {AddQuiz} from "./components/Quiz/addQuiz";
 import {AddQuestion} from "./components/Quiz/addQuestion";
 import {AddProposition} from "./components/Quiz/addProposition";
@@ -34,19 +40,28 @@ import {CurrentSession} from "./components/TrainingSession/CurrentSession";
 import {ShowQuiz} from "./components/Quiz/showQuiz";
 import {ResponseQuiz} from "./components/Quiz/responseQuiz";
 
+import {StreamLink} from "./components/Streaming/StreamLink";
+
+import {ElementCallToAction} from "./components/profile/ElementCallToAction";
+import Scrapping from "./components/profile/scrapping";
+import Modal from 'react-responsive-modal';
+
+
+
+
 class App extends Component {
+
     render() {
         return (
             <div>
-                <div style={{position: 'relative',zIndex:'2'}}>
-                </div>
-                <div style={{position: 'relative',zIndex:'1'}}>
+
+                <div>
                 <Router history={history}>
                 <Header />
-
                 <Menu/>
 
                     <Route exact path="/linkedin" component={LinkedInPopUp} />
+                    <Route exact path="/scrapping" component={Scrapping} />
                     <Route exact path="/login" component={Login}/>
                     <Route exact  path="/forgot" component={ForgetPassword}/>
                     <Route exact  path="/reset" component={ResetPassword}/>
@@ -56,8 +71,13 @@ class App extends Component {
                     <PrivateRoute  exact  path="/tutor" component={HomeTutor}/>
                     <PrivateRoute  exact  path="/student" component={HomeStudent}/>
                     <PrivateRoute  exact  path="/forum" component={Forum}/>
+                    <PrivateRoute  exact  path="/responses" component={ResponsesPost}/>
                     <PrivateRoute  exact  path="/forum/show/:id" component={ForumShow}/>
                     <PrivateRoute  exact  path="/forum/add" component={AddForum}/>
+                    <PrivateRoute  exact  path="/Responses" component={Responses}/>
+                    <PrivateRoute  exact  path="/TutorStream" component={TutorStream}/>
+                    <PrivateRoute  exact  path="/streamlink/:id" component={StreamLink}/>
+                    <PrivateRoute  exact  path="/TutorWebCam" component={TutorWebCam}/>
                     <PrivateRoute exact path="/addTrainingSession" component={AddTrainingSession} />
                     <PrivateRoute exact path="/all" component={TrainingSessionList} />
                     <PrivateRoute exact path="/allCourses/:id" component={TrainingSessionDetail} />

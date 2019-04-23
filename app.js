@@ -18,6 +18,7 @@ var trainingRouter = require('./routes/trainingSession');
 var chatBotRouter = require('./routes/chatBot');
 var auth = require('./routes/auth')(passport);
 var cron = require('./routes/cronTask')
+var stream = require('./routes/stream')
 require('./passport')(passport);
 var cors = require('cors');
 const fileUpload = require('express-fileupload');
@@ -56,6 +57,8 @@ app.use('/scrapping' , scrappingRouter);
 app.use('/quiz' , quizRouter);
 app.use('/ressource' , ressourceRouter);
 app.use('/chatbot' , chatBotRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

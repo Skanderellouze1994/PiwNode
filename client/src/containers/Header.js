@@ -36,14 +36,12 @@ this.state={username:""};
     }
 
     render() {
-        const {authentication} = this.props;
-        let auth = this.props;
+       // var {authentication} = this.props;
        // console.log(auth.authentication.user.user.username);
-        if(!this.props.user){
-            auth ="";
-        }else{
-            auth = authentication;
-        }
+
+
+
+
 
         return (
             <header className="site-header bg-dark text-white-0_5">
@@ -78,7 +76,7 @@ this.state={username:""};
                             </li>
                         </ul>
                         <ul className="list-inline mb-0">
-                            {!auth &&
+                            {!this.props.authentication.user.user &&
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
 
                                 <Link to="/login">Login</Link>
@@ -86,12 +84,12 @@ this.state={username:""};
                             </li>
                             }
                             <li className="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
-                                {auth ? (
+                                {this.props.authentication.user.user ? (
                                     <div className="dropdown" style={{zIndex : 9999}}>
                                         <Link to="/" className="dropdown-toggle" data-toggle="dropdown">
-                                            <span><b>{this.state.username}</b></span>
+                                            <span><b>{this.props.authentication.user.user.username}</b></span>
                                             <img className="iconbox iconbox-sm mx-1"
-                                                 src={this.state.profile_photo ? this.state.profile_photo : "assets/img/person.png"}
+                                                 src={this.props.authentication.user.user.profile_photo ? this.props.authentication.user.user.profile_photo : "assets/img/person.png"}
 
                                                  alt="aaa"  />
                                         </Link>
@@ -102,7 +100,7 @@ this.state={username:""};
                                                         My profile
                                                 </span>
                                             </Link>
-                                            {auth.user.user.role ==="tutor" &&
+                                            {this.props.authentication.user.user.role ==="Tutor" &&
                                             <Link to="/dashboard" className="dropdown-item">
                                                 <i className="ti-user mr-2" />
                                                 <span className="mr-2">

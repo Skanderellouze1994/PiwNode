@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, Router} from "react-router-dom";
 import {Tab, TabList, TabPanel, Tabs} from "react-context-tabs";
 import {UpdateProfile} from "./updateProfile";
 import {About} from "./about";
 import {profileAction} from "../../_actions/profile.actions";
 import SkillBar from 'react-skillbars';
+import {ElementCallToAction} from "./ElementCallToAction";
 
 
 
@@ -51,6 +52,8 @@ if(!profile.loaded) {
         return (
 
             <div>
+                <ElementCallToAction/>
+
                 <div className="padding-y-80 bg-cover" data-dark-overlay={6}
                      style={{background: 'url(assets/img/breadcrumb-bg.jpg) no-repeat'}}>
                     <div className="container">

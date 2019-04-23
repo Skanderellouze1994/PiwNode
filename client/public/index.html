@@ -34,6 +34,59 @@
     <script src="./assets/js/vendors.bundle.js"></script>
     <script src="./assets/js/scripts.js"></script>
   <script src="./assets/vendor/moment/moment.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+  <script type="text/javascript">
+    var canvas = document.getElementById("preview");
+    var context = canvas.getContext('2d');
+
+    canvas.width = 900;
+    canvas.height = 700;
+
+    context.width = canvas.width;
+    context.height = canvas.height;
+
+    var video = document.getElementById("video");
+
+    var socket = io();
+
+    function logger(msg){
+      $('#logger').text(msg);
+    }
+
+    function loadCamera(stream){
+      try {
+        video.srcObject = stream;
+      } catch (error) {
+        video.src = URL.createObjectURL(stream);
+      }
+      logger("Camera connected");
+    }
+
+    function loadFail(){
+      logger("Camera not connected");
+    }
+
+    function viewVideo(video,context){
+
+      context.drawImage(video,0,0,context.width,context.height);
+      socket.emit('stream',canvas.toDataURL('image/webp', 0.1));
+    }
+
+    $(function(){
+      navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msgGetUserMedia );
+
+      if(navigator.getUserMedia){
+        navigator.getUserMedia({video: true, audio: false},loadCamera,loadFail);
+      }
+
+      setInterval(function(){
+        viewVideo(video,context);
+      },1);
+    });
+
+  </script>
 
   </body>
 </html>
