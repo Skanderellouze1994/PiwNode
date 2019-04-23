@@ -36,7 +36,7 @@ class TrainingSessionsAllList extends Component {
 
         // get courses of the user's sessions
         this.interval = setInterval(() => {
-            if (this.props.user.user.role === "tutor") {
+            if (this.props.user.user.role === "Student") {
                 axios.get(`http://localhost:4000/trainingSession/get/student/${this.props.user.user._id}`)
                     .then(response => {
                         this.setState({currentSession: response.data});
@@ -51,7 +51,7 @@ class TrainingSessionsAllList extends Component {
                     .catch(function (error) {
                         console.log(error);
                     });
-            } /*else if (this.props.user.user.role === "tutor") {
+            } else if (this.props.user.user.role === "Tutor") {
                 axios.get(`http://localhost:4000/trainingSession/get/tutor/${this.props.user.user._id}`)
                     .then(response => {
                         this.setState({currentSession: response.data});
@@ -66,7 +66,7 @@ class TrainingSessionsAllList extends Component {
                     .catch(function (error) {
                         console.log(error);
                     });
-            }*/
+            }
         }, 10000);
     }
 

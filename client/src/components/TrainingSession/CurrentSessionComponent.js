@@ -142,7 +142,8 @@ class CurrentSessionComponent extends Component{
                     {countDown.hours ===0 && countDown.min === 0 && countDown.sec ===0 ?
                         <button className='btn btn-danger shadow-danger mr-3 mb-3'>Closed</button>
                         :
-                        <button className='btn btn-info shadow-info mr-3 mb-3'>Opened</button>
+                        <button className='btn btn-info shadow-info mr-3 mb-3'>
+                            <Link to={"/currentSession/"+this.state.session._id}> Opened</Link></button>
                     }
                     {this.state.session.presenceList !== undefined &&this.state.session.presenceList.length !== 0
                         ?

@@ -309,12 +309,12 @@ router.post('/sentiment', function (req,res,next) {
     var sentiment = new Sentiment();
     var options = {
         extras: {
-            'not': -5
+            'not': -3,
+            'difficult': -3
         }
     };
-    var result = sentiment.analyze('easy peasy lemon squeeszy',options);
+    var result = sentiment.analyze('not difficult peasy lemon squeeszy',options);
     console.dir(result);
 });
-
 
 module.exports = router;

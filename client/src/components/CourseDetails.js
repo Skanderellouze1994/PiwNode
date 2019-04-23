@@ -46,6 +46,7 @@ class CourseDetail extends Component{
             speed:1
         });
 
+
         var settings = {
             continuous: true, // Don't stop never because i have https connection
             onResult: function (text) {
@@ -213,6 +214,16 @@ class CourseDetail extends Component{
                                         <li className="nav-item">
                                             <a className="nav-link" data-toggle="tab" href="#tabInstructors" role="tab" aria-selected="true">
                                                 Instructors
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" data-toggle="tab" href="#tabStatics" role="tab" aria-selected="true">
+                                                Statics
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" data-toggle="tab" href="#tabList" role="tab" aria-selected="true">
+                                                Presence List
                                             </a>
                                         </li>
                                     </ul>
