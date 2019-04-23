@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
-import {Route, Switch} from "react-router";
-import {BrowserRouter as Router} from 'react-router-dom'
+import {Link, Router} from "react-router-dom";
 import {Tab, TabList, TabPanel, Tabs} from "react-context-tabs";
 import {UpdateProfile} from "./updateProfile";
 import {About} from "./about";
 import {profileAction} from "../../_actions/profile.actions";
+import SkillBar from 'react-skillbars';
+import {ElementCallToAction} from "./ElementCallToAction";
+
 
 
 class Profil extends Component {
@@ -31,10 +32,28 @@ if(!profile.loaded) {
 
     render() {
         const {user} = this.props;
+        const {profile} = this.props;
+        var skills = null;
+        const SKILLS = [
+            {
+                "type": "Java",
+                "level": 100
+            },
+            {
+                "type": "React",
+                "level": 85
+            },]
+        if(profile.loaded){
+            console.log()
+
+            skills =<SkillBar height={16} skills={profile.profile.skills.map(a=>{return{type:a.title,level:a.count}})} />;
+        }
 
         return (
 
             <div>
+                <ElementCallToAction/>
+
                 <div className="padding-y-80 bg-cover" data-dark-overlay={6}
                      style={{background: 'url(assets/img/breadcrumb-bg.jpg) no-repeat'}}>
                     <div className="container">
@@ -99,31 +118,30 @@ if(!profile.loaded) {
                                             </li>
                                         </ul>
                                     </div>
+                                    <div className="card-body border-bottom">
+                                        {skills}
+                                    </div>
                                     <div className="card-footer">
                                         <p>
                                             Social Profile:
                                         </p>
                                         <ul className="list-inline mb-0">
-                                            <li className="list-inline-item">
-                                                <Link to="/" className="btn btn-outline-facebook iconbox iconbox-sm">
+                                            {user.user.facebook_url&&<li className="list-inline-item">
+                                                <Link to={()=>window.location(user.user.facebook_url)} className="btn btn-outline-facebook iconbox iconbox-sm">
                                                     <i className="ti-facebook"/>
                                                 </Link>
-                                            </li>
-                                            <li className="list-inline-item">
-                                                <Link to="/" className="btn btn-outline-twitter iconbox iconbox-sm">
-                                                    <i className="ti-twitter"/>
-                                                </Link>
-                                            </li>
-                                            <li className="list-inline-item">
-                                                <Link to="/" className="btn btn-outline-google-plus iconbox iconbox-sm">
-                                                    <i className="ti-google"/>
-                                                </Link>
-                                            </li>
-                                            <li className="list-inline-item">
-                                                <Link to="/" className="btn btn-outline-linkedin iconbox iconbox-sm">
+                                            </li>}
+                                            {user.user.linkedin_url&&<li className="list-inline-item">
+                                                <Link to={user.user.linkedin_url} className="btn btn-outline-twitter iconbox iconbox-sm">
                                                     <i className="ti-linkedin"/>
                                                 </Link>
-                                            </li>
+                                            </li>}
+                                            {user.user.github_url&&<li className="list-inline-item">
+                                                <Link to={user.user.github_url} className="btn btn-outline-google-plus iconbox iconbox-sm">
+                                                    <i className="ti-github"/>
+                                                </Link>
+                                            </li>}
+
                                         </ul>
                                     </div>
                                 </div>
@@ -176,9 +194,9 @@ if(!profile.loaded) {
                                                 <About/>
                                             </TabPanel>
                                             <TabPanel tabId="settings">
-                                                {this.profile&&
+
                                                     <UpdateProfile/>
-                                                }
+
                                             </TabPanel>
 
                                             {/* END tab-pane */}

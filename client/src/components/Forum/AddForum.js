@@ -87,7 +87,7 @@ class AddForum extends Component {
             </div>
     <section className="pt-5 paddingBottom-100 bg-light-v2">
         <div className="container">
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} enctype="multipart/form-data">
                 <div className="form-group">
                     <label>Subject: </label>
                     <input  type="text"
@@ -101,6 +101,13 @@ class AddForum extends Component {
                             className="form-control"
                             value={this.state.description}
                             onChange={this.onChangePostDescription}/>
+                </div>
+                <div className="form-group">
+                    <label>Picture: </label>
+                    <input  type="file"
+                               className="form-control"
+                               value={this.state.pic}
+                               onChange={this.onChangePostPic}/>
                 </div>
 
                 <div className="form-group">

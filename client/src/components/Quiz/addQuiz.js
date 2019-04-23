@@ -3,6 +3,7 @@ import SimpleReactValidator from "simple-react-validator";
 import axios from "axios";
 import Swal from "sweetalert2";
 import connect from "react-redux/es/connect/connect";
+import {history} from "../../_helpers";
 
 class AddQuiz extends Component {
 
@@ -41,12 +42,10 @@ class AddQuiz extends Component {
         const {quiz} = this.state;
 
         axios.post(`http://localhost:4000/quiz/${this.props.user.user._id}`,quiz)
-            .then(res => console.log(res.data));
-        Swal.fire(
-            'Good job!',
-            'You added a new quiz!',
-            'success'
-        );
+            .then(res => {
+                history.push('/addquestion/'+res.data._id);
+            });
+
 
 
         this.setState({

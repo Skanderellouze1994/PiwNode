@@ -133,7 +133,7 @@ router.delete('/:id/education/:idedu', function (req, res, next) {
                 if (err)
                     res.send(err);
                 else
-                    res.send()
+                    res.send(pro)
             });
 
 
@@ -159,14 +159,14 @@ router.post('/:id/education', function (req, res, next) {
         }
     })
 });
-router.put('/:id/skills/:idedu', function (req, res, next) {
+router.put('/:id/education/:idedu', function (req, res, next) {
     Profil.findById(req.params.id, function (err, profil) {
         if (err)
             res.send(err);
         if (!profil)
             res.status(400).send();
         else {
-            profil.education.id(req.params.idedu).titre = req.body.titre;
+            profil.education.id(req.params.idedu).title = req.body.title;
             profil.education.id(req.params.idedu).degree = req.body.degree;
             profil.education.id(req.params.idedu).date1 = req.body.date1;
             profil.education.id(req.params.idedu).date2 = req.body.date2;

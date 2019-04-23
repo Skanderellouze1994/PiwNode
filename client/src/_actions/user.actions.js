@@ -1,6 +1,6 @@
-import { userConstants } from '../_constants';
+import {profileConstants, userConstants} from '../_constants';
 import { userService } from '../_services';
-import { alertActions } from './';
+import {alertActions, profileAction} from './';
 import { history } from '../_helpers';
 
 export const userActions = {
@@ -18,14 +18,14 @@ export const userActions = {
 function updateProfile(user) {
 
     return dispatch => {
-        dispatch(request({user} ));
+       // dispatch(request({user} ));
 console.log(user)
         userService.update(user)
             .then(
                 user => {
                     dispatch(success(user));
-                    setTimeout(()=>window.location.reload(),0);
-                    history.push('/profil');
+                    //setTimeout(()=>window.location.reload(),0);
+                   // history.push('/profil');
                 },
                 error => {
                     dispatch(failure("error.toString()"));
@@ -42,7 +42,10 @@ console.log(user)
 }
 function loginCam() {
     return dispatch => {
-        dispatch(request({username: "aaa"}));
+        dispatch(request({user: {
+                role: "",
+                username:""
+            }}));
 
         userService.loginCam()
             .then(
@@ -69,11 +72,11 @@ function login(username, password) {
             .then(
                 user => {
                     dispatch(success(user));
-                 setTimeout(()=>window.location.reload(),0);
+                 //setTimeout(()=>window.location.reload(),0);
                     history.push('/profil');
                 },
                 error => {
-                    dispatch(failure("error.toString()"));
+                    dispatch(failure(error.toString()));
                     dispatch(alertActions.error("Username and password invalid"));
                 }
             );
@@ -132,7 +135,10 @@ function getNewPassword(password , confirmpassword, token) {
 
 function loginFacebook (id) {
     return dispatch => {
-        dispatch(request({ username:"aaa" }));
+        dispatch(request({user: {
+                role: "",
+                username:""
+            }}));
 
         userService.loginFacebook(id)
             .then(
@@ -140,7 +146,7 @@ function loginFacebook (id) {
                     dispatch(alertActions.clear())
                     dispatch(success(user))
                     //console.log(user)
-                    setTimeout(()=>window.location.reload(),0);
+                    //setTimeout(()=>window.location.reload(),0);
                     history.push('/profil')
                 },
                 error => {
@@ -159,6 +165,7 @@ function loginFacebook (id) {
 
 function logout() {
     userService.logout();
+profileAction.removeProfile();    //setTimeout(()=>window.location.reload(),0);
     return { type: userConstants.LOGOUT };
 }
 

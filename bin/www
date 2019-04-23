@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+var express = require('express');
+const User = require('../models/user');
+
+
 /**
  * Module dependencies.
  */
@@ -42,8 +46,15 @@ io.on('connection', function(socket) {
 
   socket.on('msg', function(data) {
     //Send message to everyone
-    console.log(data);
-    io.sockets.emit('newmsg', data);
+    User.findById(data.author,function (err,user) {
+
+      io.sockets.emit('newmsg', {
+        ...data,
+        author:user
+      });
+    })
+
+
   });
 });
 /**
@@ -105,6 +116,19 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
+
+app.get('/stream/',function(req,res){
+  res.redirect('index.html');
+});
+
+
+io.on('connection',function(socket){
+
+  socket.on('stream',function(image){
+    socket.broadcast.emit('stream',image);
+  });
+
+});
 
 function onListening() {
   var addr = server.address();

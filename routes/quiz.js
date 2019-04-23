@@ -60,7 +60,6 @@ router.post('/:id/question', function (req, res) {
             res.send(err);
 
         quiz.questions.push(req.body);
-
         quiz.save(function(err) {
             if (err)
                 res.send(err);
