@@ -31,6 +31,8 @@ import {AddQuestion} from "./components/Quiz/addQuestion";
 import {AddProposition} from "./components/Quiz/addProposition";
 import {Dashboard} from "./components/tutor/Dashboard";
 import {CurrentSession} from "./components/TrainingSession/CurrentSession";
+import {ShowQuiz} from "./components/Quiz/showQuiz";
+import {ResponseQuiz} from "./components/Quiz/responseQuiz";
 
 class App extends Component {
     render() {
@@ -67,6 +69,8 @@ class App extends Component {
                     <PrivateRoute  exact  path="/addproposition/:idquiz/:idquestion" component={AddProposition}/>
                     <PrivateRoute exact path="/dashboard" component={Dashboard} />
                     <PrivateRoute exact path="/currentSession" component={CurrentSession} />
+                    <PrivateRoute  exact  path="/showquiz/:id" component={ShowQuiz}/>
+                    <PrivateRoute  exact  path="/responsequiz/:idquiz/:id" component={ResponseQuiz}/>
 
 
                 <Footer/>
