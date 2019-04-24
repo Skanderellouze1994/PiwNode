@@ -13,8 +13,9 @@
     "dateformat": "^3.0.3",
     "emoji-js": "^3.4.1",
     "form-data": "^2.3.3",
-    "react": "^16.8.4",
+    "react": "^16.8.6",
     "react-context-tabs": "^2.0.0-alpha4",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.4",
     "react-dropdown-date": "0.0.17",
     "react-facebook-login": "^4.1.1",
@@ -32,19 +33,12 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8",
     "react-service-worker": "^0.1.1",
-
-    "react-webcam": "^1.1.1",
-    "simple-react-validator": "^1.0.5",
-    "socket.io": "^2.2.0",
-    "react-skillbars": "^1.5.1",
-
     "react-skillbars": "^1.5.1",
     "react-spinners": "^0.5.4",
     "react-stepzilla": "^6.0.0",
     "react-webcam": "^1.1.1",
     "simple-react-validator": "^1.0.5",
     "socket.io": "^2.2.0",
-
     "sweetalert": "^2.1.2"
   },
   "scripts": {
