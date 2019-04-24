@@ -12,22 +12,22 @@ class TutorStream extends Component {
     constructor(props){
         super(props)
         this.state={
-            cam : ''
+            x : Math.floor(Math.random() * 1000000000000),
+            y:0
         };
 
     }
     componentDidMount() {
-        this.setState(
-            {cam :<Webcam />.props }
-        )
+
     }
 
 
+
     render () {
+var y=0
         return(
             <div>
-                <Camera />
-                {console.log(<Webcam />)}
+ <p>https://localhost:3000/streamlink/{this.state.x}</p>
              </div>
     );
 
