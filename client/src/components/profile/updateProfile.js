@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
 import {userActions} from "../../_actions";
-import axios from 'axios/index';
+    import axios from 'axios/index';
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 

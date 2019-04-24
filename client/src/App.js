@@ -38,7 +38,7 @@ import {AddProposition} from "./components/Quiz/addProposition";
 import {Dashboard} from "./components/tutor/Dashboard";
 import {CurrentSession} from "./components/TrainingSession/CurrentSession";
 import {ElementCallToAction} from "./components/profile/ElementCallToAction";
-import Scrapping from "./components/profile/scrapping";
+import {Scrapping} from "./components/profile/scrapping";
 import Modal from 'react-responsive-modal';
 
 

@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import StepZilla from "react-stepzilla";
 import BiographyComponent from "./biographyComponent";
 import './main.css';
+import PositionComponent from "./positionComponent";
+import EducationsComponent from "./educationsComponent";
+import {connect} from "react-redux";
 
 
 class Scrapping extends Component {
@@ -9,6 +12,7 @@ class Scrapping extends Component {
         super(props)
         this.sampleStore = {
             summary: '',
+            positions:[]
             //gender: '',
            // savedToCloud: false
         };
@@ -27,6 +31,7 @@ class Scrapping extends Component {
     }
 
     render() {
+
         const steps =
             [
                 {
@@ -36,11 +41,25 @@ class Scrapping extends Component {
                     }}/>
                 },
                 {
-                    name: 'Biography',
-                    component: <BiographyComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                    name: 'Experience',
+                    component: <PositionComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }} positions={this.props.profile.linkedin.positions}/>
+                },
+                {
+                    name: 'Education',
+                    component: <EducationsComponent getStore={() => (this.getStore())} updateStore={(u) => {
                         this.updateStore(u)
                     }}/>
                 },
+
+                {
+                    name: 'Education',
+                    component: <EducationsComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }}/>
+                },
+
                // {name: 'Step 2', component: <BiographyComponent/>},
                // {name: 'Step 3', component: <BiographyComponent/>},
 
@@ -72,9 +91,8 @@ class Scrapping extends Component {
                                             <div className='step-progress'>
                                                 <StepZilla
                                                     steps={steps}
-                                                    preventEnterSubmission={true}
+                                                    preventEnterSubmission={false}
                                                     nextTextOnFinalActionStep={"Save"}
-                                                    hocValidationAppliedTo={[3]}
                                                     startAtStep={window.sessionStorage.getItem('step') ? parseFloat(window.sessionStorage.getItem('step')) : 0}
                                                     onStepChange={(step) => window.sessionStorage.setItem('step', step)}
                                                 />
@@ -94,4 +112,15 @@ class Scrapping extends Component {
     }
 }
 
-export default Scrapping;
+function mapStateToProps(state) {
+    const {users, authentication,profile} = state;
+    const {user} = authentication;
+    return {
+        user,
+        users,
+        profile
+    };
+}
+
+const connectedHomePage = connect(mapStateToProps)(Scrapping);
+export {connectedHomePage as Scrapping};
