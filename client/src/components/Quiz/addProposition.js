@@ -11,6 +11,9 @@ class AddProposition extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.delete = this.delete.bind(this);
+
+        var a = null;
 
         this.state = {
             proposition: {
@@ -43,7 +46,10 @@ class AddProposition extends Component {
         const {proposition} = this.state;
 
         axios.post(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}`,proposition)
-            .then(res => setTimeout(()=>window.location.reload(),0));
+            .then(response => {
+                setTimeout(() => window.location.reload(), 0)
+                this.a = response.data
+            });
 
         this.setState({
         })
@@ -58,6 +64,15 @@ class AddProposition extends Component {
             })
         axios
             .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/propositions`)
+            .then(response => {
+                this.setState({ propositions: response.data });
+                console.log(response.data)
+            })
+    }
+
+    delete() {
+        axios
+            .delete(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/propositions`)
             .then(response => {
                 this.setState({ propositions: response.data });
                 console.log(response.data)
@@ -90,6 +105,7 @@ class AddProposition extends Component {
                                             <li>
                                                 <p>
                                                     {p.name}
+                                                    <button onClick={this.delete} className="btn btn-danger">Delete</button>
                                                 </p>
 
                                             </li>

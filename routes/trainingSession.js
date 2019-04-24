@@ -3,6 +3,7 @@ var router = express.Router();
 var TrainingSession = require('./../models/trainingSession');
 var User = require('../models/user');
 var Course = require('../models/course');
+var Post = require('../models/post');
 //TrainingSession = mongoose.model('TrainingSession',trainingSession);
 //User = mongoose.model('User', user);
 //Course = mongoose.model('Course', course);
@@ -304,17 +305,40 @@ router.post('/sms', function (req,res,next) {
         .then((message) => console.log(message.sid));
 });
 
-router.post('/sentiment', function (req,res,next) {
+router.post('/sentiment/:id', function (req,res,next) {
     var Sentiment = require('sentiment');
     var sentiment = new Sentiment();
     var options = {
         extras: {
             'not': -3,
-            'difficult': -3
+            'difficult': -3,
+            'need':-2,
         }
     };
-    var result = sentiment.analyze('not difficult peasy lemon squeeszy',options);
-    console.dir(result);
+    var descriptions = [];
+    var scores = 0;
+
+    Post.find({userPost:req.params.id}).populate('userPost').populate('responses.userResponse').exec(function (err,post) {
+
+        if(!err){
+            post.map(post=>{
+                var result = sentiment.analyze(post.description, options);
+                descriptions.push(result.score);
+                var result2 = sentiment.analyze(post.subject,options);
+                descriptions.push(result2.score);
+                console.log(result);
+                console.log(result2);
+                scores += result.score + result2.score;
+        });
+            console.log(scores);
+            console.log(descriptions);
+            res.json(scores);
+        }
+        else{
+            res.json('Error in retrieving posts list :' + err);
+        }
+    })
+
 });
 
 module.exports = router;

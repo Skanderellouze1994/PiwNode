@@ -21,12 +21,17 @@ import {
     PinterestIcon,
 } from 'react-share';
 import Artyom from 'artyom.js';
+import CanvasJSReact from '../charts/canvasjs.react';
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class CourseDetail extends Component{
     constructor(props) {
         super(props);
 
-        this.state ={};
+        this.state ={
+            presenceList:[],
+            score:[]
+        };
     }
 
     componentDidMount(){
@@ -36,8 +41,23 @@ class CourseDetail extends Component{
                 this.setState({ course: response.data });
                 console.log(response.data);
             });
+        // get presence list and the sentiment results
+        axios
+            .get(`http://localhost:4000/trainingSession/get/course/presence/${this.props.match.params.id}`)
+            .then(response => {
+                this.setState({ presenceList: response.data });
+                console.log(response.data);
+                response.data.map(student=>(
+                    axios
+                        .post(`http://localhost:4000/trainingSession/sentiment/${student._id}`)
+                        .then(res => {
+                            this.setState({ score: this.state.score.concat(res.data) });
+                            console.log(res.data);
+                        })
+                ))
+            });
 
-        const artyom = new Artyom();
+       /* const artyom = new Artyom();
         artyom.initialize({
             lang:"en-GB",
             debug:true,
@@ -58,16 +78,54 @@ class CourseDetail extends Component{
             onEnd: function () {
                 alert("Dictation stopped by the user");
             }
-        };
+        };*/
 
     }
 
     render() {
-        //console.log(this.state.course);
-        //console.log(this.props);
         const url = window.location.href;
-        //console.log(url)
+        console.log(this.state.score);
 
+        const options = {
+            animationEnabled: true,
+            exportEnabled: true,
+            theme: "light1", // "light1", "dark1", "dark2"
+            title:{
+                text: "Students' satisfaction during the course"
+            },
+            data: [{
+                type: "pie",
+                indexLabel: "{label}: {y}%",
+                startAngle: -90,
+                dataPoints: [
+                    this.state.score.map(score=>(
+                        { y: score, label: "Airfare" }
+                    )),
+                    { y: 20, label: "Airfare" },
+                    { y: 24, label: "Food & Drinks" },
+                    { y: 20, label: "Accomodation" },
+                    { y: 14, label: "Transportation" },
+                    { y: 12, label: "Activities" },
+                    { y: 10, label: "Misc" }
+                ]
+            }]
+        };
+        const options2 = {
+            animationEnabled: true,
+            title: {
+                text: "Presence"
+            },
+            data: [{
+                type: "doughnut",
+                showInLegend: true,
+                indexLabel: "{name}: {y}",
+                yValueFormatString: "#,###'%'",
+                dataPoints: [
+                    { name: "Absent Students", y: 20},
+                    { name: "Present Students", y: this.state.presenceList.length  }
+                ]
+            }]
+        };
         return(
             <div>
                 <div className="padding-y-60 bg-cover" data-dark-overlay={6} style={{background: 'url(assets/img/breadcrumb-bg.jpg) no-repeat'}}>
@@ -196,14 +254,10 @@ class CourseDetail extends Component{
                             </div>
                         </div>
 
-                <section className="paddingBottom-100">
+                <section className="padding-y-100 border-bottom border-light">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-9 marginTop-30">
-                                <h1>
-
-                                </h1>
-
                                 <div className="col-12 mt-4">
                                     <ul className="nav tab-line tab-line tab-line--3x border-bottom mb-5" role="tablist">
                                         <li className="nav-item">
@@ -249,6 +303,9 @@ class CourseDetail extends Component{
                                                         }</ul>
                                                 </div>
                                                 <div className="col-md-6 my-2">
+                                                    <h4>
+                                                        Course Start Date and Time
+                                                    </h4>
                                                     <ul className="list-unstyled list-style-icon list-icon-check">
                                                         <li>Learn how to captivate your audience</li>
                                                     </ul>
@@ -258,7 +315,6 @@ class CourseDetail extends Component{
                                                         Course Category
                                                     </h4>
                                                     <ul className="list-unstyled list-style-icon list-icon-bullet">
-                                                        <li>Learn how to captivate your audience</li>
                                                         {this.state.course !== undefined &&
                                                         <li>{this.state.course.category}</li>
                                                         }
@@ -269,7 +325,7 @@ class CourseDetail extends Component{
                                                         Who is the Target Audience?
                                                     </h4>
                                                     <ul className="list-unstyled list-style-icon list-icon-bullet">
-                                                        <li>Learn how to captivate your audience</li>
+                                                        <li>All students registered in Professor Robot !</li>
                                                     </ul>
                                                 </div>
                                             </div> {/* END row*/}
@@ -316,13 +372,44 @@ class CourseDetail extends Component{
                                                 </p>
                                             </div>
                                         </div> {/* END tab-pane */}
+                                        <div className="tab-pane fade " id="tabStatics" role="tabpanel">
+                                            <h4>
+
+                                            </h4>
+                                            <CanvasJSChart options = {options}
+                                                /* onRef={ref => this.chart = ref} */
+                                            />
+                                        </div>
+                                        <div className="tab-pane fade " id="tabList" role="tabpanel">
+                                            <div className="row">
+                                            <div className="col-lg-6 my-4">
+                                                <h6 className="mb-2">Basic List group</h6>
+                                                <ul className="list-group">
+                                                    {this.state.presenceList.map(student=>(
+                                                        <li className="list-group-item d-flex align-items-center">
+                                                            <img className="iconbox iconbox-sm" src="assets/img/avatar/4.jpg" alt />
+                                                            <span className="media-body ml-3">
+                                                                <Link href="#">{student.username}</Link>
+                                                        </span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                            <div className="col-lg-6 my-4">
+                                                <CanvasJSChart options = {options2}
+                                                    /* onRef={ref => this.chart = ref} */
+                                                />
+                                            </div>
+                                            </div>
+                                        </div>
                                     </div> {/* END tab-content*/}
                                 </div> {/* END col-12 */}
                             </div>
                         </div>
                     </div>
                 </section>
-                    </div></section>
+                    </div>
+                </section>
             </div>
         )
     }

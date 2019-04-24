@@ -104,30 +104,23 @@ class ResponseQuiz extends Component {
                                         {alert.message}
                                     </div>
                                     }
-                                    {this.state.propositions.map(p=>
-                                    {return(
 
-                                        <ol className="list-unstyled comments-area">
-                                            <li>
-                                                <p>
-                                                    {p.name}
-                                                </p>
+                                    <form name="form" onSubmit={this.onSubmit} className="px-lg-4">
 
-                                            </li>
-                                        </ol>
+                                            {this.state.propositions.map(p=>
+                                            {return(
+                                                <ol>
+                                                <label className="ec-radio radio-thin radio-sm mb-3 mr-4">
+                                                    <input type="radio" name="rightResponse"
+                                                           value={this.state.response.rightResponse}
+                                                           onChange={this.onChange}/>
+                                                    <span className="ec-radio__control"/>
+                                                    <span className="ec-radio__label">{p.name}</span>
+                                                </label>
+                                                </ol>
+                                            )})}
 
-                                    )})}
-                                    <form name="form" onSubmit={this.onSubmit}>
-                                        <div className="input-group input-group--focus mb-3">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user" />
-                                            </div>
-                                            <input name="rightResponse" type="text" className="form-control border-left-0 pl-0" placeholder="Name"
-                                                   value={this.state.response.rightResponse}
-                                                   onChange={this.onChange}
-                                            />
                                             {this.validator.message('Name', this.state.response.rightResponse, 'required')}
-                                        </div>
                                         <button type="submit" className="btn btn-block btn-primary">Validate</button>
                                     </form>
                                 </div>
