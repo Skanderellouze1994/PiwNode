@@ -42,18 +42,6 @@ class TrainingSessionDetail extends Component {
                                     All {this.state.session.name} 's courses and details
                                 </h2>
                             </div>
-                            <form className="col-lg-5 my-2 ml-auto">
-                                <div className="input-group bg-white rounded p-1">
-                                    <input type="text" className="form-control border-white"
-                                           placeholder="What do you want to learn?" required/>
-                                    <div className="input-group-append">
-                                        <button className="btn btn-info rounded" type="submit">
-                                            Search
-                                            <i className="ti-angle-right small"/>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>

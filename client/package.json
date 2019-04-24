@@ -6,6 +6,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^12.0.0",
     "@ckeditor/ckeditor5-react": "^1.1.2",
+    "artyom.js": "^1.0.6",
     "aws-amplify": "^1.1.22",
     "axios": "^0.18.0",
     "cloudinary": "^1.14.0",
@@ -14,6 +15,8 @@
     "emoji-js": "^3.4.1",
     "form-data": "^2.3.3",
     "react": "^16.8.6",
+    "react": "^16.8.4",
+    "react-chat-window": "^1.2.1",
     "react-context-tabs": "^2.0.0-alpha4",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.4",
@@ -33,7 +36,10 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8",
     "react-service-worker": "^0.1.1",
+    "react-share": "^2.4.0",
+
     "react-skillbars": "^1.5.1",
+    "react-speech-recognition": "^2.0.1",
     "react-spinners": "^0.5.4",
     "react-stepzilla": "^6.0.0",
     "react-webcam": "^1.1.1",

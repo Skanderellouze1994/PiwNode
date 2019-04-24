@@ -2,6 +2,25 @@ import React,{Component} from "react";
 import connect from "react-redux/es/connect/connect";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {
+    FacebookShareCount,
+    GooglePlusShareCount,
+    LinkedinShareCount,
+    PinterestShareCount,
+
+    FacebookShareButton,
+    GooglePlusShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    PinterestShareButton,
+
+    FacebookIcon,
+    TwitterIcon,
+    GooglePlusIcon,
+    LinkedinIcon,
+    PinterestIcon,
+} from 'react-share';
+import Artyom from 'artyom.js';
 
 class CourseDetail extends Component{
     constructor(props) {
@@ -16,12 +35,38 @@ class CourseDetail extends Component{
             .then(response => {
                 this.setState({ course: response.data });
                 console.log(response.data);
-            })
+            });
+
+        const artyom = new Artyom();
+        artyom.initialize({
+            lang:"en-GB",
+            debug:true,
+            continuous:false,
+            listen:true,
+            speed:1
+        });
+
+
+        var settings = {
+            continuous: true, // Don't stop never because i have https connection
+            onResult: function (text) {
+                alert(text);
+            },
+            onStart: function () {
+                alert("Dictation started by the user");
+            },
+            onEnd: function () {
+                alert("Dictation stopped by the user");
+            }
+        };
+
     }
 
     render() {
-        console.log(this.state.course);
-        console.log(this.props);
+        //console.log(this.state.course);
+        //console.log(this.props);
+        const url = window.location.href;
+        //console.log(url)
 
         return(
             <div>
@@ -41,17 +86,6 @@ class CourseDetail extends Component{
                                 </h2>
                                 }
                             </div>
-                            <form className="col-lg-5 my-2 ml-auto">
-                                <div className="input-group bg-white rounded p-1">
-                                    <input type="text" className="form-control border-white" placeholder="What do you want to learn?" required />
-                                    <div className="input-group-append">
-                                        <button className="btn btn-info rounded" type="submit">
-                                            Search
-                                            <i className="ti-angle-right small" />
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -62,23 +96,51 @@ class CourseDetail extends Component{
                                 <ul className="list-inline d-inline-block py-2 px-4 shadow-v3 bg-white rounded-pill">
                                     <li className="list-inline-item">Share <span className="d-none d-md-inline-block">this course:</span></li>
                                     <li className="list-inline-item mx-0">
-                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
-                                            <i className="ti-facebook" />
+                                        <a className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <FacebookShareButton
+                                                url="http://github.com/Skanderellouze1994/PiwNode"
+                                                quote={url}
+                                            >
+                                                <FacebookIcon
+                                                    size={32}
+                                                    round />
+                                            </FacebookShareButton>
                                         </a>
                                     </li>
                                     <li className="list-inline-item mx-0">
-                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
-                                            <i className="ti-twitter" />
+                                        <a className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <TwitterShareButton
+                                                url={url}
+                                                title="test"
+                                                className="Demo__some-network__share-button">
+                                                <TwitterIcon
+                                                    size={32}
+                                                    round />
+                                            </TwitterShareButton>
                                         </a>
                                     </li>
                                     <li className="list-inline-item mx-0">
-                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
-                                            <i className="ti-linkedin" />
+                                        <a className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <LinkedinShareButton
+                                                url="http://github.com/Skanderellouze1994/PiwNode"
+                                                title="test"
+                                                windowWidth={750}
+                                                windowHeight={600}
+                                                className="Demo__some-network__share-button">
+                                                <LinkedinIcon
+                                                    size={32}
+                                                    round />
+                                            </LinkedinShareButton>
                                         </a>
                                     </li>
                                     <li className="list-inline-item mx-0">
-                                        <a href="#" className="btn btn-opacity-primary iconbox iconbox-xs">
-                                            <i className="ti-google" />
+                                        <a className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <GooglePlusShareButton
+                                                url="http://github.com/Skanderellouze1994/PiwNode">
+                                                <GooglePlusIcon
+                                                    size={32}
+                                                    round />
+                                            </GooglePlusShareButton>
                                         </a>
                                     </li>
                                 </ul>
@@ -152,6 +214,16 @@ class CourseDetail extends Component{
                                         <li className="nav-item">
                                             <a className="nav-link" data-toggle="tab" href="#tabInstructors" role="tab" aria-selected="true">
                                                 Instructors
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" data-toggle="tab" href="#tabStatics" role="tab" aria-selected="true">
+                                                Statics
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" data-toggle="tab" href="#tabList" role="tab" aria-selected="true">
+                                                Presence List
                                             </a>
                                         </li>
                                     </ul>

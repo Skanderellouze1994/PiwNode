@@ -15,6 +15,7 @@ var profileRouter = require('./routes/profile');
 var quizRouter = require('./routes/quiz');
 var ressourceRouter = require('./routes/ressources');
 var trainingRouter = require('./routes/trainingSession');
+var chatBotRouter = require('./routes/chatBot');
 var auth = require('./routes/auth')(passport);
 var cron = require('./routes/cronTask')
 var stream = require('./routes/stream')
@@ -55,6 +56,7 @@ app.use('/profil' , profileRouter);
 app.use('/scrapping' , scrappingRouter);
 app.use('/quiz' , quizRouter);
 app.use('/ressource' , ressourceRouter);
+app.use('/chatbot' , chatBotRouter);
 
 
 
