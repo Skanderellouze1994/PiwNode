@@ -12,17 +12,6 @@ var loggedIn = function(req,res,next){
   }
 };
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
- // res.render('index', { title: 'Express' });
-    const msg = req.body.msg
-    connectBot(msg)
-        .then(function(response) {
-            console.log(response[0].queryResult.intent.displayName)
-        })
-
-});
-
 router.get('/login', function(req, res, next) {
   res.render('login.twig');
 });
