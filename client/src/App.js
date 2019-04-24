@@ -36,11 +36,14 @@ import {AddQuiz} from "./components/Quiz/addQuiz";
 import {AddQuestion} from "./components/Quiz/addQuestion";
 import {AddProposition} from "./components/Quiz/addProposition";
 import {Dashboard} from "./components/tutor/Dashboard";
-import {CurrentSession} from "./components/TrainingSession/CurrentSession";
 import {ShowQuiz} from "./components/Quiz/showQuiz";
 import {ResponseQuiz} from "./components/Quiz/responseQuiz";
 
 import {StreamLink} from "./components/Streaming/StreamLink";
+
+import {CurrentSession} from "./components/TrainingSession/CurrentSession";
+import {TutorSessions} from "./components/tutor/TutorSessions";
+import {StudentSessions} from "./components/student/StudentSessions";
 
 import {ElementCallToAction} from "./components/profile/ElementCallToAction";
 import Scrapping from "./components/profile/scrapping";
@@ -88,9 +91,12 @@ class App extends Component {
                     <PrivateRoute  exact  path="/addquestion/:id" component={AddQuestion}/>
                     <PrivateRoute  exact  path="/addproposition/:idquiz/:idquestion" component={AddProposition}/>
                     <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                    <PrivateRoute exact path="/currentSession" component={CurrentSession} />
                     <PrivateRoute  exact  path="/showquiz/:id" component={ShowQuiz}/>
                     <PrivateRoute  exact  path="/responsequiz/:idquiz/:id" component={ResponseQuiz}/>
+
+                    <PrivateRoute exact path="/currentSession/:id" component={CurrentSession} />
+                    <PrivateRoute exact path="/tutor/sessions"  component={TutorSessions} />
+                    <PrivateRoute exact path="/student/sessions" component={StudentSessions} />
 
 
                 <Footer/>
