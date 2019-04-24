@@ -42,6 +42,7 @@ class PositionComponent extends Component {
         this.setState({submitted: true});
         let isDataValid = false;
         if (this.validator.allValid()) {
+            console.log(this.sampleStore.positions)
             this.props.updateStore({
                 positions: this.sampleStore.positions
                 //savedToCloud: false

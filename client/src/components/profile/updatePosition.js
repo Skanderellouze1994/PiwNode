@@ -43,7 +43,7 @@ class UpdatePosition extends Component {
         if(etat){
             this.props.removePosition(this.props.i)
             this.setState({etat:false})
-            this.props.validator.fields={};
+            //this.props.validator.fields={};
             //console.log(this.props.validator)
         }
         else{

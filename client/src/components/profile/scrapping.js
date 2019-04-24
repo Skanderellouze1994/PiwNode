@@ -5,14 +5,19 @@ import './main.css';
 import PositionComponent from "./positionComponent";
 import EducationsComponent from "./educationsComponent";
 import {connect} from "react-redux";
+import SkillsComponent from "./skillsComponent";
+import ViewComponent from "./viewComponent";
 
 
 class Scrapping extends Component {
     constructor(props) {
         super(props)
+        const {linkedin} = this.props.profile
         this.sampleStore = {
-            summary: '',
-            positions:[]
+            summary: linkedin.summary,
+            positions:linkedin.positions,
+            educations:linkedin.educations,
+            skills:linkedin.skills
             //gender: '',
            // savedToCloud: false
         };
@@ -24,6 +29,7 @@ class Scrapping extends Component {
 
     updateStore(update) {
         console.log(update)
+        console.log(this.sampleStore)
         this.sampleStore = {
             ...this.sampleStore,
             ...update,
@@ -50,16 +56,27 @@ class Scrapping extends Component {
                     name: 'Education',
                     component: <EducationsComponent getStore={() => (this.getStore())} updateStore={(u) => {
                         this.updateStore(u)
-                    }}/>
+                    }} educations = {this.props.profile.linkedin.educations}/>
                 },
 
                 {
-                    name: 'Education',
-                    component: <EducationsComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                    name: 'Skills',
+                    component: <SkillsComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }} skills={this.props.profile.linkedin.skills}/>
+                },
+                {
+                    name: 'Resume',
+                    component: <ViewComponent getStore={() => (this.getStore())} updateStore={(u) => {
                         this.updateStore(u)
                     }}/>
                 },
-
+                {
+                    name: 'Resume',
+                    component: <ViewComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }}/>
+                },
                // {name: 'Step 2', component: <BiographyComponent/>},
                // {name: 'Step 3', component: <BiographyComponent/>},
 

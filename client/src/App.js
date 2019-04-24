@@ -3,7 +3,6 @@ import {Route} from 'react-router-dom';
 import './App.css';
 import {Header} from './containers/Header';
 import Footer from './containers/Footer';
-import {Chats} from './containers/chats';
 import {Menu} from './containers/Menu';
 import {Login} from './components/Login';
 import {Signup} from './components/Signup';

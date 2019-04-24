@@ -3,7 +3,9 @@ import connect from "react-redux/es/connect/connect";
 import axios from "axios";
 import moment from "moment";
 import Swal from 'sweetalert2';
+import {Chats} from '../../containers/chats';
 var dateFormat = require('dateformat');
+
 
 class CurrentSession extends Component{
     constructor(props) {
@@ -83,6 +85,7 @@ class CurrentSession extends Component{
         }
         return(
             <div>
+                <Chats/>
                 <section className="padding-y-60 bg-light">
                     <div className="container">
                         <div className="row">
