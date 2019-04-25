@@ -33,7 +33,7 @@ class Scrapping extends Component {
    async callToAction() {
         const {dispatch} = this.props;
        await dispatch(profileAction.updateProfile({...this.sampleStore,_id:this.props.profile.profile._id}))
-       //history.push('/profil')
+       setTimeout(()=>{history.push('/profil')},1000)
     }
 
     updateStore(update) {
@@ -109,7 +109,7 @@ class Scrapping extends Component {
                 <section className="paddingTop-50 paddingBottom-100 bg-light">
                     <div className="container">
                         <div className="row justify-content-md-center">
-                            <div className="col-md-8 mt-4">
+                            <div className="col-md-10 mt-4">
                                 <div className="card shadow-v1">
 
                                     <div className="card-body">

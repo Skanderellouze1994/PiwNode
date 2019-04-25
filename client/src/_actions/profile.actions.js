@@ -48,7 +48,7 @@ function getLinkedin(profile) {
     return dispatch => {
         dispatch(success(profile))
         localStorage.setItem('linkedin', JSON.stringify(profile));
-        history.push('/scrapping')
+       setTimeout(()=>{history.push('/scrapping')},1000)
     };
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(profile) { return { type: profileConstants.GET_LINKEDIN, profile } }

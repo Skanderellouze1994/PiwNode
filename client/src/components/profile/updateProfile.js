@@ -4,6 +4,7 @@ import SimpleReactValidator from "simple-react-validator";
 import {userActions} from "../../_actions";
     import axios from 'axios/index';
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import {history} from '../../_helpers/history'
 
 
 class UpdateProfile extends Component {
@@ -28,7 +29,7 @@ class UpdateProfile extends Component {
 
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
 
         this.setState({submitted: true});
@@ -37,7 +38,8 @@ class UpdateProfile extends Component {
         if (this.validator.allValid()) {
 
             console.log(user)
-            dispatch(userActions.updateProfile(user));
+           await dispatch(userActions.updateProfile(user));
+          //  await history.push('/profil')
 
         } else {
             this.validator.showMessages();
@@ -49,7 +51,6 @@ class UpdateProfile extends Component {
     handleChange(event) {
         const {name, value} = event.target;
         const {user} = this.state;
-        console.log(user);
         this.setState({
             user: {
                 ...user,
@@ -58,6 +59,7 @@ class UpdateProfile extends Component {
 
 
         });
+        console.log(user);
     }
 
     onUpdate(e) {

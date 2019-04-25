@@ -33,10 +33,11 @@ function updateProfile(profile) {
         body: JSON.stringify(profile)
     };
 
-    return fetch("http://localhost:4000/profil/"+profile._id, requestOptions).then(handleResponse).then(profile => {
+    return fetch("http://localhost:4000/profil/"+profile._id, requestOptions).then(handleResponse).then(p => {
         //console.log(user);
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('profile', JSON.stringify(profile));
+        console.log(p)
+        localStorage.setItem('profile', JSON.stringify(p));
 
         return profile;
     });
