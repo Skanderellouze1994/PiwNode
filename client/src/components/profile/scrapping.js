@@ -7,6 +7,9 @@ import EducationsComponent from "./educationsComponent";
 import {connect} from "react-redux";
 import SkillsComponent from "./skillsComponent";
 import ViewComponent from "./viewComponent";
+import {profileAction} from "../../_actions";
+import { history } from '../../_helpers/history';
+
 
 
 class Scrapping extends Component {
@@ -15,16 +18,22 @@ class Scrapping extends Component {
         const {linkedin} = this.props.profile
         this.sampleStore = {
             summary: linkedin.summary,
-            positions:linkedin.positions,
-            educations:linkedin.educations,
-            skills:linkedin.skills
+            position: linkedin.positions,
+            education: linkedin.educations,
+            skills: linkedin.skills
             //gender: '',
-           // savedToCloud: false
+            // savedToCloud: false
         };
     }
 
     getStore() {
         return this.sampleStore;
+    }
+
+   async callToAction() {
+        const {dispatch} = this.props;
+       await dispatch(profileAction.updateProfile({...this.sampleStore,_id:this.props.profile.profile._id}))
+       //history.push('/profil')
     }
 
     updateStore(update) {
@@ -56,7 +65,7 @@ class Scrapping extends Component {
                     name: 'Education',
                     component: <EducationsComponent getStore={() => (this.getStore())} updateStore={(u) => {
                         this.updateStore(u)
-                    }} educations = {this.props.profile.linkedin.educations}/>
+                    }} educations={this.props.profile.linkedin.educations}/>
                 },
 
                 {
@@ -69,7 +78,7 @@ class Scrapping extends Component {
                     name: 'Resume',
                     component: <ViewComponent getStore={() => (this.getStore())} updateStore={(u) => {
                         this.updateStore(u)
-                    }}/>
+                    }} callToAction={() => this.callToAction()}/>
                 },
                 {
                     name: 'Resume',
@@ -77,8 +86,8 @@ class Scrapping extends Component {
                         this.updateStore(u)
                     }}/>
                 },
-               // {name: 'Step 2', component: <BiographyComponent/>},
-               // {name: 'Step 3', component: <BiographyComponent/>},
+                // {name: 'Step 2', component: <BiographyComponent/>},
+                // {name: 'Step 3', component: <BiographyComponent/>},
 
             ]
         return (
@@ -130,7 +139,7 @@ class Scrapping extends Component {
 }
 
 function mapStateToProps(state) {
-    const {users, authentication,profile} = state;
+    const {users, authentication, profile} = state;
     const {user} = authentication;
     return {
         user,

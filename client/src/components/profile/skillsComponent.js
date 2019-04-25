@@ -41,7 +41,7 @@ class SkillsComponent extends Component {
     isValidated() {
         this.setState({submitted: true});
         let isDataValid = false;
-        if (this.state.skills.length>0) {
+        if ((this.state.skills.length>0)||(this.props.getStore().skills.length===0)) {
             this.props.updateStore({
                 skills: this.state.skills
                 //savedToCloud: false

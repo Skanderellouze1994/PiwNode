@@ -43,6 +43,7 @@ export function profile(state = initialState, action) {
             };
         case profileConstants.UPDATE_PROFILE:
             return {
+                ...state,
                 loaded: true,
                 profile: action.profile
             };
