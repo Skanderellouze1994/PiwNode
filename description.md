@@ -10,3 +10,30 @@ Our product contains several features:
  -contains  training sessions 
  -there will also be emails and sms sent to the user as notifications 2 hours before the course starts.
  -streaming
+ 
+ ### Global architecture
+ Our application is devided into two parts:
+Server side : built with nodeJS and expressJS created with express generator with some modifications.
+Client side: built with RactJs into the Server Side.
+
+ ./PiwNode
+├── bin
+├── crawledProfiles
+├── client
+│   ├── functions
+│   ├── public
+|         └── assets
+│   └── src  
+|         ├── _actions
+│         ├── _componenets
+│         ├── _constants
+│         ├── _helpers
+│         ├── _reducers
+│         ├── _services
+│         ├── charts
+│         ├── components
+│         └── containers     
+├── models   
+├── routes   
+├── scrapping
+└── views
