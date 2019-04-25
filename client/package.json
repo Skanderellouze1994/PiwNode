@@ -15,7 +15,6 @@
     "emoji-js": "^3.4.1",
     "form-data": "^2.3.3",
     "joi": "^14.3.1",
-    "react": "^16.8.6",
     "react": "^16.8.4",
     "react-chat-window": "^1.2.1",
     "react-context-tabs": "^2.0.0-alpha4",
@@ -38,7 +37,6 @@
     "react-scripts": "2.1.8",
     "react-service-worker": "^0.1.1",
     "react-share": "^2.4.0",
-
     "react-skillbars": "^1.5.1",
     "react-speech-recognition": "^2.0.1",
     "react-spinners": "^0.5.4",

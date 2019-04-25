@@ -85,7 +85,12 @@ class CurrentSession extends Component{
         }
         return(
             <div>
-                <Chats/>
+                <div style={{position: 'relative',zIndex:'2'}}>
+                    {this.state.course.chatroom&&  <Chats id={this.state.course.chatroom} name={this.state.course.title}/>
+                    }
+
+                </div>
+                <div style={{position: 'relative',zIndex:'1'}}>
                 <section className="padding-y-60 bg-light">
                     <div className="container">
                         <div className="row">
@@ -171,6 +176,7 @@ class CurrentSession extends Component{
                         </div>
                     </div>
                 </section>
+                </div>
             </div>
         )
     }

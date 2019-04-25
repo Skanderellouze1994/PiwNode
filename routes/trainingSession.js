@@ -4,6 +4,7 @@ var TrainingSession = require('./../models/trainingSession');
 var User = require('../models/user');
 var Course = require('../models/course');
 var Post = require('../models/post');
+var Discussion = require('../models/discussion');
 //TrainingSession = mongoose.model('TrainingSession',trainingSession);
 //User = mongoose.model('User', user);
 //Course = mongoose.model('Course', course);
@@ -237,6 +238,8 @@ router.post('/add/course/:user/:session', function(req, res, next) {
                 cours.objectives = objectives;
                 cours.period = period;
                 cours.tutorCreator = req.params.user;
+                cours.chatroom = new Discussion()
+                cours.chatroom.save();
 
                 cours.save(function (err,cours) {
                     if(err){

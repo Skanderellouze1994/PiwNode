@@ -31,7 +31,7 @@ class Chats extends Component {
 /        console.log(user)
 
 
-        axios.get('http://localhost:4000/chats/detail/5c966e4e32283430f8932803')
+        axios.get('http://localhost:4000/chats/detail/'+this.props.id)
             .then(res => {
                 var list = []
                 res.data.forEach(function (data) {
@@ -58,17 +58,21 @@ class Chats extends Component {
         const {newMessagesCount} = this.state
         console.log(user._id)
         console.log(msg.author._id)
-        if (!(user._id === msg.author._id))
-            this.setState({
-                messageList: [...this.state.messageList, {
-                    author: 'them',
-                    type: msg.type,
-                    data: msg.data,
-                    photo:msg.author.profile_photo,
-                    name:msg.author.name
-                }],
-                newMessagesCount:newMessagesCount+1
-            })
+        if (!(user._id === msg.author._id)){
+            console.log(this.props.id)
+            console.log(msg.chatId)
+            if(this.props.id===msg.chatId) {
+                this.setState({
+                    messageList: [...this.state.messageList, {
+                        author: 'them',
+                        type: msg.type,
+                        data: msg.data,
+                        photo: msg.author.profile_photo,
+                        name: msg.author.name
+                    }],
+                    newMessagesCount: newMessagesCount + 1
+                })
+            }}
         //console.log(msg)
 
     }
@@ -106,9 +110,10 @@ class Chats extends Component {
         var m = {
             ...message,
             author: user.user._id,
+            chatId:this.props.id
 
         }
-        axios.post('http://localhost:4000/chats/addMsg/5c966e4e32283430f8932803', m).then(function (res) {
+        axios.post('http://localhost:4000/chats/addMsg/'+this.props.id, m).then(function (res) {
             //console.log(res)
             socket.emit('msg', m)
         });
@@ -131,7 +136,7 @@ class Chats extends Component {
 
     _handleClick() {
         const {user} = this.props.user;
-        axios.get('http://localhost:4000/chats/detail/5c966e4e32283430f8932803')
+        axios.get('http://localhost:4000/chats/detail/'+this.props.id)
             .then(res => {
                 /*var list = []
                 res.data.forEach(function (data) {
@@ -174,7 +179,7 @@ class Chats extends Component {
 
             <Launcher
                 agentProfile={{
-                    teamName: 'react-chat-window',
+                    teamName: this.props.name,
                     imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
                 }}
                 onMessageWasSent={this._onMessageWasSent.bind(this)}

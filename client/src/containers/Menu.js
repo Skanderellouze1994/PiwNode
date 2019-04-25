@@ -6,7 +6,7 @@ import connect from "react-redux/es/connect/connect";
 class Menu extends Component {
     render() {
         return (
-            <nav className="ec-nav sticky-top bg-white">
+            <nav className="ec-nav sticky-top bg-white" style={{position: 'relative',zIndex:'2'}}>
                 <div className="container">
                     <div className="navbar p-0 navbar-expand-lg">
                         <div className="navbar-brand">
