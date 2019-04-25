@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 var user = require('./user');
+var course = require('./course');
 
 var propositionSchema = new mongoose.Schema({
     name: {
@@ -27,7 +28,8 @@ var quizSchema = new mongoose.Schema({
         type: String
     },
     tutor: {type:mongoose.Schema.Types.ObjectId,ref:'User'},
-    questions: [questionSchema]
+    questions: [questionSchema],
+    course: {type:mongoose.Schema.Types.ObjectId,ref:'Course'}
 });
 
 module.exports = mongoose.model('Quiz', quizSchema);

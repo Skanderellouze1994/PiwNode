@@ -5,10 +5,12 @@ var Quiz = require('../models/quiz');
 
 
 /*CREATE QUIZ*/
-router.post('/:idTutor', function (req, res) {
+router.post('/:idTutor/:idCourse', function (req, res) {
     var idTutor = req.params.idTutor;
+    var idCourse = req.params.idCourse;
     var quiz = new Quiz(req.body);
     quiz.tutor=idTutor;
+    quiz.course=idCourse;
     quiz.save(function (err, quiz) {
         if(err)
             res.send(err);

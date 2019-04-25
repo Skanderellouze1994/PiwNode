@@ -4,12 +4,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import connect from "react-redux/es/connect/connect";
 import {history} from "../../_helpers";
+import {Link} from "react-router-dom";
 
 class ResponseQuiz extends Component {
 
     constructor(props) {
         super(props);
         var a = null;
+        var next = null;
+        var last = null;
+
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
 
@@ -51,7 +55,7 @@ class ResponseQuiz extends Component {
                 var i = 0;
                 for (i; i < this.a.length-1; i += 1) {
                     if (this.a[i]) {
-                        console.log(this.a[i + 1]._id);
+                        //console.log(this.a[i + 1]._id);
                     }
                 }
             })
@@ -59,7 +63,20 @@ class ResponseQuiz extends Component {
             .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ question: response.data });
-                console.log(response.data)
+                //console.log(response.data)
+                var i = 0;
+                for (i; i < this.a.length-1; i += 1) {
+                    if (this.a[i]._id==response.data._id) {
+                        if(this.a[i - 1]){
+                            this.last = this.a[i - 1]._id;
+                            console.log(this.last);
+                        }
+                        if(this.a[i + 1]){
+                            this.next = this.a[i + 1]._id;
+                            console.log(this.next);
+                        }
+                    }
+                }
             })
         axios
             .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/propositions`)
@@ -85,7 +102,12 @@ class ResponseQuiz extends Component {
         this.setState({
         })
     }
-
+    nextQuestion(){
+        history.push('/responsequiz/'+this.props.match.params.idquiz+'/'+this.next);
+    }
+    lastQuestion(){
+        history.push('/responsequiz/'+this.props.match.params.idquiz+'/'+this.last);
+    }
     render() {
         return (
             <section className="padding-y-100 bg-light">
@@ -122,6 +144,13 @@ class ResponseQuiz extends Component {
 
                                             {this.validator.message('Name', this.state.response.rightResponse, 'required')}
                                         <button type="submit" className="btn btn-block btn-primary">Validate</button>
+
+                                        <button onClick={this.lastQuestion} className="btn btn-info rounded">
+                                            <i className="ti-angle-left small"/>
+                                        </button>
+                                        <button onClick={this.nextQuestion} className="btn btn-info rounded">
+                                            <i className="ti-angle-right small"/>
+                                        </button>
                                     </form>
                                 </div>
                             </div>

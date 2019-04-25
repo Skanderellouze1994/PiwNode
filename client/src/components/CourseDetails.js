@@ -26,7 +26,9 @@ class CourseDetail extends Component{
     constructor(props) {
         super(props);
 
-        this.state ={};
+        this.state = {
+            quiz: []
+        };
     }
 
     componentDidMount(){
@@ -34,6 +36,12 @@ class CourseDetail extends Component{
             .get(`http://localhost:4000/trainingSession/get/course/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ course: response.data });
+                console.log(response.data);
+            });
+        axios
+            .get(`http://localhost:4000/quiz`)
+            .then(response => {
+                this.setState({ quiz: response.data });
                 console.log(response.data);
             });
 
@@ -226,6 +234,15 @@ class CourseDetail extends Component{
                                                 Presence List
                                             </a>
                                         </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" data-toggle="tab" href="#tabRessources" role="tab" aria-selected="true">
+                                                Ressources
+                                            </a>
+                                        </li><li className="nav-item">
+                                            <a className="nav-link" data-toggle="tab" href="#tabQuiz" role="tab" aria-selected="true">
+                                                Quiz
+                                            </a>
+                                        </li>
                                     </ul>
                                     <div className="tab-content">
                                         <div className="tab-pane fade show active" id="tabDescription" role="tabpanel">
@@ -315,7 +332,45 @@ class CourseDetail extends Component{
                                                     Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius claritas est conctetur adip sicing. Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standad dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it make type specimen book. It has survived not only five centuries.
                                                 </p>
                                             </div>
-                                        </div> {/* END tab-pane */}
+                                        </div>
+                                        <div className="tab-pane fade" id="tabQuiz" role="tabpanel">
+                                            <div className="input-group-append">
+                                                {this.state.course !== undefined &&
+                                                this.state.course.tutorCreator !== undefined &&
+                                                this.state.course.tutorCreator._id === this.props.user.user._id &&
+                                                <Link to={"/addquiz/"+this.state.course._id}
+                                                      className="btn btn-info rounded" type="submit">
+                                                    Add a quiz
+                                                    <i className="ti-angle-right small"/>
+                                                </Link>
+                                                }
+                                            </div>
+                                            {this.state.quiz.map(q=>
+                                            {return(
+                                                <div className="col-lg-4 col-md-6 marginTop-30">
+                                                <div href="page-course-details.html" class="card height-100p text-gray shadow-v1">
+                                                    <img class="card-img-top" src="assets/img/360x220/5.jpg" alt=""/>
+                                                    <div class="card-body">
+                                                        <a href="#" class="h5">
+                                                            {q.name}
+                                                        </a>
+                                                        <p class="my-3">
+                                                            <i class="ti-user mr-2"></i>
+                                                            Jonathon
+                                                        </p>
+                                                        <Link to={"/responsequiz/"+q._id+'/'+q.questions[0]._id}
+                                                              className="btn btn-success active mr-2 mb-3" type="submit">
+                                                            take a quiz
+                                                            <i className="ti-angle-right small"/>
+                                                        </Link>
+                                                    </div>
+
+                                                </div>
+                                                </div>
+                                            )})}
+
+
+                                        </div>{/* END tab-pane */}
                                     </div> {/* END tab-content*/}
                                 </div> {/* END col-12 */}
                             </div>

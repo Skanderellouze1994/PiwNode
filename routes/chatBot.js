@@ -5,8 +5,11 @@ var mongoose = require('mongoose');
 var Course = require('../models/course');
 var TrainingSession = require('../models/trainingSession');
 
-router.get('/', function(req, res, next) {
-    const msg = req.body.msg
+let a="courses available are ";
+let b="training sessions available are ";
+
+router.get('/:msg', function(req, res, next) {
+    const msg = req.params.msg
     connectBot(msg)
         .then(function(response) {
             switch (response[0].queryResult.intent.displayName) {
@@ -22,17 +25,28 @@ router.get('/', function(req, res, next) {
                         {res.send(err)}
                         if (!courses)
                         {res.status(404).send()}
-                        else res.json(courses)
+                        else
+                            courses.map(c=>{
+                                //return(c.title)
+                                 a += c.title+', '
+                            })
+                        res.send(a);
+                        a= "courses available are ";
                     });
                     break;
                 case "next training sessions":
-                    TrainingSession.find().populate('tutor').exec(function (err, sessions) {
-                        if(err)
-                            res.send(err);
-                        if(!sessions)
-                            res.status(404).send();
+                    TrainingSession.find(function (err, sessions) {
+                        if (err)
+                        {res.send(err)}
+                        if (!sessions)
+                        {res.status(404).send()}
                         else
-                            res.json(sessions);
+                            sessions.map(s=>{
+                                //return(c.title)
+                                b += s.name+', '
+                            })
+                        res.send(b);
+                        b= "training sessions available are ";
                     });
                     break;
                 case "running course":

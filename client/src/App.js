@@ -87,7 +87,7 @@ class App extends Component {
                     <PrivateRoute exact path="/course/:id" component={CourseDetail} />
                     <PrivateRoute exact path="/course/:id/edit" component={EditCourse} />
                     <PrivateRoute exact path="/allCourses/:id/edit" component={EditTrainingSession} />
-                    <PrivateRoute  exact  path="/addquiz" component={AddQuiz}/>
+                    <PrivateRoute  exact  path="/addquiz/:id" component={AddQuiz}/>
                     <PrivateRoute  exact  path="/addquestion/:id" component={AddQuestion}/>
                     <PrivateRoute  exact  path="/addproposition/:idquiz/:idquestion" component={AddProposition}/>
                     <PrivateRoute exact path="/dashboard" component={Dashboard} />

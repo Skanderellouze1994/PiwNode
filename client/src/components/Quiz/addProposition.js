@@ -3,6 +3,7 @@ import SimpleReactValidator from "simple-react-validator";
 import axios from "axios";
 import Swal from "sweetalert2";
 import connect from "react-redux/es/connect/connect";
+import {history} from "../../_helpers";
 
 class AddProposition extends Component {
 
@@ -20,7 +21,8 @@ class AddProposition extends Component {
                 name: ''
             },
             question: {},
-            propositions: []
+            propositions: [],
+            idp: 0
         };
         this.validator = new SimpleReactValidator(
             {element: message => <div className="alert text-danger bg-danger-0_1 px-4 py-3" role="alert">
@@ -71,12 +73,14 @@ class AddProposition extends Component {
     }
 
     delete() {
+        setTimeout(() => window.location.reload(), 0);
         axios
-            .delete(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/propositions`)
+            .delete(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/proposition/${this.state.idp}`)
             .then(response => {
                 this.setState({ propositions: response.data });
                 console.log(response.data)
             })
+
     }
 
     render() {
@@ -104,8 +108,8 @@ class AddProposition extends Component {
                                         <ol className="list-unstyled comments-area">
                                             <li>
                                                 <p>
-                                                    {p.name}
-                                                    <button onClick={this.delete} className="btn btn-danger">Delete</button>
+                                                        <i className="ti-trash" onClick={this.delete}/>
+                                                        {p.name}
                                                 </p>
 
                                             </li>
