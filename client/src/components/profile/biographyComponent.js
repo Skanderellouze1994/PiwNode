@@ -25,6 +25,7 @@ class BiographyComponent extends Component {
     }
 
     isValidated() {
+
         this.setState({ submitted: true });
         let isDataValid = false;
          if (this.validator.allValid()) {
@@ -39,7 +40,7 @@ class BiographyComponent extends Component {
              // rerender to show messages for the first time
              this.forceUpdate();
         }
-
+console.log(isDataValid)
         return isDataValid;
     }
     render() {

@@ -8,7 +8,8 @@ import costum from './costum.css'
 import {profileAction, userActions} from "../../_actions";
 import SimpleReactValidator from "simple-react-validator";
 
-const month = ["janv.","févr.","mars","avril.",'mai',"juin","juil.","août","sept.","oct.","nov.",".dec"]
+const month = ["janv.", "févr.", "mars", "avril.", 'mai', "juin", "juil.", "août", "sept.", "oct.", "nov.", ".dec"]
+
 class About extends Component {
     constructor(props) {
         super(props)
@@ -77,11 +78,11 @@ class About extends Component {
             const position = {
                 title: pos.title,
                 companyName: pos.companyName,
-                date1: month[pos.monthdate1]+" "+pos.yeardate1 + " - " + month[pos.monthdate2]+" "+pos.yeardate2 ,
-                date2: (pos.date2 - pos.date1)===0?(pos.yeardate2 - pos.yeardate1 + " ans"):pos.monthdate2 - pos.monthdate1 + " mois",
+                date1: month[pos.monthdate1] + " " + pos.yeardate1 + " - " + month[pos.monthdate2] + " " + pos.yeardate2,
+                date2: (pos.date2 - pos.date1) === 0 ? (pos.yeardate2 - pos.yeardate1 + " ans") : pos.monthdate2 - pos.monthdate1 + " mois",
                 description: pos.description
             }
-           // console.log(position)
+            // console.log(position)
             dispatch(profileAction.addPosition(profile.profile._id, position));
             this.setState({open: false})
 
@@ -141,6 +142,7 @@ class About extends Component {
 
         });
     }
+
     handleSubmitEducation(event) {
         event.preventDefault();
 
@@ -209,7 +211,7 @@ class About extends Component {
         const {profile} = this.props
         // console.log(profile.loaded)
         const loading = (this.props.profile.position && !this.props.profile.position.length);
-         console.log(this.props.profile.profile.position.length>0)
+        console.log(this.props.profile.profile.position.length > 0)
         var experience = null;
         var education = null;
         if (profile.loaded && profile.profile.position.length > 0) {
@@ -255,7 +257,8 @@ class About extends Component {
                     <div style={{display: 'flex', justifyContent: 'space-between'}}><h4 className="mb-4">
                         Education
                     </h4>
-                        <button className="btn btn-outline-success btn-sm mr-3 mb-3" onClick={this.onOpenModalEducation}>Add
+                        <button className="btn btn-outline-success btn-sm mr-3 mb-3"
+                                onClick={this.onOpenModalEducation}>Add
                             education
                         </button>
                     </div>
@@ -304,71 +307,73 @@ class About extends Component {
                                         <label htmlFor="example-text-input"
                                                className="col-2 col-form-label text-right">Start</label>
                                         <div className="col-10">
-                                            <YearPicker
+                                            <div className="row col-10">
+                                                <MonthPicker
+                                                    defaultValue={'month'}
+                                                    // to get months as numbers
 
-                                                defaultValue={'select year'}
-                                                // default is 1900
+                                                    // default is full name
+                                                    short
+                                                    // default is Titlecase
 
-                                                // default is current year
+                                                    // mandatory if end={} is given in YearPicker
+                                                    endYearGiven
+                                                    // mandatory
+                                                    year={this.state.pos.monthdate1}
+                                                    // default is false
 
-                                                // default is ASCENDING
-                                                reverse
-                                                // default is false
-                                                // default is false
-                                                // mandatory
-                                                value={this.state.pos.yeardate1}
-                                                // mandatory
-                                                onChange={(year) => {
-                                                    const {pos} = this.state
-                                                    this.setState({
-                                                        pos: {
-                                                            ...pos,
-                                                            yeardate1: year
+                                                    // mandatory
+                                                    value={this.state.pos.monthdate1}
+                                                    // mandatory
+                                                    onChange={(month) => {
+                                                        const {pos} = this.state
+                                                        this.setState({
+                                                            pos: {
+                                                                ...pos,
+                                                                monthdate1: month
+                                                            }
+                                                        });
+                                                        console.log(month);
+                                                    }}
+                                                    id={'example-text-input'}
+                                                    name={'monthdate1'}
+                                                    classes={'form-control col-3'}
+                                                    optionClasses={'option classes'}
+                                                />
+                                                {this.validator.message('monthdate1', this.state.pos.monthdate1, 'required')}
 
-                                                        }
-                                                    });
-                                                    //console.log(year);
-                                                }}
-                                                id={'example-text-input'}
-                                                name={'yeardate1'}
-                                                classes={'form-control'}
-                                                optionClasses={'option classes'}
-                                            />
-                                            {this.validator.message('date1', this.state.pos.yeardate1, 'required')}
-                                            <MonthPicker
-                                                defaultValue={'select month'}
-                                                // to get months as numbers
+                                                <YearPicker
 
-                                                // default is full name
-                                                short
-                                                // default is Titlecase
+                                                    defaultValue={'year'}
+                                                    // default is 1900
 
-                                                // mandatory if end={} is given in YearPicker
-                                                endYearGiven
-                                                // mandatory
-                                                year={this.state.pos.monthdate1}
-                                                // default is false
+                                                    // default is current year
 
-                                                // mandatory
-                                                value={this.state.pos.monthdate1}
-                                                // mandatory
-                                                onChange={(month) => {
-                                                    const {pos} = this.state
-                                                    this.setState({
-                                                        pos:{
-                                                            ...pos,
-                                                            monthdate1: month
-                                                        }
-                                                    } );
-                                                    console.log(month);
-                                                }}
-                                                id={'example-text-input'}
-                                                name={'monthdate1'}
-                                                classes={'form-control'}
-                                                optionClasses={'option classes'}
-                                            />
-                                            {this.validator.message('monthdate1', this.state.pos.monthdate1, 'required')}
+                                                    // default is ASCENDING
+                                                    reverse
+                                                    // default is false
+                                                    // default is false
+                                                    // mandatory
+                                                    value={this.state.pos.yeardate1}
+                                                    // mandatory
+                                                    onChange={(year) => {
+                                                        const {pos} = this.state
+                                                        this.setState({
+                                                            pos: {
+                                                                ...pos,
+                                                                yeardate1: year
 
+                                                            }
+                                                        });
+                                                        //console.log(year);
+                                                    }}
+                                                    id={'example-text-input'}
+                                                    name={'yeardate1'}
+                                                    classes={'form-control col-3'}
+                                                    optionClasses={'option classes'}
+                                                />
+                                                {this.validator.message('date1', this.state.pos.yeardate1, 'required')}
+                                            </div>
                                         </div>
                                     </div>
 
@@ -376,71 +381,74 @@ class About extends Component {
                                         <label htmlFor="example-search-input"
                                                className="col-2 col-form-label text-right">End</label>
                                         <div className="col-10">
-                                            <YearPicker
+                                            <div className="row col-10">
+                                                <MonthPicker
+                                                    defaultValue={'month'}
+                                                    // to get months as numbers
 
-                                                defaultValue={'select year'}
-                                                // default is 1900
+                                                    // default is full name
+                                                    short
+                                                    // default is Titlecase
 
-                                                // default is current year
-                                                start={this.state.pos.yeardate1}
-                                                // default is ASCENDING
-                                                reverse
-                                                // default is false
-                                                // default is false
-                                                // mandatory
-                                                value={this.state.pos.yeardate2}
-                                                // mandatory
-                                                onChange={(year) => {
-                                                    const {pos} = this.state
-                                                    this.setState({
-                                                        pos: {
-                                                            ...pos,
-                                                            yeardate2: year
+                                                    // mandatory if end={} is given in YearPicker
+                                                    endYearGiven
+                                                    // mandatory
+                                                    year={this.state.pos.monthdate2}
+                                                    // default is false
 
-                                                        }
-                                                    });
-                                                    //console.log(year);
-                                                }}
-                                                id={'example-text-input'}
-                                                name={'year'}
-                                                classes={'form-control'}
-                                                optionClasses={'option classes'}
-                                            />
-                                            {this.validator.message('date2', this.state.pos.yeardate2, 'required')}
-                                            <MonthPicker
-                                                defaultValue={'select month'}
-                                                // to get months as numbers
+                                                    // mandatory
+                                                    value={this.state.pos.monthdate2}
+                                                    // mandatory
+                                                    onChange={(month) => {
+                                                        const {pos} = this.state
+                                                        this.setState({
+                                                            pos: {
+                                                                ...pos,
+                                                                monthdate2: month
+                                                            }
+                                                        });
+                                                        console.log(month);
+                                                    }}
+                                                    id={'example-text-input'}
+                                                    name={'monthdate1'}
+                                                    classes={'form-control col-3'}
+                                                    optionClasses={'option classes'}
+                                                />
+                                                {this.validator.message('monthdate2', this.state.pos.monthdate2, 'required')}
 
-                                                // default is full name
-                                                short
-                                                // default is Titlecase
+                                                <YearPicker
 
-                                                // mandatory if end={} is given in YearPicker
-                                                endYearGiven
-                                                // mandatory
-                                                year={this.state.pos.monthdate2}
-                                                // default is false
+                                                    defaultValue={'year'}
+                                                    // default is 1900
 
-                                                // mandatory
-                                                value={this.state.pos.monthdate2}
-                                                // mandatory
-                                                onChange={(month) => {
-                                                    const {pos} = this.state
-                                                    this.setState({
-                                                        pos:{
-                                                            ...pos,
-                                                            monthdate2: month
-                                                        }
-                                                    } );
-                                                    console.log(month);
-                                                }}
-                                                id={'example-text-input'}
-                                                name={'monthdate1'}
-                                                classes={'form-control'}
-                                                optionClasses={'option classes'}
-                                            />
-                                            {this.validator.message('monthdate2', this.state.pos.monthdate2, 'required')}
+                                                    // default is current year
+                                                    start={this.state.pos.yeardate1}
+                                                    // default is ASCENDING
+                                                    reverse
+                                                    // default is false
+                                                    // default is false
+                                                    // mandatory
+                                                    value={this.state.pos.yeardate2}
+                                                    // mandatory
+                                                    onChange={(year) => {
+                                                        const {pos} = this.state
+                                                        this.setState({
+                                                            pos: {
+                                                                ...pos,
+                                                                yeardate2: year
 
+                                                            }
+                                                        });
+                                                        //console.log(year);
+                                                    }}
+                                                    id={'example-text-input'}
+                                                    name={'year'}
+                                                    classes={'form-control col-3'}
+                                                    optionClasses={'option classes'}
+                                                />
+                                                {this.validator.message('date2', this.state.pos.yeardate2, 'required')}
+
+                                            </div>
                                         </div>
                                     </div>
 
@@ -478,7 +486,7 @@ class About extends Component {
                                     <div className="row form-group">
                                         <label htmlFor="example-text-input"
                                                className="col-2 col-form-label text-right">Title
-                                            </label>
+                                        </label>
                                         <div className="col-10">
                                             <input name="title" className="form-control" type="text"
                                                    value={this.state.education.title} id="example-text-input"
@@ -581,8 +589,10 @@ class About extends Component {
                                         <label htmlFor="example-textarea"
                                                className="col-2 col-form-label text-right">Description</label>
                                         <div className="col-10">
-                                                <textarea className="form-control" value={this.state.education.description}
-                                                          rows={5} name="description" onChange={this.handleChangeEducation}/>
+                                                <textarea className="form-control"
+                                                          value={this.state.education.description}
+                                                          rows={5} name="description"
+                                                          onChange={this.handleChangeEducation}/>
                                             {this.validatorEducation.message('description', this.state.education.description, 'required')}
                                         </div>
                                     </div>

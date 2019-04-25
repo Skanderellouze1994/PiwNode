@@ -11,8 +11,8 @@ const iState = {
 }
 
 let prof = JSON.parse(localStorage.getItem('profile'));
-let user = JSON.parse(localStorage.getItem('user'));
-const initialState = prof ? {profile: prof, loaded: true} : iState;
+let linkedin = JSON.parse(localStorage.getItem('linkedin'));
+const initialState = prof ? {profile: prof, loaded: true,linkedin:linkedin?linkedin:{}} : iState;
 
 export function profile(state = initialState, action) {
 
@@ -43,6 +43,7 @@ export function profile(state = initialState, action) {
             };
         case profileConstants.UPDATE_PROFILE:
             return {
+                ...state,
                 loaded: true,
                 profile: action.profile
             };

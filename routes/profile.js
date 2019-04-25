@@ -55,6 +55,8 @@ router.put('/:id', function (req, res, next) {
 
         // the callback function
         (err, profil) => {
+            console.log(profil)
+            console.log(req.body)
             // Handle any possible database errors
             if (err) return res.status(500).send(err);
             return res.send(profil);

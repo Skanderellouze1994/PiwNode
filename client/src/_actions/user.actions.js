@@ -23,6 +23,7 @@ console.log(user)
         userService.update(user)
             .then(
                 user => {
+                    console.log(user)
                     dispatch(success(user));
                     //setTimeout(()=>window.location.reload(),0);
                    // history.push('/profil');

@@ -2,15 +2,27 @@ import React, {Component} from 'react';
 import StepZilla from "react-stepzilla";
 import BiographyComponent from "./biographyComponent";
 import './main.css';
+import PositionComponent from "./positionComponent";
+import EducationsComponent from "./educationsComponent";
+import {connect} from "react-redux";
+import SkillsComponent from "./skillsComponent";
+import ViewComponent from "./viewComponent";
+import {profileAction} from "../../_actions";
+import { history } from '../../_helpers/history';
+
 
 
 class Scrapping extends Component {
     constructor(props) {
         super(props)
+        const {linkedin} = this.props.profile
         this.sampleStore = {
-            summary: '',
+            summary: linkedin.summary,
+            position: linkedin.positions,
+            education: linkedin.educations,
+            skills: linkedin.skills
             //gender: '',
-           // savedToCloud: false
+            // savedToCloud: false
         };
     }
 
@@ -18,8 +30,15 @@ class Scrapping extends Component {
         return this.sampleStore;
     }
 
+   async callToAction() {
+        const {dispatch} = this.props;
+       await dispatch(profileAction.updateProfile({...this.sampleStore,_id:this.props.profile.profile._id}))
+       setTimeout(()=>{history.push('/profil')},1000)
+    }
+
     updateStore(update) {
         console.log(update)
+        console.log(this.sampleStore)
         this.sampleStore = {
             ...this.sampleStore,
             ...update,
@@ -27,6 +46,7 @@ class Scrapping extends Component {
     }
 
     render() {
+
         const steps =
             [
                 {
@@ -36,13 +56,38 @@ class Scrapping extends Component {
                     }}/>
                 },
                 {
-                    name: 'Biography',
-                    component: <BiographyComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                    name: 'Experience',
+                    component: <PositionComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }} positions={this.props.profile.linkedin.positions}/>
+                },
+                {
+                    name: 'Education',
+                    component: <EducationsComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }} educations={this.props.profile.linkedin.educations}/>
+                },
+
+                {
+                    name: 'Skills',
+                    component: <SkillsComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }} skills={this.props.profile.linkedin.skills}/>
+                },
+                {
+                    name: 'Resume',
+                    component: <ViewComponent getStore={() => (this.getStore())} updateStore={(u) => {
+                        this.updateStore(u)
+                    }} callToAction={() => this.callToAction()}/>
+                },
+                {
+                    name: 'Resume',
+                    component: <ViewComponent getStore={() => (this.getStore())} updateStore={(u) => {
                         this.updateStore(u)
                     }}/>
                 },
-               // {name: 'Step 2', component: <BiographyComponent/>},
-               // {name: 'Step 3', component: <BiographyComponent/>},
+                // {name: 'Step 2', component: <BiographyComponent/>},
+                // {name: 'Step 3', component: <BiographyComponent/>},
 
             ]
         return (
@@ -64,7 +109,7 @@ class Scrapping extends Component {
                 <section className="paddingTop-50 paddingBottom-100 bg-light">
                     <div className="container">
                         <div className="row justify-content-md-center">
-                            <div className="col-md-8 mt-4">
+                            <div className="col-md-10 mt-4">
                                 <div className="card shadow-v1">
 
                                     <div className="card-body">
@@ -72,9 +117,8 @@ class Scrapping extends Component {
                                             <div className='step-progress'>
                                                 <StepZilla
                                                     steps={steps}
-                                                    preventEnterSubmission={true}
+                                                    preventEnterSubmission={false}
                                                     nextTextOnFinalActionStep={"Save"}
-                                                    hocValidationAppliedTo={[3]}
                                                     startAtStep={window.sessionStorage.getItem('step') ? parseFloat(window.sessionStorage.getItem('step')) : 0}
                                                     onStepChange={(step) => window.sessionStorage.setItem('step', step)}
                                                 />
@@ -94,4 +138,15 @@ class Scrapping extends Component {
     }
 }
 
-export default Scrapping;
+function mapStateToProps(state) {
+    const {users, authentication, profile} = state;
+    const {user} = authentication;
+    return {
+        user,
+        users,
+        profile
+    };
+}
+
+const connectedHomePage = connect(mapStateToProps)(Scrapping);
+export {connectedHomePage as Scrapping};

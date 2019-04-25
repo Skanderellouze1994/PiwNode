@@ -92,6 +92,7 @@ class ElementCallToAction extends Component {
             return (
                 <section className="bg-primary py-5">
                     <Modal open={this.state.open} onClose={this.onCloseModal} center>
+                        <center>
                         <div className='sweet-loading'>
                             <ClipLoader
                                 sizeUnit={"px"}
@@ -100,6 +101,7 @@ class ElementCallToAction extends Component {
                                 loading={this.state.loading}
                             />
                         </div>
+                        </center>
                         <form onSubmit={this.handleSubmit} name="form">
 
 

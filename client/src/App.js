@@ -3,7 +3,6 @@ import {Route} from 'react-router-dom';
 import './App.css';
 import {Header} from './containers/Header';
 import Footer from './containers/Footer';
-import {Chats} from './containers/chats';
 import {Menu} from './containers/Menu';
 import {Login} from './components/Login';
 import {Signup} from './components/Signup';
@@ -46,7 +45,7 @@ import {TutorSessions} from "./components/tutor/TutorSessions";
 import {StudentSessions} from "./components/student/StudentSessions";
 
 import {ElementCallToAction} from "./components/profile/ElementCallToAction";
-import Scrapping from "./components/profile/scrapping";
+import {Scrapping} from "./components/profile/scrapping";
 import Modal from 'react-responsive-modal';
 
 

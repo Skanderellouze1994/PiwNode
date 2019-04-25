@@ -31,6 +31,7 @@ function getProfile(id) {
                 profile => {
                   //  console.log(profile)
                     dispatch(success(profile));
+
                 },
                 error => {
                     console.log(error)
@@ -46,7 +47,8 @@ function getProfile(id) {
 function getLinkedin(profile) {
     return dispatch => {
         dispatch(success(profile))
-        history.push('/scrapping')
+        localStorage.setItem('linkedin', JSON.stringify(profile));
+       setTimeout(()=>{history.push('/scrapping')},1000)
     };
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(profile) { return { type: profileConstants.GET_LINKEDIN, profile } }
