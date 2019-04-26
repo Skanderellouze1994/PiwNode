@@ -17,23 +17,43 @@ Server side : built with nodeJS and expressJS created with express generator wit
 Client side: built with RactJs into the Server Side.
 
  ./PiwNode
-├── bin
-├── crawledProfiles
-├── client
-│   ├── functions
-│   ├── public
-|         └── assets
-│   └── src  
-|         ├── _actions
-│         ├── _componenets
-│         ├── _constants
-│         ├── _helpers
-│         ├── _reducers
-│         ├── _services
-│         ├── charts
-│         ├── components
-│         └── containers     
+├── bin 
+
+├── crawledProfiles 
+
+├── client 
+
+│   ├── functions 
+
+│   ├── public 
+
+|         └── assets 
+
+│   └── src   
+
+|         ├── _actions 
+
+│         ├── _componenets 
+
+│         ├── _constants 
+
+│         ├── _helpers 
+
+│         ├── _reducers 
+
+│         ├── _services 
+
+│         ├── charts 
+
+│         ├── components 
+
+│         └── containers      
+
 ├── models   
-├── routes   
-├── scrapping
-└── views
+
+├── routes    
+
+├── scrapping 
+
+└── views 
+ 
