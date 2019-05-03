@@ -7,10 +7,13 @@ class ShowQuiz extends Component{
     constructor(props) {
         super(props);
 
+        this.delete = this.delete.bind(this);
+
         this.state ={
             quiz: {},
             questions: [],
-            propositions: []
+            question: {},
+            idp: 0
         };
     }
 
@@ -26,6 +29,16 @@ class ShowQuiz extends Component{
             .then(response => {
                 this.setState({ questions: response.data });
                 console.log(response.data);
+            })
+    }
+
+    delete() {
+        setTimeout(() => window.location.reload(), 0);
+        axios
+            .delete(`http://localhost:4000/quiz/${this.props.match.params.id}/question/${this.state.idp}`)
+            .then(response => {
+                this.setState({ question: response.data });
+                console.log(response.data)
             })
     }
 
@@ -45,7 +58,11 @@ class ShowQuiz extends Component{
                                     {this.state.questions.map(q=>
                                     {return(
                                         <ul className="list-unstyled list-style-icon list-icon-check">
-                                            <h5>question: {q.name} </h5>
+                                            <h5>
+                                                {this.props.user.user._id === this.state.quiz.tutor &&
+                                                    <i className="ti-trash" onClick={this.delete}/>
+                                                }
+                                                question: {q.name} </h5>
                                             <li className="nav-item">
                                                     {q.rightResponse}
                                             </li>
@@ -59,6 +76,19 @@ class ShowQuiz extends Component{
                                             )})}
                                         </ul>
                                     )})}
+                                    {this.props.user.user._id === this.state.quiz.tutor &&
+
+                                    <Link to={"/addquestion/" + this.state.quiz._id}
+                                          className="btn btn-info active mr-2 mb-3"
+                                          type="submit">
+                                        new question
+                                    </Link>
+                                    }
+                                    <Link to={"/course/"+this.state.quiz.course}
+                                          className="btn btn-info active mr-2 mb-3"
+                                          type="submit">
+                                        course
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
 import FacebookLogin from 'react-facebook-login';
 import { history } from '../_helpers';
-
+import Webcam from "react-webcam";
 
 
 
@@ -32,7 +32,7 @@ class Login extends Component {
     }
     onSubmitcam() {
         const { dispatch } = this.props;
-        dispatch(userActions.loginCam())
+
 
     }
     responseFacebook = (response) => {
@@ -61,7 +61,18 @@ class Login extends Component {
         this.forceUpdate();
         }
     }
+    setRef = webcam => {
+        this.webcam = webcam;
+    };
 
+    capture = () => {
+        const {dispatch} = this.props
+        const imageSrc = this.webcam.getScreenshot();
+        const formData = new FormData();
+        formData.append('image', imageSrc);
+        dispatch(userActions.loginCam(formData))
+
+    };
     render() {
         const { username, password } = this.state;
         const {alert} = this.props;
@@ -70,6 +81,13 @@ class Login extends Component {
 
         return (
             <section className="padding-y-100 bg-light">
+                <div>
+                    <Webcam
+                        audio={false}
+                        ref={this.setRef}
+                        screenshotFormat="image/jpeg"
+                    />
+                </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 mx-auto">
@@ -99,7 +117,7 @@ class Login extends Component {
                                             </button>
                                         </div>
                                     </div>
-                                    <button className="btn btn-block btn-primary" onClick={this.onSubmitcam}>
+                                    <button className="btn btn-block btn-primary" onClick={this.capture}>
                                         <i className="ti-eye mr-2"/>
                                         <span>facial recognition Sign in</span>
                                     </button>

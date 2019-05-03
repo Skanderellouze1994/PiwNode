@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import connect from "react-redux/es/connect/connect";
 import {history} from "../../_helpers";
+import {Link} from "react-router-dom";
 
 class AddProposition extends Component {
 
@@ -128,6 +129,19 @@ class AddProposition extends Component {
                                             {this.validator.message('Name', this.state.proposition.name, 'required')}
                                         </div>
                                         <button type="submit" className="btn btn-block btn-primary">Add proposition</button>
+                                        <div>
+                                            <p>   </p>
+                                        </div>
+                                        <Link to={"/addquestion/"+this.props.match.params.idquiz}
+                                              className="btn btn-info active mr-2 mb-3"
+                                              type="submit">
+                                            new question
+                                        </Link>
+                                        <Link to={"/showquiz/"+this.props.match.params.idquiz}
+                                              className="btn btn-info active mr-2 mb-3"
+                                              type="submit">
+                                            show quiz
+                                        </Link>
                                     </form>
                                 </div>
                             </div>

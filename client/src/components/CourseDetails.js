@@ -29,6 +29,7 @@ class CourseDetail extends Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
             quiz: [],
             presenceList: [],
@@ -56,17 +57,45 @@ class CourseDetail extends Component {
                     .then(response => {
                         this.setState({presenceList: response.data});
                         console.log(response.data);
-                        response.data.map(student =>
+                        response.data.map(student => (
+
                             axios
                                 .post(`http://localhost:4000/trainingSession/sentiment/${student._id}`)
                                 .then(res => {
                                     this.setState({score: this.state.score.concat(res.data)});
                                     console.log(res.data);
                                 })
-                        )
+                        ))
 
                     });
-            })
+
+                /* const artyom = new Artyom();
+                 artyom.initialize({
+                     lang:"en-GB",
+                     debug:true,
+                     continuous:false,
+                     listen:true,
+                     speed:1
+                 });
+
+
+                 var settings = {
+                     continuous: true, // Don't stop never because i have https connection
+                     onResult: function (text) {
+                         alert(text);
+                     },
+                     onStart: function () {
+                         alert("Dictation started by the user");
+                     },
+                     onEnd: function () {
+                         alert("Dictation stopped by the user");
+                     }
+                 };*/
+
+            });
+                        
+
+                   
 
         /* const artyom = new Artyom();
          artyom.initialize({
@@ -93,7 +122,7 @@ class CourseDetail extends Component {
 
     }
 
-    render() {
+    render(){
         const url = window.location.href;
         console.log(this.state.score);
 
@@ -417,6 +446,51 @@ class CourseDetail extends Component {
                                                         </p>
                                                     </div>
 
+                                        </div>
+                                        <div className="tab-pane fade" id="tabQuiz" role="tabpanel">
+                                            <div className="input-group-append">
+                                                {this.state.course !== undefined &&
+                                                this.state.course.tutorCreator !== undefined &&
+                                                this.state.course.tutorCreator._id === this.props.user.user._id &&
+                                                <Link to={"/addquiz/"+this.state.course._id}
+                                                      className="btn btn-info rounded" type="submit">
+                                                    Add a quiz
+                                                    <i className="ti-angle-right small"/>
+                                                </Link>
+                                                }
+                                            </div>
+                                            {this.state.quiz.map(q=>
+                                            {return(
+                                                <div className="col-lg-4 col-md-6 marginTop-30">
+                                                    {this.props.match.params.id == q.course &&
+
+                                                    <div href="page-course-details.html" class="card height-100p text-gray shadow-v1">
+                                                    <img class="card-img-top" src="assets/img/360x220/5.jpg" alt=""/>
+                                                    <div class="card-body">
+                                                        <a href="#" class="h5">
+                                                            {q.name}
+                                                        </a>
+                                                        <p class="my-3">
+                                                            <i class="ti-user mr-2"></i>
+                                                            Jonathon
+                                                        </p>
+
+                                                        {q.questions.length>0 && this.props.user.user.role ==="Student" &&
+                                                        <Link to={"/responsequiz/" + q._id + '/' + q.questions[0]._id}
+                                                              className="btn btn-success active mr-2 mb-3"
+                                                              type="submit">
+                                                            take a quiz
+                                                            <i className="ti-angle-right small"/>
+                                                        </Link>
+                                                        }
+                                                        {q.questions.length>0 && this.props.user.user.role ==="Tutor" &&
+                                                        <Link to={"/showquiz/" + q._id }
+                                                              className="btn btn-success active mr-2 mb-3"
+                                                              type="submit">
+                                                            show quiz
+                                                            <i className="ti-angle-right small"/>
+                                                        </Link>
+                                                        }
                                                 </div>
                                                 <div className="tab-pane fade" id="tabQuiz" role="tabpanel">
                                                     <div className="input-group-append">
@@ -453,6 +527,7 @@ class CourseDetail extends Component {
                                                                             <i className="ti-angle-right small"/>
                                                                         </Link>
                                                                     </div>
+
 
                                                                 </div>
                                                             </div>

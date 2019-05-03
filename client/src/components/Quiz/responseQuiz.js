@@ -16,6 +16,7 @@ class ResponseQuiz extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.addResponse = this.addResponse.bind(this);
 
         this.state = {
             quiz: {},
@@ -24,7 +25,8 @@ class ResponseQuiz extends Component {
             propositions: [],
             response : {
                 rightResponse: ''
-            }
+            },
+            thisquiz: []
         };
         this.validator = new SimpleReactValidator(
             {element: message => <div className="alert text-danger bg-danger-0_1 px-4 py-3" role="alert">
@@ -42,6 +44,7 @@ class ResponseQuiz extends Component {
                 [name]: value
             }
         });
+        console.log(this.state.response)
     }
 
     componentDidMount(){
@@ -64,19 +67,7 @@ class ResponseQuiz extends Component {
             .then(response => {
                 this.setState({ question: response.data });
                 //console.log(response.data)
-                var i = 0;
-                for (i; i < this.a.length-1; i += 1) {
-                    if (this.a[i]._id==response.data._id) {
-                        if(this.a[i - 1]){
-                            this.last = this.a[i - 1]._id;
-                            console.log(this.last);
-                        }
-                        if(this.a[i + 1]){
-                            this.next = this.a[i + 1]._id;
-                            console.log(this.next);
-                        }
-                    }
-                }
+
             })
         axios
             .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/propositions`)
@@ -84,23 +75,39 @@ class ResponseQuiz extends Component {
                 this.setState({ propositions: response.data });
                 console.log(response.data)
             })
-    }
-    onSubmit(e) {
-        e.preventDefault();
+        axios
+            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}`)
+            .then(res => {
+                this.setState({ thisquiz: res.data });
+                console.log(res.data);
+            })
 
+    }
+    addResponse(){
         const {response} = this.state;
         var i = 0;
-        for (i; i < this.a.length-1; i += 1) {
-        axios.post(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/resp`,response)
+        axios.post(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/resp`,{...response,student:this.props.user.user._id})
             .then(res => {
-                console.log(this.a[i].name);
-                setTimeout(()=>window.location.reload(),0);
+                //console.log(this.a[i].name);
+                //setTimeout(()=>window.location.reload(),0);
                 history.push('/responsequiz/'+this.props.match.params.idquiz+'/'+this.a[i]._id);
 
             });
-        }
+        i++
+        this.last = this.a[i-1]._id
+        this.next = this.a[i]._id
         this.setState({
         })
+        if(i === this.a.length-1){
+            setTimeout(()=>window.location.reload(),0);
+            history.push('/showquiz/'+this.props.match.params.idquiz);
+        }
+    }
+    onSubmit(e) {
+        e.preventDefault();
+        this.addResponse();
+        history.push('/showquiz/'+this.props.match.params.idquiz);
+        setTimeout(()=>window.location.reload(),0);
     }
     nextQuestion(){
         history.push('/responsequiz/'+this.props.match.params.idquiz+'/'+this.next);
@@ -128,29 +135,21 @@ class ResponseQuiz extends Component {
                                     }
 
                                     <form name="form" onSubmit={this.onSubmit} className="px-lg-4">
-
-                                            {this.state.propositions.map(p=>
-                                            {return(
-                                                <ol>
+                                        {this.state.propositions.map(p=>
+                                        {return(
+                                            <ol>
                                                 <label className="ec-radio radio-thin radio-sm mb-3 mr-4">
                                                     <input type="radio" name="rightResponse"
-                                                           value={this.state.response.rightResponse}
+                                                           value={p.name}
                                                            onChange={this.onChange}/>
                                                     <span className="ec-radio__control"/>
                                                     <span className="ec-radio__label">{p.name}</span>
                                                 </label>
-                                                </ol>
-                                            )})}
-
+                                            </ol>
+                                        )})}
                                             {this.validator.message('Name', this.state.response.rightResponse, 'required')}
                                         <button type="submit" className="btn btn-block btn-primary">Validate</button>
 
-                                        <button onClick={this.lastQuestion} className="btn btn-info rounded">
-                                            <i className="ti-angle-left small"/>
-                                        </button>
-                                        <button onClick={this.nextQuestion} className="btn btn-info rounded">
-                                            <i className="ti-angle-right small"/>
-                                        </button>
                                     </form>
                                 </div>
                             </div>

@@ -7,17 +7,32 @@ import {About} from "./about";
 import {profileAction} from "../../_actions/profile.actions";
 import SkillBar from 'react-skillbars';
 import {ElementCallToAction} from "./ElementCallToAction";
-
+import costum from "./costum.css";
+import {MonthPicker, YearPicker} from "react-dropdown-date";
+import Modal from "react-responsive-modal";
+import Webcam from "react-webcam";
+import axios from "axios"
 
 
 class Profil extends Component {
     constructor(props) {
         super(props)
         this.state={
-            profile:this.props.profile.profile
+            profile:this.props.profile.profile,
+            open: false,
+
         }
     }
+    onOpenModal = () => {
+        this.setState({open: true});
+        setTimeout(()=>{
 
+        },3000)
+    };
+
+    onCloseModal = () => {
+        this.setState({open: false});
+    };
     componentWillMount() {
         const {dispatch} = this.props;
         const {profile} = this.props;
@@ -29,7 +44,23 @@ if(!profile.loaded) {
 }
     }
 
+    setRef = webcam => {
+        this.webcam = webcam;
+    };
 
+    capture = () => {
+        const imageSrc = this.webcam.getScreenshot();
+        const formData = new FormData();
+        formData.append('image', imageSrc);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post('http://localhost:4000/facial/addface/'+this.props.user.user._id,formData).then(res=>this.onCloseModal()).catch(res=>console.log(res))
+
+
+    };
     render() {
         const {user} = this.props;
         const {profile} = this.props;
@@ -53,7 +84,25 @@ if(!profile.loaded) {
 
             <div>
                 <ElementCallToAction/>
+                <Modal open={this.state.open} onClose={this.onCloseModal} center>
+                    <div style={{width: 700}}>
+                        <div className="modal-header">
+                            <h5 className="modal-title">Add experience</h5>
 
+                        </div>
+                        <Webcam
+                            audio={false}
+                            ref={this.setRef}
+                            screenshotFormat="image/jpeg"
+                        />
+                            <div className="modal-footer py-4">
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="button" type="submit" className="btn btn-success" onClick={this.capture}>reload
+                                </button>
+                            </div>
+
+                    </div>
+                </Modal>
                 <div className="padding-y-80 bg-cover" data-dark-overlay={6}
                      style={{background: 'url(assets/img/breadcrumb-bg.jpg) no-repeat'}}>
                     <div className="container">
@@ -83,20 +132,11 @@ if(!profile.loaded) {
                                         </p>
                                         <ul className="list-inline mb-0">
                                             <li className="list-inline-item m-2">
-                                                <i className="ti-user text-primary"/>
-                                                <span className="d-block">Students</span>
-                                                <span className="h6">147570</span>
+                                                <button className="btn btn-outline-success btn-sm mr-3 mb-3" onClick={this.onOpenModal}>
+                                                    Activate facial-recognition
+                                                </button>
                                             </li>
-                                            <li className="list-inline-item m-2">
-                                                <i className="ti-book text-primary"/>
-                                                <span className="d-block">Courses</span>
-                                                <span className="h6">27</span>
-                                            </li>
-                                            <li className="list-inline-item m-2">
-                                                <i className="ti-star text-primary"/>
-                                                <span className="d-block">Reviews</span>
-                                                <span className="h6">10467</span>
-                                            </li>
+
                                         </ul>
                                     </div>
                                     <div className="card-body border-bottom">

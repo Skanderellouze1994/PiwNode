@@ -31,13 +31,14 @@ function login(username, password) {
             return user;
         });
 }
-function loginCam() {
+function loginCam(formData) {
     const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
+        method: 'POST',
+        headers: authHeader(),
+        body:formData
     };
 
-    return fetch('http://localhost:5000', requestOptions)
+    return fetch('http://localhost:4000/facial/login', requestOptions)
         .then(handleResponse)
         .then(user => {
             //console.log(user);
