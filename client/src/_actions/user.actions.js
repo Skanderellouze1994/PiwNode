@@ -41,23 +41,24 @@ console.log(user)
 
 
 }
-function loginCam() {
+function loginCam(formData) {
     return dispatch => {
         dispatch(request({user: {
                 role: "",
                 username:""
             }}));
 
-        userService.loginCam()
+        userService.loginCam(formData)
             .then(
                 user => {
-                    dispatch(success(user));
-                    setTimeout(()=>window.location.reload(),1000);
-                    history.push('/profil');
+                    dispatch(success({user:user}));
+                    console.log(user)
+                    //setTimeout(()=>window.location.reload(),1000);
+                   setTimeout(()=>{history.push('/profil');},1000)
                 },
                 error => {
                     dispatch(failure("error.toString()"));
-                    dispatch(alertActions.error("Username and password invalid"));
+                    dispatch(alertActions.error("profile not match"));
                 }
             );
     };

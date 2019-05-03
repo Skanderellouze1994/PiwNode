@@ -5,7 +5,7 @@ var Quiz = require('../models/quiz');
 
 
 /*CREATE QUIZ*/
-router.post('/:idTutor/:idCourse', function (req, res) {
+router.post('/:idTutor/quiz/:idCourse', function (req, res) {
     var idTutor = req.params.idTutor;
     var idCourse = req.params.idCourse;
     var quiz = new Quiz(req.body);
@@ -210,4 +210,5 @@ router.get('/:id/question/:idq/resp', function (req, res) {
         else res.send(quizz.questions.id(req.params.idq).response)
     });
 });
+
 module.exports = router;
