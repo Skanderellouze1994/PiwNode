@@ -15,7 +15,7 @@ class SearchResult extends Component {
         }
     }
     componentDidMount(){
-        axios.get('http://localhost:4000/trainingSession/all')
+        axios.get('/trainingSession/all')
             .then(response => {
                 this.setState({allSessions: response.data});
                 console.log(response.data);
@@ -26,7 +26,7 @@ class SearchResult extends Component {
     }
 
     getInfo(search) {
-        axios.post('http://localhost:4000/trainingSession/get',{name:search})
+        axios.post('/trainingSession/get',{name:search})
             .then(response => {
                 console.log(search);
                 this.setState({sessions: response.data});

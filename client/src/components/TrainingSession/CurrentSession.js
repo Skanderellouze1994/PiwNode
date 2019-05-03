@@ -20,7 +20,7 @@ class CurrentSession extends Component{
 
     componentDidMount(){
         axios
-            .get(`http://localhost:4000/trainingSession/get/course/${this.props.match.params.id}`)
+            .get(`/trainingSession/get/course/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ course: response.data });
                 //console.log(response.data);

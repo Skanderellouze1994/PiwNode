@@ -18,7 +18,7 @@ class CurrentSessionComponent extends Component{
     }
     componentDidMount() {
         axios
-            .get(`http://localhost:4000/trainingSession/get/course/${this.props.id}`)
+            .get(`/trainingSession/get/course/${this.props.id}`)
             .then(response => {
                 this.setState({session: response.data});
                 //this.setState({courses: response.data.courses});

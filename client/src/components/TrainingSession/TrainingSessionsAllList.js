@@ -25,7 +25,7 @@ class TrainingSessionsAllList extends Component {
 
 
     componentDidMount() {
-        axios.get('http://localhost:4000/trainingSession/all')
+        axios.get('/trainingSession/all')
             .then(response => {
                 this.setState({sessions: response.data});
                 //console.log(response.data);
@@ -37,13 +37,13 @@ class TrainingSessionsAllList extends Component {
         // get courses of the user's sessions
         this.interval = setInterval(() => {
             if (this.props.user.user.role === "Student") {
-                axios.get(`http://localhost:4000/trainingSession/get/student/${this.props.user.user._id}`)
+                axios.get(`/trainingSession/get/student/${this.props.user.user._id}`)
                     .then(response => {
                         this.setState({currentSession: response.data});
                     }).then(response =>
                     this.state.currentSession.map(course => (
                         axios
-                            .get(`http://localhost:4000/trainingSession/get/${course._id}`)
+                            .get(`/trainingSession/get/${course._id}`)
                             .then(res => {
                                 this.setState({currentCourse: res.data.courses});
                                 //console.log(res.data.courses)
@@ -52,13 +52,13 @@ class TrainingSessionsAllList extends Component {
                         console.log(error);
                     });
             } else if (this.props.user.user.role === "Tutor") {
-                axios.get(`http://localhost:4000/trainingSession/get/tutor/${this.props.user.user._id}`)
+                axios.get(`/trainingSession/get/tutor/${this.props.user.user._id}`)
                     .then(response => {
                         this.setState({currentSession: response.data});
                     }).then(response =>
                     this.state.currentSession.map(course => (
                         axios
-                            .get(`http://localhost:4000/trainingSession/get/${course._id}`)
+                            .get(`/trainingSession/get/${course._id}`)
                             .then(res => {
                                 this.setState({currentCourse: res.data.courses});
                                 //console.log(res.data.courses)

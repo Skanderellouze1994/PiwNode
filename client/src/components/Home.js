@@ -17,7 +17,7 @@ export class Home extends Component {
         this.setState({
             messageList: [...this.state.messageList, message]
         })
-        axios.get('http://localhost:4000/chatbot/'+message.data.text).then(res=>{
+        axios.get('/chatbot/'+message.data.text).then(res=>{
             const artyom = new Artyom();
             artyom.initialize({
                 lang:"en-US",

@@ -19,13 +19,13 @@ class ShowQuiz extends Component{
 
     componentDidMount(){
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.id}`)
+            .get(`/quiz/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ quiz: response.data });
                 console.log(response.data);
             })
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.id}/questions`)
+            .get(`/quiz/${this.props.match.params.id}/questions`)
             .then(response => {
                 this.setState({ questions: response.data });
                 console.log(response.data);
@@ -35,7 +35,7 @@ class ShowQuiz extends Component{
     delete() {
         setTimeout(() => window.location.reload(), 0);
         axios
-            .delete(`http://localhost:4000/quiz/${this.props.match.params.id}/question/${this.state.idp}`)
+            .delete(`/quiz/${this.props.match.params.id}/question/${this.state.idp}`)
             .then(response => {
                 this.setState({ question: response.data });
                 console.log(response.data)

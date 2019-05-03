@@ -41,7 +41,7 @@ class AddQuiz extends Component {
 
         const {quiz} = this.state;
 
-        axios.post(`http://localhost:4000/quiz/${this.props.user.user._id}/quiz/${this.props.match.params.id}`,quiz)
+        axios.post(`/quiz/${this.props.user.user._id}/quiz/${this.props.match.params.id}`,quiz)
             .then(res => {
                 history.push('/addquestion/'+res.data._id);
             });

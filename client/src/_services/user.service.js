@@ -21,7 +21,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch('http://localhost:4000/auth/login', requestOptions)
+    return fetch('/auth/login', requestOptions)
         .then(handleResponse)
         .then(user => {
             //console.log(user);
@@ -38,7 +38,7 @@ function loginCam(formData) {
         body:formData
     };
 
-    return fetch('http://localhost:4000/facial/login', requestOptions)
+    return fetch('/facial/login', requestOptions)
         .then(handleResponse)
         .then(user => {
             //console.log(user);
@@ -55,7 +55,7 @@ function resetPassword(email) {
         body: JSON.stringify({ email})
     };
 
-    return fetch('http://localhost:4000/auth/forgot', requestOptions)
+    return fetch('/auth/forgot', requestOptions)
         .then(handleResponse)
         .then(user => {
             localStorage.setItem('user', JSON.stringify(user));
@@ -71,7 +71,7 @@ function getNewPassword(password , confirmpassword, token) {
         body: JSON.stringify({ password })
     };
 
-    return fetch(`http://localhost:4000/auth/reset/${token}`, requestOptions)
+    return fetch(`/auth/reset/${token}`, requestOptions)
         .then(handleResponse)
         .then(user => {
             localStorage.setItem('user', JSON.stringify(user));
@@ -110,7 +110,7 @@ function loginFacebook(id) {
         body: JSON.stringify({id:id})
     };
 
-    return fetch('http://localhost:4000/auth/loginfacebook/', requestOptions).then(handleResponse).then(user => {
+    return fetch('/auth/loginfacebook/', requestOptions).then(handleResponse).then(user => {
         //console.log(user);
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));
@@ -126,7 +126,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch('http://localhost:4000/auth/signup', requestOptions).then(handleResponse);
+    return fetch('/auth/signup', requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -136,7 +136,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`http://localhost:4000/auth/user/${user._id}`, requestOptions).then(handleResponse).then(user => {
+    return fetch(`/auth/user/${user._id}`, requestOptions).then(handleResponse).then(user => {
         console.log(user);
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify({user:user}));

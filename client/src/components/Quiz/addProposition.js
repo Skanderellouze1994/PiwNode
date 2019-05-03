@@ -48,7 +48,7 @@ class AddProposition extends Component {
 
         const {proposition} = this.state;
 
-        axios.post(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}`,proposition)
+        axios.post(`/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}`,proposition)
             .then(response => {
                 setTimeout(() => window.location.reload(), 0)
                 this.a = response.data
@@ -60,13 +60,13 @@ class AddProposition extends Component {
 
     componentDidMount(){
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}`)
+            .get(`/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}`)
             .then(response => {
                 this.setState({ question: response.data });
                 console.log(response.data)
             })
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/propositions`)
+            .get(`/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/propositions`)
             .then(response => {
                 this.setState({ propositions: response.data });
                 console.log(response.data)
@@ -76,7 +76,7 @@ class AddProposition extends Component {
     delete() {
         setTimeout(() => window.location.reload(), 0);
         axios
-            .delete(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/proposition/${this.state.idp}`)
+            .delete(`/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.idquestion}/proposition/${this.state.idp}`)
             .then(response => {
                 this.setState({ propositions: response.data });
                 console.log(response.data)

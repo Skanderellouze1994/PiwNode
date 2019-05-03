@@ -16,7 +16,7 @@ class TrainingSessionDetail extends Component {
 
     componentDidMount() {
         axios
-            .get(`http://localhost:4000/trainingSession/get/${this.props.match.params.id}`)
+            .get(`/trainingSession/get/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({session: response.data});
                 this.setState({courses: response.data.courses});

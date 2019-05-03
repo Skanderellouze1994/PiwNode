@@ -19,7 +19,7 @@ x:null,
             description: ''};
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/forum/')
+        axios.get('/forum/')
             .then(res=>this.setState({forum:res.data})
        )
     }

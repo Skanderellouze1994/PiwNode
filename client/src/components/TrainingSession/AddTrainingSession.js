@@ -47,7 +47,7 @@ class AddTrainingSession extends Component {
             dispatch(trainingSessionAction.addTrainingSession(this.props.user.user._id , session));
             console.log("after dispatch");
             /*axios
-                .post(`http://localhost:4000/trainingSession/add/${this.props.user.user._id}`,+`/`+session)
+                .post(`/trainingSession/add/${this.props.user.user._id}`,+`/`+session)
                 .then(response => {
                     console.log(response.data);
                 })*/

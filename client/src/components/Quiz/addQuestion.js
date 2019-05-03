@@ -43,7 +43,7 @@ class AddQuestion extends Component {
         const {question} = this.state;
         console.log(question)
 
-        axios.post(`http://localhost:4000/quiz/${this.props.match.params.id}/question`,question)
+        axios.post(`/quiz/${this.props.match.params.id}/question`,question)
             .then(res => {
                 //console.log(res)
                 history.push('/addproposition/'+this.props.match.params.id+'/'+res.data.questions[res.data.questions.length-1]._id);

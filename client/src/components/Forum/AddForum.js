@@ -52,7 +52,7 @@ class AddForum extends Component {
             pic: this.state.pic
         }
 
-            axios.post('http://localhost:4000/forum/add/'+this.props.user.user._id,newPost)
+            axios.post('/forum/add/'+this.props.user.user._id,newPost)
                 .then(
                     res => {
                         setTimeout(()=>window.location.reload(),0);

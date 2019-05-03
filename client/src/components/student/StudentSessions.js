@@ -13,7 +13,7 @@ class StudentSessions extends Component{
         }
     }
     componentDidMount() {
-        axios.get(`http://localhost:4000/trainingSession/get/student/${this.props.user.user._id}`)
+        axios.get(`/trainingSession/get/student/${this.props.user.user._id}`)
             .then(response => {
                 this.setState({sessions: response.data});
                 console.log(response.data);

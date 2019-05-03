@@ -73,7 +73,7 @@ class UpdateProfile extends Component {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post("http://127.0.0.1:4000/auth/upload", formData, {
+        axios.post("/auth/upload", formData, {
             onUploadProgress: progressEvent => {
                 console.log(Math.round(progressEvent.loaded / progressEvent.total) * 100)
             }

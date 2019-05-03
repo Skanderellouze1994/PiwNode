@@ -44,7 +44,7 @@ class AddCourse extends Component {
 
         const {course} = this.state;
 
-        axios.post(`http://localhost:4000/trainingSession/add/course/${this.props.user.user._id}/${this.props.id}`,course)
+        axios.post(`/trainingSession/add/course/${this.props.user.user._id}/${this.props.id}`,course)
             .then(res => console.log(res.data))
             .catch(error => {
                 console.log(error.response)
