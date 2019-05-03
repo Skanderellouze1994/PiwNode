@@ -21,7 +21,7 @@ var cron = require('./routes/cronTask')
 var stream = require('./routes/stream')
 require('./passport')(passport);
 var cors = require('cors');
-const fileUpload = require('express-fileupload');
+  const fileUpload = require('express-fileupload');
 
 
 var app = express();
