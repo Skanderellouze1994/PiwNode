@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import {connect} from "react-redux";
 
 const axios = require('axios');
-const socket = io('http://localhost:4000');
+const socket = io();
 
 
 class Chats extends Component {
