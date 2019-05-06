@@ -47,7 +47,7 @@ app.use(passport.session());
 app.use(cors());
 app.use(fileUpload());
 
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/forum', forumRouter);
 app.use('/auth', auth);
