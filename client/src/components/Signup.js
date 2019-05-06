@@ -121,7 +121,7 @@ class Signup extends Component {
                 }
             })
         }catch (e) {
-            
+
         }
 
     }
@@ -261,9 +261,9 @@ class Signup extends Component {
                                                 <span className="ec-checkbox__control mt-1"/>
                                                 <span className="ec-checkbox__lebel">
                                                         By signing up, you agree to our
-                                                         <Link className="text-primary"> Terms of Use </Link>
+                                                         <Link to="#" className="text-primary"> Terms of Use </Link>
                                                             and
-                                                         <Link className="text-primary"> Privacy Policy. </Link>
+                                                         <Link to="#" className="text-primary"> Privacy Policy. </Link>
                                                  </span>
                                             </label>
                                         </div>
@@ -271,7 +271,7 @@ class Signup extends Component {
                                                 disabled={!this.state.accepted}>Register Now
                                         </button>
                                         <p className="my-5 text-center">
-                                            Already have an account? <Link className="text-primary">Login</Link>
+                                            Already have an account? <Link to="#" className="text-primary">Login</Link>
                                         </p>
                                     </form>
                                 </div>
