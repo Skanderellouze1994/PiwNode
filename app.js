@@ -59,7 +59,9 @@ app.use('/quiz' , quizRouter);
 app.use('/ressource' , ressourceRouter);
 app.use('/chatbot' , chatBotRouter);
 app.use('/facial' , facialRouter);
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
+});
 
 
 // catch 404 and forward to error handler
