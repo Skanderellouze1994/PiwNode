@@ -12,13 +12,17 @@ import {
     GooglePlusShareButton,
     LinkedinShareButton,
     TwitterShareButton,
+    WorkplaceShareButton,
     PinterestShareButton,
+    WhatsappShareButton,
 
     FacebookIcon,
     TwitterIcon,
     GooglePlusIcon,
     LinkedinIcon,
+    WorkplaceIcon,
     PinterestIcon,
+    WhatsappIcon,
 } from 'react-share';
 import Artyom from 'artyom.js';
 import CanvasJSReact from '../charts/canvasjs.react';
@@ -52,19 +56,24 @@ class CourseDetail extends Component {
 
                 // get presence list and the sentiment results
                 axios
-                    .get(`/trainingSession/get/course/presence/${this.props.match.params.id}`)
+                    .get(`/quiz`)
                     .then(response => {
-                        this.setState({presenceList: response.data});
+                        this.setState({quiz: response.data});
                         console.log(response.data);
-                        response.data.map(student =>
+                        response.data.map(student=>(
                             axios
                                 .post(`/trainingSession/sentiment/${student._id}`)
                                 .then(res => {
-                                    this.setState({score: this.state.score.concat(res.data)});
+                                    this.setState({ score: this.state.score.concat(res.data) });
                                     console.log(res.data);
-                                })
-                        )
-
+                                }),
+                                axios
+                                    .post(`/trainingSession/sentiment/chat/${this.state.course.chatroom}/${student._id}`)
+                                    .then(res => {
+                                        this.setState({ score: this.state.score.concat(res.data) });
+                                        console.log(res.data);
+                                    })
+                        ))
                     });
             })
 
@@ -99,23 +108,16 @@ class CourseDetail extends Component {
             animationEnabled: true,
             exportEnabled: true,
             theme: "light1", // "light1", "dark1", "dark2"
-            title: {
+            title:{
                 text: "Students' satisfaction during the course"
             },
+
             data: [{
                 type: "pie",
-                indexLabel: "{label}: {y}%",
+                indexLabel: "{label}: {y}",
                 startAngle: -90,
                 dataPoints: [
-                    this.state.score.map(score => (
-                        {y: score, label: "Airfare"}
-                    )),
-                    {y: 20, label: "Airfare"},
-                    {y: 24, label: "Food & Drinks"},
-                    {y: 20, label: "Accomodation"},
-                    {y: 14, label: "Transportation"},
-                    {y: 12, label: "Activities"},
-                    {y: 10, label: "Misc"}
+                    { y: this.state.score }
                 ]
             }]
         };
@@ -128,7 +130,7 @@ class CourseDetail extends Component {
                 type: "doughnut",
                 showInLegend: true,
                 indexLabel: "{name}: {y}",
-                yValueFormatString: "#,###'%'",
+                yValueFormatString: "#,###",
                 dataPoints: [
                     {name: "Absent Students", y: 20},
                     {name: "Present Students", y: this.state.presenceList.length}
@@ -212,6 +214,26 @@ class CourseDetail extends Component {
                                             </GooglePlusShareButton>
                                         </a>
                                     </li>
+                                    <li className="list-inline-item mx-0">
+                                        <a className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <WorkplaceShareButton
+                                                url="http://github.com/Skanderellouze1994/PiwNode">
+                                                <WorkplaceIcon
+                                                    size={32}
+                                                    round />
+                                            </WorkplaceShareButton>
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item mx-0">
+                                        <a className="btn btn-opacity-primary iconbox iconbox-xs">
+                                            <WhatsappShareButton
+                                                url="http://github.com/Skanderellouze1994/PiwNode">
+                                                <WhatsappIcon
+                                                    size={32}
+                                                    round />
+                                            </WhatsappShareButton>
+                                        </a>
+                                    </li>
                                 </ul>
                                 <a href="#" className="btn btn-white iconbox"><i className="ti-heart"/></a>
                             </div>
@@ -247,20 +269,6 @@ class CourseDetail extends Component {
                                             <a href="#" className="h6">{this.state.course.tutorCreator.username}</a>
                                             }
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-3 col-md-6 my-2">
-                                    <div className="border-right height-100p">
-                                        <span className="text-gray">Reviews:</span>
-                                        <p className="mb-0">
-                                            <i className="fas fa-star text-warning small"/>
-                                            <i className="fas fa-star text-warning small"/>
-                                            <i className="fas fa-star text-warning small"/>
-                                            <i className="fas fa-star text-warning small"/>
-                                            <i className="fas fa-star-half small"/>
-                                            <span className="text-dark">4.9</span>
-                                            <span>(793)</span>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -461,7 +469,7 @@ class CourseDetail extends Component {
                                                 </div>
                                                 {/* END tab-pane */}
 
-                                            </div>
+
                                             <div className="tab-pane fade " id="tabStatics" role="tabpanel">
                                                 <h4>
 
@@ -493,7 +501,7 @@ class CourseDetail extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

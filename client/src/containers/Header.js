@@ -101,10 +101,24 @@ this.state={username:""};
                                                 </span>
                                             </Link>
                                             {this.props.authentication.user.user.role ==="Tutor" &&
-                                            <Link to="/dashboard" className="dropdown-item">
+                                            <Link to="/tutor/sessions" className="dropdown-item">
                                                 <i className="ti-user mr-2" />
                                                 <span className="mr-2">
-                                                        My Dashboard
+                                                        My Sessions
+                                                </span>
+                                            </Link>}
+                                            {this.props.authentication.user.user.role ==="Tutor" &&
+                                            <Link to="/addTrainingSession" className="dropdown-item">
+                                                <i className="ti-user mr-2" />
+                                                <span className="mr-2">
+                                                        Add a training session
+                                                </span>
+                                            </Link>}
+                                            {this.props.authentication.user.user.role ==="Student" &&
+                                            <Link to="/student/sessions" className="dropdown-item">
+                                                <i className="ti-user mr-2" />
+                                                <span className="mr-2">
+                                                        My Sessions
                                                 </span>
                                             </Link>}
                                             <div className="dropdown-divider" />
