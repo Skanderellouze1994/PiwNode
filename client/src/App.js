@@ -59,6 +59,7 @@ class App extends Component {
 
                 <div>
                 <Router history={history}>
+                    <div>
                 <Header />
                 <Menu/>
 
@@ -99,6 +100,7 @@ class App extends Component {
 
 
                 <Footer/>
+                    </div>
                 </Router>
                 </div>
             </div>
