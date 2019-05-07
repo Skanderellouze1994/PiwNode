@@ -87,7 +87,7 @@ if(!profile.loaded) {
                 <Modal open={this.state.open} onClose={this.onCloseModal} center>
                     <div style={{width: 700}}>
                         <div className="modal-header">
-                            <h5 className="modal-title">Add experience</h5>
+                            <h5 className="modal-title">Activate facial recognition</h5>
 
                         </div>
                         <Webcam
@@ -97,8 +97,7 @@ if(!profile.loaded) {
                         />
                             <div className="modal-footer py-4">
                                 <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="button" type="submit" className="btn btn-success" onClick={this.capture}>reload
-                                </button>
+                                <button type="button" type="submit" className="btn btn-success" onClick={this.capture}>take a picture</button>
                             </div>
 
                     </div>

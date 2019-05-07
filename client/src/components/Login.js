@@ -6,6 +6,7 @@ import SimpleReactValidator from "simple-react-validator";
 import FacebookLogin from 'react-facebook-login';
 import { history } from '../_helpers';
 import Webcam from "react-webcam";
+import Modal from "react-responsive-modal";
 
 
 
@@ -23,13 +24,26 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            submitted: false
+            submitted: false,
+            open: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onSubmitcam = this.onSubmitcam.bind(this);
     }
+
+    onOpenModal = () => {
+        this.setState({open: true});
+        setTimeout(()=>{
+
+        },3000)
+    };
+
+    onCloseModal = () => {
+        this.setState({open: false});
+    };
+
     onSubmitcam() {
         const { dispatch } = this.props;
 
@@ -81,13 +95,23 @@ class Login extends Component {
 
         return (
             <section className="padding-y-100 bg-light">
-                <div>
-                    <Webcam
-                        audio={false}
-                        ref={this.setRef}
-                        screenshotFormat="image/jpeg"
-                    />
-                </div>
+                <Modal open={this.state.open} onClose={this.onCloseModal} center>
+                    <div style={{width: 700}}>
+                        <div className="modal-header">
+                            <h5 className="modal-title">Facial recognition login</h5>
+
+                        </div>
+                        <Webcam
+                            audio={false}
+                            ref={this.setRef}
+                            screenshotFormat="image/jpeg"
+                        />
+                        <div className="modal-footer py-4">
+                            <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.onCloseModal}>Close</button>
+                            <button type="button" type="submit" className="btn btn-success" onClick={this.capture}>Sign in</button>
+                        </div>
+                    </div>
+                </Modal>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 mx-auto">
@@ -117,7 +141,7 @@ class Login extends Component {
                                             </button>
                                         </div>
                                     </div>
-                                    <button className="btn btn-block btn-primary" onClick={this.capture}>
+                                    <button className="btn btn-block btn-primary" onClick={this.onOpenModal}>
                                         <i className="ti-eye mr-2"/>
                                         <span>facial recognition Sign in</span>
                                     </button>
