@@ -25,7 +25,9 @@ class TrainingSessionDetail extends Component {
     }
 
     render() {
-        console.log(this.props.user.user._id)
+        console.log(this.props.user.user._id);
+        let hours = 0;
+        this.state.courses.map(course => hours = course.period+hours)
         return (
             <div>
                 <div className="padding-y-60 bg-cover" data-dark-overlay={6}
@@ -74,11 +76,11 @@ class TrainingSessionDetail extends Component {
                                         </li>
                                         <li className="list-inline-item my-2 pr-md-4">
                                             <i className="ti-time small text-primary" />
-                                            <span className="ml-2">27.5 Hours</span>
+                                            <span className="ml-2">{hours} Hours</span>
                                         </li>
                                         <li className="list-inline-item my-2 pr-md-4">
                                             <i className="ti-user small text-primary" />
-                                            <span className="ml-2">98,250 students entrolled</span>
+                                            <span className="ml-2">{this.state.session.studentsList !== undefined &&this.state.session.studentsList.length} students entrolled</span>
                                         </li>
                                         <li className="list-inline-item my-2 pr-md-4">
                                             <i className="ti-reload small text-primary" />

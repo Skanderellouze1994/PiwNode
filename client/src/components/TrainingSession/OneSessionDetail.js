@@ -100,7 +100,7 @@ class OneSessionDetail extends Component {
                     <ul className="list-inline mb-0">
                         <li className="list-inline-item mr-3">
                             <i className="ti-time small mr-2"/>
-                            {dateFormat(this.state.session.startDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+                            {dateFormat(this.state.session.startDate, "dddd, mmmm dS, yyyy")}
                         </li>
                     </ul>
                     <br/>
@@ -111,7 +111,7 @@ class OneSessionDetail extends Component {
                             list === this.props.user.user._id
                                 ? <button className="btn btn-success shadow-success mr-3 mb-3">
                                     {this.state.buttonOff}</button>
-                                :list !== this.props.user.user._id&& <button className={this.state.classname} onClick={this.participate.bind(this)}>
+                                : <button className={this.state.classname} onClick={this.participate.bind(this)}>
                                     {this.state.buttonOn}</button>))
 
                         : <button className={this.state.classname} onClick={this.participate.bind(this)}>

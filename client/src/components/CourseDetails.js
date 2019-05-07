@@ -26,8 +26,10 @@ import {
 } from 'react-share';
 import Artyom from 'artyom.js';
 import CanvasJSReact from '../charts/canvasjs.react';
+import {Pie} from 'react-chartjs-2';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+var dateFormat = require('dateformat');
 
 class CourseDetail extends Component {
     constructor(props) {
@@ -36,7 +38,7 @@ class CourseDetail extends Component {
         this.state = {
             quiz: [],
             presenceList: [],
-            score: []
+            score: [1,2,-2,3,-6,7]
         };
     }
 
@@ -103,13 +105,42 @@ class CourseDetail extends Component {
     render() {
         const url = window.location.href;
         console.log(this.state.score);
-
-        const options = {
+        // Get scores and compare them a
+        let positive = 0;
+        let medium = 0;
+        let negative = 0;
+        this.state.score.map(score => {
+            if(score >5){positive=positive+score}
+            else if(score<=5 && score>=-5) medium=medium+score
+                else negative=negative+score
+        });
+        /////
+        const data = {
+            labels: [
+                'Not satisfied',
+                'Satisfied',
+                'So Satisfied'
+            ],
+            datasets: [{
+                data: [negative,medium,positive],
+                backgroundColor: [
+                    '#FF6384',
+                    '#FFCE56',
+                    '#36A2EB'
+                ],
+                hoverBackgroundColor: [
+                    '#FF6384',
+                    '#FFCE56',
+                    '#36A2EB'
+                ]
+            }]
+        };
+        const options2 = {
             animationEnabled: true,
             exportEnabled: true,
             theme: "light1", // "light1", "dark1", "dark2"
             title:{
-                text: "Students' satisfaction during the course"
+                text: "Students' presence during this course"
             },
 
             data: [{
@@ -117,23 +148,8 @@ class CourseDetail extends Component {
                 indexLabel: "{label}: {y}",
                 startAngle: -90,
                 dataPoints: [
-                    { y: this.state.score }
-                ]
-            }]
-        };
-        const options2 = {
-            animationEnabled: true,
-            title: {
-                text: "Presence"
-            },
-            data: [{
-                type: "doughnut",
-                showInLegend: true,
-                indexLabel: "{name}: {y}",
-                yValueFormatString: "#,###",
-                dataPoints: [
-                    {name: "Absent Students", y: 20},
-                    {name: "Present Students", y: this.state.presenceList.length}
+                    { y: this.state.presenceList.length, label: "Present Students" },
+                    { y: 24, label: "Absent Students" }
                 ]
             }]
         };
@@ -243,7 +259,7 @@ class CourseDetail extends Component {
                 </section>
                 <section className="paddingBottom-100">
                     <div className="container">
-                        <div className="col-lg-9 marginTop-30">
+                        <div className="col-lg-9">
                             {this.state.course !== undefined &&
                             <h1>
                                 {this.state.course.title}
@@ -271,10 +287,24 @@ class CourseDetail extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="col-lg-3 col-md-6 my-2">
+                                    <div className="border-right height-100p">
+                                        <span className="text-gray d-block">Categories:</span>
+                                        <a className="h6">{this.state.course !== undefined && this.state.course.category}</a>
+                                    </div>
+                                </div>
+                                <div className="col-lg-3 col-md-6 my-2">
+                                    <div className="border-right height-100p">
+                                        <span className="text-gray d-block">Start Date:</span>
+                                        <a className="h6">{this.state.course !== undefined &&
+                                        dateFormat(this.state.course.startDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <section className="padding-y-100 border-bottom border-light">
+                        <section className="padding-y border-bottom border-light">
                             <div className="container">
                                 <div className="row">
                                     <div className="col-lg-9 marginTop-30">
@@ -294,16 +324,24 @@ class CourseDetail extends Component {
                                                     </a>
                                                 </li>
                                                 <li className="nav-item">
+                                                    {this.state.course !== undefined &&
+                                                    this.state.course.tutorCreator !== undefined &&
+                                                    this.state.course.tutorCreator._id === this.props.user.user._id &&
                                                     <a className="nav-link" data-toggle="tab" href="#tabStatics"
                                                        role="tab" aria-selected="true">
                                                         Statics
                                                     </a>
+                                                    }
                                                 </li>
                                                 <li className="nav-item">
+                                                    {this.state.course !== undefined &&
+                                                    this.state.course.tutorCreator !== undefined &&
+                                                    this.state.course.tutorCreator._id === this.props.user.user._id &&
                                                     <a className="nav-link" data-toggle="tab" href="#tabList"
                                                        role="tab" aria-selected="true">
                                                         Presence List
                                                     </a>
+                                                    }
                                                 </li>
                                                 <li className="nav-item">
                                                     <a className="nav-link" data-toggle="tab" href="#tabRessources"
@@ -345,7 +383,8 @@ class CourseDetail extends Component {
                                                                 Course Start Date and Time
                                                             </h4>
                                                             <ul className="list-unstyled list-style-icon list-icon-check">
-                                                                <li>Learn how to captivate your audience</li>
+                                                                <li>{this.state.course !== undefined &&
+                                                                dateFormat(this.state.course.startDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}</li>
                                                             </ul>
                                                         </div>
                                                         <div className="col-md-6 my-2">
@@ -472,16 +511,16 @@ class CourseDetail extends Component {
 
                                             <div className="tab-pane fade " id="tabStatics" role="tabpanel">
                                                 <h4>
-
+                                                    Students' Satisfaction
                                                 </h4>
-                                                <CanvasJSChart options={options}
-                                                    /* onRef={ref => this.chart = ref} */
-                                                />
+                                                <p>The statics here shows if your students are satisfied or not during your course .</p>
+                                                <p>The scores bellow are calculated from the informations we collect from your students chat messages and posts and responses.</p>
+                                                <Pie data={data} />
                                             </div>
                                             <div className="tab-pane fade " id="tabList" role="tabpanel">
                                                 <div className="row">
                                                     <div className="col-lg-6 my-4">
-                                                        <h6 className="mb-2">Basic List group</h6>
+                                                        <h6 className="mb-2">Presence List</h6>
                                                         <ul className="list-group">
                                                             {this.state.presenceList.map(student => (
                                                                 <li className="list-group-item d-flex align-items-center">
@@ -494,7 +533,7 @@ class CourseDetail extends Component {
                                                             ))}
                                                         </ul>
                                                     </div>
-                                                    <div className="col-lg-6 my-4">
+                                                    <div >
                                                         <CanvasJSChart options={options2}
                                                             /* onRef={ref => this.chart = ref} */
                                                         />
