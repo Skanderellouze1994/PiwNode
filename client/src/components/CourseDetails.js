@@ -37,8 +37,9 @@ class CourseDetail extends Component {
 
         this.state = {
             quiz: [],
+            course: {},
             presenceList: [],
-            score: [1,2,-2,3,-6,7]
+            score: []
         };
     }
 
@@ -55,29 +56,29 @@ class CourseDetail extends Component {
             .then(response => {
                 this.setState({quiz: response.data});
                 console.log(response.data);
-
-                // get presence list and the sentiment results
-                axios
-                    .get(`/quiz`)
-                    .then(response => {
-                        this.setState({quiz: response.data});
-                        console.log(response.data);
-                        response.data.map(student=>(
-                            axios
-                                .post(`/trainingSession/sentiment/${student._id}`)
-                                .then(res => {
-                                    this.setState({ score: this.state.score.concat(res.data) });
-                                    console.log(res.data);
-                                }),
-                                axios
-                                    .post(`/trainingSession/sentiment/chat/${this.state.course.chatroom}/${student._id}`)
-                                    .then(res => {
-                                        this.setState({ score: this.state.score.concat(res.data) });
-                                        console.log(res.data);
-                                    })
-                        ))
-                    });
             })
+
+        // get presence list and the sentiment results
+        axios
+            .get(`/trainingSession/get/course/presence/${this.props.match.params.id}`)
+            .then(response => {
+                this.setState({ presenceList: response.data });
+                console.log(response.data);
+                response.data.map(student=>(
+                    axios
+                        .post(`/trainingSession/sentiment/${student._id}`)
+                        .then(res => {
+                            this.setState({ score: this.state.score.concat(res.data) });
+                            console.log(res.data);
+                        }),
+                        axios
+                            .post(`/trainingSession/sentiment/chat/${this.state.course.chatroom}/${student._id}`)
+                            .then(res => {
+                                this.setState({ score: this.state.score.concat(res.data) });
+                                console.log(res.data);
+                            })
+                ))
+            });
 
         /* const artyom = new Artyom();
          artyom.initialize({
@@ -112,7 +113,7 @@ class CourseDetail extends Component {
         this.state.score.map(score => {
             if(score >5){positive=positive+score}
             else if(score<=5 && score>=-5) medium=medium+score
-                else negative=negative+score
+            else negative=negative+score
         });
         /////
         const data = {
@@ -281,7 +282,7 @@ class CourseDetail extends Component {
                                         <img className="iconbox mr-3" src="assets/img/avatar/4.jpg" alt="true"/>
                                         <div className="media-body">
                                             <span className="text-gray d-block">Instructor:</span>
-                                            {this.state.course !== undefined &&
+                                            {this.state.course !== undefined && this.state.course.tutorCreator !== undefined &&
                                             <a href="#" className="h6">{this.state.course.tutorCreator.username}</a>
                                             }
                                         </div>
@@ -423,7 +424,7 @@ class CourseDetail extends Component {
                                                             <div className="media-body ml-md-4 mt-4 mt-md-0">
                                                                 {this.state.course !== undefined &&
                                                                 <h6>
-                                                                    {this.state.course.tutorCreator.username}
+                                                                    {this.state.course.tutorCreator !== undefined &&this.state.course.tutorCreator.username}
                                                                 </h6>}
                                                                 <p className="mb-2">
                                                                     <i className="ti-world mr-2"/> Web Developer and
@@ -509,37 +510,37 @@ class CourseDetail extends Component {
                                                 {/* END tab-pane */}
 
 
-                                            <div className="tab-pane fade " id="tabStatics" role="tabpanel">
-                                                <h4>
-                                                    Students' Satisfaction
-                                                </h4>
-                                                <p>The statics here shows if your students are satisfied or not during your course .</p>
-                                                <p>The scores bellow are calculated from the informations we collect from your students chat messages and posts and responses.</p>
-                                                <Pie data={data} />
-                                            </div>
-                                            <div className="tab-pane fade " id="tabList" role="tabpanel">
-                                                <div className="row">
-                                                    <div className="col-lg-6 my-4">
-                                                        <h6 className="mb-2">Presence List</h6>
-                                                        <ul className="list-group">
-                                                            {this.state.presenceList.map(student => (
-                                                                <li className="list-group-item d-flex align-items-center">
-                                                                    <img className="iconbox iconbox-sm"
-                                                                         src="assets/img/avatar/4.jpg" alt/>
-                                                                    <span className="media-body ml-3">
+                                                <div className="tab-pane fade " id="tabStatics" role="tabpanel">
+                                                    <h4>
+                                                        Students' Satisfaction
+                                                    </h4>
+                                                    <p>The statics here shows if your students are satisfied or not during your course .</p>
+                                                    <p>The scores bellow are calculated from the informations we collect from your students chat messages and posts and responses.</p>
+                                                    <Pie data={data} />
+                                                </div>
+                                                <div className="tab-pane fade " id="tabList" role="tabpanel">
+                                                    <div className="row">
+                                                        <div className="col-lg-6 my-4">
+                                                            <h6 className="mb-2">Presence List</h6>
+                                                            <ul className="list-group">
+                                                                {this.state.presenceList.map(student => (
+                                                                    <li className="list-group-item d-flex align-items-center">
+                                                                        <img className="iconbox iconbox-sm"
+                                                                             src="assets/img/avatar/4.jpg" alt/>
+                                                                        <span className="media-body ml-3">
                                                                 <Link href="#">{student.username}</Link>
                                                         </span>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                    <div >
-                                                        <CanvasJSChart options={options2}
-                                                            /* onRef={ref => this.chart = ref} */
-                                                        />
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                        <div >
+                                                            <CanvasJSChart options={options2}
+                                                                /* onRef={ref => this.chart = ref} */
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -552,9 +553,7 @@ class CourseDetail extends Component {
         )
     }
 }
-
 function
-
 mapStateToProps(state) {
     const {authentication} = state;
     const {user} = authentication;
@@ -563,7 +562,6 @@ mapStateToProps(state) {
         course: state.course
     };
 }
-
 const
     connectedLoginPage = connect(mapStateToProps)(CourseDetail);
 export {
