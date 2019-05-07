@@ -13,7 +13,10 @@ class TrainingSessionList extends Component {
         this.state = {
             search : '',
             sessions: [],
-            allSessions : []
+            allSessions : [],
+            buttonOn : 'Participate Now',
+            buttonOff : 'Already Participated',
+            classname :'btn btn-outline-success shadow-success mr-3 mb-3'
         }
     }
     componentDidMount(){
@@ -49,6 +52,16 @@ class TrainingSessionList extends Component {
         }*/
         //})
     };
+    participate(){
+        this.setState({buttonOn : 'Already Participated'});
+        this.setState({classname: 'btn btn-success shadow-success mr-3 mb-3'});
+        axios
+            .post(`/trainingSession/add/student/${this.props.user.user._id}/${this.props.id}`)
+            .then(response => {
+                //this.setState({courses: response.data.courses});
+                console.log(response.data);
+            });
+    }
 
     render() {
         const filteredSessions = this.state.allSessions.filter(session => {
@@ -171,22 +184,22 @@ class TrainingSessionList extends Component {
                                 <ul className="list-inline mb-0">
                                     <li className="list-inline-item mr-3">
                                         <i className="ti-time small mr-2"/>
-                                        {dateFormat(session.startDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+                                        {dateFormat(session.startDate, "dddd, mmmm dS, yyyy")}
                                     </li>
                                 </ul>
                                 <br/>
 
-                                {session.studentsList.length !== 0
+                                {session.studentsList !== undefined && session.studentsList.length !== 0
                                     ?
                                     session.studentsList.map(list => (
-                                        list._id === this.props.user.user._id
+                                        list === this.props.user.user._id
                                             ? <button className="btn btn-success shadow-success mr-3 mb-3">
-                                                Already participated</button>
-                                            : <button className="btn btn-outline-success shadow-success mr-3 mb-3">
-                                                <Link to="/all">Participate now</Link></button>))
+                                                {this.state.buttonOff}</button>
+                                            : <button className={this.state.classname} onClick={this.participate.bind(this)}>
+                                                {this.state.buttonOn}</button>))
 
-                                    : <button className="btn btn-outline-success shadow-success mr-3 mb-3">
-                                        <Link to="/all">Participate now</Link></button>}
+                                    : <button className={this.state.classname} onClick={this.participate.bind(this)}>
+                                        {this.state.buttonOn}</button>}
                             </div>
                         </div>
                     ))}
