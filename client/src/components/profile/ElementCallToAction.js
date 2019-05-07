@@ -40,7 +40,7 @@ class ElementCallToAction extends Component {
             console.log(user)
             dispatch(userActions.updateProfile(user));
             this.setState({loading:true})
-            axios.get('http://127.0.0.1:4000/scrapping/'+user._id).then(res=>{
+            axios.get('/scrapping/'+user._id).then(res=>{
                 console.log(res)
                 this.setState({open:false})
                 dispatch(profileAction.getLinkedin(res.data))
