@@ -28,7 +28,7 @@ class EditCourse extends Component {
         );
 
         axios
-            .get(`http://localhost:4000/trainingSession/get/course/${this.props.match.params.id}`)
+            .get(`/trainingSession/get/course/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ course: response.data });
                 console.log(response.data);
@@ -51,7 +51,7 @@ class EditCourse extends Component {
 
         const {course} = this.state;
         if (this.validator.allValid()) {
-            axios.put(`http://localhost:4000/trainingSession/course/update/${this.props.match.params.id}`,course)
+            axios.put(`/trainingSession/course/update/${this.props.match.params.id}`,course)
                 .then(res => console.log(res.data));
             Swal.fire(
                 'Good job!',

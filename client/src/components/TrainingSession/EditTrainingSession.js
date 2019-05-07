@@ -23,7 +23,7 @@ class EditTrainingSession extends Component {
                 </div>}
         );
         axios
-            .get(`http://localhost:4000/trainingSession/get/${this.props.match.params.id}`)
+            .get(`/trainingSession/get/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ session: response.data});
             });
@@ -46,7 +46,7 @@ class EditTrainingSession extends Component {
         const { session } = this.state;
         if (this.validator.allValid()) {
             axios
-                .put(`http://localhost:4000/trainingSession/update/${this.props.user.user._id}`+`/${this.props.match.params.id}`,session)
+                .put(`/trainingSession/update/${this.props.user.user._id}`+`/${this.props.match.params.id}`,session)
                 .then(response => {
                     console.log(response.data);
                 });

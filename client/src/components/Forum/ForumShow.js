@@ -28,7 +28,7 @@ class ForumShow extends Component {
 
     componentDidMount(){
         axios
-            .get(`http://localhost:4000/forum/${this.props.match.params.id}`)
+            .get(`/forum/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ post: response.data });
                 this.setState({ resp: response.data.responses });
@@ -58,7 +58,7 @@ class ForumShow extends Component {
             userResponse: this.props.user.user
         }
 
-        axios.post('http://localhost:4000/forum/response/add/'+this.state.post._id+'/'+this.props.user.user._id,newResponse)
+        axios.post('/forum/response/add/'+this.state.post._id+'/'+this.props.user.user._id,newResponse)
             .then(
                 res => {
                     setTimeout(()=>window.location.reload(),0);
@@ -72,7 +72,7 @@ class ForumShow extends Component {
 
 
     validateResponse(e,id) {
-        axios.put('http://localhost:4000/forum/'+this.state.post._id+'/response/validate/'+e)
+        axios.put('/forum/'+this.state.post._id+'/response/validate/'+e)
             .then(
                 res => {
                     Swal.fire({

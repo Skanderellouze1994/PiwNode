@@ -26,7 +26,7 @@ class Responses extends Component {
 
     componentDidMount(){
         axios
-            .get(`http://localhost:4000/forum/${this.props.id}`)
+            .get(`/forum/${this.props.id}`)
             .then(response => {
                 this.setState({ post: response.data });
                 this.setState({ resp: response.data.responses });

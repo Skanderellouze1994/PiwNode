@@ -15,10 +15,11 @@ class CurrentSessionComponent extends Component{
             sec: 0,
             session : {},
         }
+        this.joinCourse = this.joinCourse.bind(this);
     }
     componentDidMount() {
         axios
-            .get(`http://localhost:4000/trainingSession/get/course/${this.props.id}`)
+            .get(`/trainingSession/get/course/${this.props.id}`)
             .then(response => {
                 this.setState({session: response.data});
                 //this.setState({courses: response.data.courses});
@@ -77,6 +78,15 @@ class CurrentSessionComponent extends Component{
         return value;
     }
 
+    joinCourse(){
+        axios
+            .post(`/trainingSession/join/${this.props.user.user._id}/${this.props.id}`)
+            .then(response => {
+                //this.setState({courses: response.data.courses});
+                console.log(response.data);
+            });
+    }
+
     render() {
         setTimeout(
             function() {
@@ -103,7 +113,11 @@ class CurrentSessionComponent extends Component{
                             <li className="list-inline-item mr-3"></li>
                             <li className="list-inline-item mr-3"></li>
                         </ul>
-                        <span className="badge badge-danger">Starting soon</span>
+                        {countDown.hours ===0 && countDown.min === 0 && countDown.sec ===0 ?
+                            <span className="badge badge-danger">Closed</span>
+                            :
+                            <span className="badge badge-danger">Starting soon</span>
+                        }
                     </div>
                     <a href="#" className="h4">
                         {this.state.session.title}
@@ -151,10 +165,10 @@ class CurrentSessionComponent extends Component{
                             list._id === this.props.user.user._id
                                 ? <button className="btn btn-success shadow-success mr-3 mb-3">
                                     <Link to={"/currentSession/"+this.state.session._id}>Already joined</Link></button>
-                                : this.props.user.user.role === "Student" &&<button className="btn btn-outline-success shadow-success mr-3 mb-3">
-                                    <Link to={"/currentSession/"+this.state.session._id}>Join now</Link></button>))
+                                : this.props.user.user.role === "Student" &&<button onClick={this.joinCourse} className="btn btn-outline-success shadow-success mr-3 mb-3">
+                                <Link to={"/currentSession/"+this.state.session._id}>Join now</Link></button>))
                         : this.props.user.user.role === "Student" &&
-                        <button className="btn btn-outline-success shadow-success mr-3 mb-3">
+                        <button onClick={this.joinCourse} className="btn btn-outline-success shadow-success mr-3 mb-3">
                             <Link to={"/currentSession/"+this.state.session._id}>Join now</Link></button>}
                 </div>
             </div>

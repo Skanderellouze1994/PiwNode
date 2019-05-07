@@ -5,6 +5,7 @@ var User = require('../models/user');
 var Course = require('../models/course');
 var Post = require('../models/post');
 var Discussion = require('../models/discussion');
+var Message = require('../models/message');
 //TrainingSession = mongoose.model('TrainingSession',trainingSession);
 //User = mongoose.model('User', user);
 //Course = mongoose.model('Course', course);
@@ -200,12 +201,12 @@ router.post('/join/:student/:course', function (req,res,next) {
 /****************************************Get a course's presence list************************************************/
 router.get('/get/course/presence/:course', function (req,res,next) {
     Course.findById({_id :req.params.course}).populate('presenceList').exec( function (err,course) {
-            if(err){
-                res.status(500).send('database error');
-            }
-            else{
-                res.send(course.presenceList);
-            }
+        if(err){
+            res.status(500).send('database error');
+        }
+        else{
+            res.send(course.presenceList);
+        }
     });
 });
 
@@ -303,10 +304,11 @@ router.post('/sms', function (req,res,next) {
         .create({
             to: '+21656103222',
             from: '+15067990273',
-            body: "Tomorrow's forecast in Financial District, San Francisco is Clear",
+            body: "Your course will start soon , please join professor robot",
         })
         .then((message) => console.log(message.sid));
 });
+
 
 router.post('/sentiment/:id', function (req,res,next) {
     var Sentiment = require('sentiment');
@@ -316,6 +318,8 @@ router.post('/sentiment/:id', function (req,res,next) {
             'not': -3,
             'difficult': -3,
             'need':-2,
+            'issue' : -3,
+            'urgent': -1
         }
     };
     var descriptions = [];
@@ -332,13 +336,51 @@ router.post('/sentiment/:id', function (req,res,next) {
                 console.log(result);
                 console.log(result2);
                 scores += result.score + result2.score;
-        });
+            });
             console.log(scores);
             console.log(descriptions);
             res.json(scores);
         }
         else{
             res.json('Error in retrieving posts list :' + err);
+        }
+    })
+
+});
+
+router.post('/sentiment/chat/:id/:user', function (req,res,next) {
+    var Sentiment = require('sentiment');
+    var sentiment = new Sentiment();
+    var options = {
+        extras: {
+            'not': -3,
+            'difficult': -3,
+            'need':-2,
+            'issue' : -3,
+            'urgent': -1
+        }
+    };
+    var texts = [];
+    var scores = 0;
+
+    Message.find({chatId:req.params.id}).exec(function (err,post) {
+
+        if(!err){
+            Message.find({author:req.params.user}).exec(function (error,message) {
+                if(!error){
+                    message.map(message =>{
+                        var textMessage = sentiment.analyze(message.data.text, options);
+                        //console.log(textMessage);
+                        scores += textMessage.score;
+                        //res.json(textMessage.score);
+                    })
+                    res.json(scores)
+                }
+            })
+            //res.json(post);
+        }
+        else{
+            res.json('Error in retrieving message' + err);
         }
     })
 

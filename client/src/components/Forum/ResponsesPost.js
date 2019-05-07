@@ -14,7 +14,7 @@ class ResponsesPost extends Component {
         this.state={users:[]};
     }
     componentWillMount() {
-        axios.get('http://localhost:4000/forum/counter').then(res => this.setState({users: res.data})
+        axios.get('/forum/counter').then(res => this.setState({users: res.data})
         )
     }
 

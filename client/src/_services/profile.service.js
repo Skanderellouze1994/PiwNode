@@ -19,7 +19,7 @@ function getProfile(id) {
         mode: 'cors'
 };
 
-    return fetch("http://localhost:4000/profil/"+id, requestOptions).then(handleResponse)
+    return fetch("/profil/"+id, requestOptions).then(handleResponse)
         .then(profile => {
            // console.log(localStorage)
             localStorage.setItem('profile', JSON.stringify(profile));
@@ -33,7 +33,7 @@ function updateProfile(profile) {
         body: JSON.stringify(profile)
     };
 
-    return fetch("http://localhost:4000/profil/"+profile._id, requestOptions).then(handleResponse).then(p => {
+    return fetch("/profil/"+profile._id, requestOptions).then(handleResponse).then(p => {
         //console.log(user);
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         console.log(p)
@@ -50,7 +50,7 @@ function addPosition(id,position) {
         body: JSON.stringify(position)
     };
 
-    return fetch("http://localhost:4000/profil/"+id+"/position", requestOptions).then(handleResponse)
+    return fetch("/profil/"+id+"/position", requestOptions).then(handleResponse)
         .catch(err=>console.log(err));
 }
 function updatePosition(id,position) {
@@ -60,7 +60,7 @@ function updatePosition(id,position) {
         body: JSON.stringify(position)
     };
 
-    return fetch("http://localhost:4000/profil/"+id+"/position/"+position._id, requestOptions).then(handleResponse)
+    return fetch("/profil/"+id+"/position/"+position._id, requestOptions).then(handleResponse)
         .catch(err=>console.log(err));
 }
 function deletePosition(idProfile,idPosition) {
@@ -70,7 +70,7 @@ function deletePosition(idProfile,idPosition) {
 
     };
 
-    return fetch("http://localhost:4000/profil/"+idProfile+"/position/"+idPosition, requestOptions).then(handleResponse)
+    return fetch("/profil/"+idProfile+"/position/"+idPosition, requestOptions).then(handleResponse)
         .catch(err=>console.log(err));
 }
 function addEducation(id,education) {
@@ -80,7 +80,7 @@ function addEducation(id,education) {
         body: JSON.stringify(education)
     };
 
-    return fetch("http://localhost:4000/profil/"+id+"/education", requestOptions).then(handleResponse)
+    return fetch("/profil/"+id+"/education", requestOptions).then(handleResponse)
         .catch(err=>console.log(err));
 }
 function updateEducation(id,education) {
@@ -90,7 +90,7 @@ function updateEducation(id,education) {
         body: JSON.stringify(education)
     };
 
-    return fetch("http://localhost:4000/profil/"+id+"/education/"+education._id, requestOptions).then(handleResponse)
+    return fetch("/profil/"+id+"/education/"+education._id, requestOptions).then(handleResponse)
         .catch(err=>console.log(err));
 }
 function deleteEducation(idProfile,idPosition) {
@@ -100,7 +100,7 @@ function deleteEducation(idProfile,idPosition) {
 
     };
 
-    return fetch("http://localhost:4000/profil/"+idProfile+"/education/"+idPosition, requestOptions).then(handleResponse)
+    return fetch("/profil/"+idProfile+"/education/"+idPosition, requestOptions).then(handleResponse)
         .catch(err=>console.log(err));
 }
 function handleResponse(response) {

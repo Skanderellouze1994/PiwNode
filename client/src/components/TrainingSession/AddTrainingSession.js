@@ -47,7 +47,7 @@ class AddTrainingSession extends Component {
             dispatch(trainingSessionAction.addTrainingSession(this.props.user.user._id , session));
             console.log("after dispatch");
             /*axios
-                .post(`http://localhost:4000/trainingSession/add/${this.props.user.user._id}`,+`/`+session)
+                .post(`/trainingSession/add/${this.props.user.user._id}`,+`/`+session)
                 .then(response => {
                     console.log(response.data);
                 })*/
@@ -86,7 +86,7 @@ class AddTrainingSession extends Component {
                                     <form name="form" onSubmit={this.handleSubmit}>
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user" />
+                                                <span className="input-group-text bg-white ti-comment" />
                                             </div>
                                             <input name="name" type="text" className="form-control border-left-0 pl-0" placeholder="Name"
                                                    value={session.name} onChange={this.handleChange}/>
@@ -94,7 +94,7 @@ class AddTrainingSession extends Component {
                                         {this.validator.message('Name', session.name, 'required')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user" />
+                                                <span className="input-group-text bg-white ti-text" />
                                             </div>
                                             <input name="description" type="text" className="form-control border-left-0 pl-0" placeholder="Description"
                                                    value={session.description} onChange={this.handleChange} />
@@ -102,21 +102,21 @@ class AddTrainingSession extends Component {
                                         {this.validator.message('Description ', session.description, 'required')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user" />
+                                                <span className="input-group-text bg-white ti-calendar" > Start Date</span>
                                             </div>
                                             <input name="startDate"
-                                                   placeholder="03/27/2018 8:09 PM" type="text"
+                                                   placeholder="03/27/2018 8:09 PM" type="date"
                                                    className="form-control datetimepicker-input" id="ec-datetimepicker"
                                                    data-toggle="datetimepicker" data-target="#ec-datetimepicker"
                                                    value={session.startDate} onChange={this.handleChange} />
                                         </div>
-                                        {this.validator.message('Start Date', session.startDate, 'required')}
+                                        {this.validator.message('Start Date',session.startDate, 'required')}
                                         <div className="input-group input-group--focus mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text bg-white ti-user" />
+                                                <span className="input-group-text bg-white ti-calendar"> End Date</span>
                                             </div>
                                             <input name="endDate"
-                                                   placeholder="03/27/2018 8:09 PM" type="text"
+                                                   placeholder="03/27/2018 8:09 PM" type="date"
                                                    className="form-control datetimepicker-input" id="ec-datetimepicker"
                                                    data-toggle="datetimepicker" data-target="#ec-datetimepicker"
                                                    value={session.endDate} onChange={this.handleChange} />

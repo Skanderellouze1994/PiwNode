@@ -49,7 +49,7 @@ class ResponseQuiz extends Component {
 
     componentDidMount(){
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/questions`)
+            .get(`/quiz/${this.props.match.params.idquiz}/questions`)
             .then(response => {
                 this.setState({ questions: response.data });
                 this.a = response.data
@@ -63,20 +63,20 @@ class ResponseQuiz extends Component {
                 }
             })
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}`)
+            .get(`/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({ question: response.data });
                 //console.log(response.data)
 
             })
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/propositions`)
+            .get(`/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/propositions`)
             .then(response => {
                 this.setState({ propositions: response.data });
                 console.log(response.data)
             })
         axios
-            .get(`http://localhost:4000/quiz/${this.props.match.params.idquiz}`)
+            .get(`/quiz/${this.props.match.params.idquiz}`)
             .then(res => {
                 this.setState({ thisquiz: res.data });
                 console.log(res.data);
@@ -86,7 +86,7 @@ class ResponseQuiz extends Component {
     addResponse(){
         const {response} = this.state;
         var i = 0;
-        axios.post(`http://localhost:4000/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/resp`,{...response,student:this.props.user.user._id})
+        axios.post(`/quiz/${this.props.match.params.idquiz}/question/${this.props.match.params.id}/resp`,{...response,student:this.props.user.user._id})
             .then(res => {
                 //console.log(this.a[i].name);
                 //setTimeout(()=>window.location.reload(),0);

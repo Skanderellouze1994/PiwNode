@@ -8,7 +8,7 @@ class TutorStream extends Component {
     constructor(props){
         super(props)
         this.state={
-            value : "https://localhost:3000/streamlink/"+Math.floor(Math.random() * 1000000000000),
+            value : "/streamlink/"+Math.floor(Math.random() * 1000000000000),
             copied: false,
         };
     }

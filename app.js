@@ -22,7 +22,7 @@ var cron = require('./routes/cronTask')
 var stream = require('./routes/stream')
 require('./passport')(passport);
 var cors = require('cors');
-const fileUpload = require('express-fileupload');
+  const fileUpload = require('express-fileupload');
 
 
 var app = express();
@@ -35,7 +35,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(session({
   secret:'thesecret',
   saveUninitialized:false,
@@ -47,7 +47,7 @@ app.use(passport.session());
 app.use(cors());
 app.use(fileUpload());
 
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/forum', forumRouter);
 app.use('/auth', auth);
@@ -59,7 +59,9 @@ app.use('/quiz' , quizRouter);
 app.use('/ressource' , ressourceRouter);
 app.use('/chatbot' , chatBotRouter);
 app.use('/facial' , facialRouter);
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
+});
 
 
 // catch 404 and forward to error handler
