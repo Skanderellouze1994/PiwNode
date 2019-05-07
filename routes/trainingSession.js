@@ -318,6 +318,8 @@ router.post('/sentiment/:id', function (req,res,next) {
             'not': -3,
             'difficult': -3,
             'need':-2,
+            'issue' : -3,
+            'urgent': -1
         }
     };
     var descriptions = [];
@@ -354,6 +356,8 @@ router.post('/sentiment/chat/:id/:user', function (req,res,next) {
             'not': -3,
             'difficult': -3,
             'need':-2,
+            'issue' : -3,
+            'urgent': -1
         }
     };
     var texts = [];
@@ -366,10 +370,11 @@ router.post('/sentiment/chat/:id/:user', function (req,res,next) {
                 if(!error){
                     message.map(message =>{
                         var textMessage = sentiment.analyze(message.data.text, options);
-                        console.log(textMessage);
-                        res.json(textMessage.score);
+                        //console.log(textMessage);
+                        scores += textMessage.score;
+                        //res.json(textMessage.score);
                     })
-                    //res.json(message)
+                    res.json(scores)
                 }
             })
             //res.json(post);

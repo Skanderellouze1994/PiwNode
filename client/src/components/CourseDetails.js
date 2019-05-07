@@ -37,8 +37,9 @@ class CourseDetail extends Component {
 
         this.state = {
             quiz: [],
+            course: {},
             presenceList: [],
-            score: [1,2,-2,3,-6,7]
+            score: []
         };
     }
 
@@ -55,12 +56,13 @@ class CourseDetail extends Component {
             .then(response => {
                 this.setState({quiz: response.data});
                 console.log(response.data);
+            })
 
                 // get presence list and the sentiment results
                 axios
-                    .get(`/quiz`)
+                    .get(`/trainingSession/get/course/presence/${this.props.match.params.id}`)
                     .then(response => {
-                        this.setState({quiz: response.data});
+                        this.setState({ presenceList: response.data });
                         console.log(response.data);
                         response.data.map(student=>(
                             axios
@@ -77,7 +79,6 @@ class CourseDetail extends Component {
                                     })
                         ))
                     });
-            })
 
         /* const artyom = new Artyom();
          artyom.initialize({
@@ -281,7 +282,7 @@ class CourseDetail extends Component {
                                         <img className="iconbox mr-3" src="assets/img/avatar/4.jpg" alt="true"/>
                                         <div className="media-body">
                                             <span className="text-gray d-block">Instructor:</span>
-                                            {this.state.course !== undefined &&
+                                            {this.state.course !== undefined && this.state.course.tutorCreator !== undefined &&
                                             <a href="#" className="h6">{this.state.course.tutorCreator.username}</a>
                                             }
                                         </div>
@@ -423,7 +424,7 @@ class CourseDetail extends Component {
                                                             <div className="media-body ml-md-4 mt-4 mt-md-0">
                                                                 {this.state.course !== undefined &&
                                                                 <h6>
-                                                                    {this.state.course.tutorCreator.username}
+                                                                    {this.state.course.tutorCreator !== undefined &&this.state.course.tutorCreator.username}
                                                                 </h6>}
                                                                 <p className="mb-2">
                                                                     <i className="ti-world mr-2"/> Web Developer and
