@@ -23,7 +23,7 @@ module.exports = ({ email, password, isHeadless, hasToLog, proxyAddress } = { is
   try {
     await login(browser, email, password, logger)
   } catch (e) {
-    await browser.close()
+    //await browser.close()
     return reject(e)
   }
 
