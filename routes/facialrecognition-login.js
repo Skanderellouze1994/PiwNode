@@ -45,12 +45,12 @@ router.post('/addface/:id', function (req, res, next) {
     const recognizer = fr.FaceRecognizer()
     var base64Data = req.body.image.replace(/^data:image\/jpeg;base64,/, "");
     const id = Math.random()
-    require("fs").writeFile("c:/temp/" + id + '.jpeg', base64Data, 'base64', function (err) {
+    require("fs").writeFile("/tmp/" + id + '.jpeg', base64Data, 'base64', function (err) {
         console.log(err);
     });
     setTimeout(() => {
         try {
-            const image1 = fr.loadImage("c:/temp/" + id + '.jpeg')
+            const image1 = fr.loadImage("/tmp/" + id + '.jpeg')
             const faceImages = detector.detectFaces(image1)
             recognizer.addFaces(faceImages, req.params.id)
             const modelState = recognizer.serialize()
