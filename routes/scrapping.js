@@ -3,8 +3,8 @@ const configFile = require('../config.json')
 var User =require('../models/user')
 var express = require('express');
 var router = express.Router();
-//const scrapedin = require('../scraping/scrapedin/scrapedin')
-const scrapedin = require('scrapedin')
+const scrapedin = require('../scraping/scrapedin/scrapedin')
+//const scrapedin = require('scrapedin')
 var scrapping = async (url)=>new Promise(async (resolve,reject) => {
     const profileScraper = await scrapedin({email: 'csmajs2019@gmail.com', password: 'piweb2019',isHeadless:false})
     const profile = await profileScraper(url)

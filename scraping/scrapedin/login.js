@@ -2,19 +2,19 @@
 const logger = require('./logger')
 
 module.exports = async (browser, email, password) => {
-  const loginUrl = 'https://www.linkedin.com/uas/login?trk=guest_homepage-basic_nav-header-signin'
+  const loginUrl = 'https://www.linkedin.com'
   const page = await openPage(browser, loginUrl)
   logger.info('login', `logging at: ${loginUrl}`)
 
   await page.goto(loginUrl)
-  await page.waitFor('#username')
+  await page.waitFor('##login-email')
 
-  await page.$('#username')
+  await page.$('#login-email')
     .then((emailElement) => emailElement.type(email))
-  await page.$('#password')
+  await page.$('#login-password')
     .then((passwordElement) => passwordElement.type(password))
 
-    await page.$('button')
+    await page.$('#login-submit')
     .then((button) => button.click())
 
   return page.waitFor('input[role=combobox]', {
