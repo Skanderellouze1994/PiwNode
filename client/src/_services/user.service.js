@@ -43,7 +43,7 @@ function loginCam(formData) {
         .then(user => {
             //console.log(user);
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify({user:user}));
 
             return user;
         });

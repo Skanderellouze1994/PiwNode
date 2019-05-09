@@ -132,13 +132,13 @@ router.put('/:idP/response/validate/:id', function(req, res, next) {
             User.findById(post.responses.id(req.params.id).userResponse._id , function (err , user) {
                 user.validatedAnswers = user.validatedAnswers +1
                 if(user.validatedAnswers>5)
-                    user.badge='malla 5ra'
+                    user.badge='good'
                 if(user.validatedAnswers>10)
-                    user.badge='kesa7'
+                    user.badge='very good'
                 if(user.validatedAnswers>20)
-                    user.badge='kesa7 el 5ra'
+                    user.badge='excelent'
                 if(user.validatedAnswers>50)
-                    user.badge='ti ay ay ay'
+                    user.badge='perfect'
                 user.save()
             })
             post.responses.id(req.params.id).status=true;

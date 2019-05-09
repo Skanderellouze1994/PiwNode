@@ -21,7 +21,7 @@ class ResponsesPost extends Component {
     render() {
         return (
             <div>
-                <div className="py-5 bg-cover text-white" data-dark-overlay="5">
+                <div className="py-5 bg-cover text-white" data-dark-overlay="5" style={{background:'url(assets/img/1920/658_2.jpg) no-repeat'}}>
                     <div className="container">
                         <div className="row align-items-center">
                             <div className="col-md-6">
@@ -51,15 +51,15 @@ class ResponsesPost extends Component {
                                         <tbody>
                                         {this.state.users.map((f,i)=>
                                         {return(
-                                        <tr>
+                                            <tr>
 
-                                            <td>{i+1}</td>
-                                            <td>{f.username}</td>
-                                            <td>{f.answers}</td>
-                                            <td>{f.validatedAnswers}</td>
-                                            <td>{(f.validatedAnswers/f.answers*100).toFixed(2)} %</td>
-                                            <td>{f.badge}</td>
-                                        </tr>)})}
+                                                <td>{i+1}</td>
+                                                <td>{f.username}</td>
+                                                <td>{f.answers}</td>
+                                                <td>{f.validatedAnswers}</td>
+                                                <td>{(f.validatedAnswers+f.answers) === 0 ?  0  : (f.validatedAnswers/f.answers*100).toFixed(2)} %</td>
+                                                <td>{f.badge}</td>
+                                            </tr>)})}
                                         </tbody>
                                     </table>
                                 </div>

@@ -24,7 +24,7 @@ class Responses extends Component {
 
 
 
-    componentDidMount(){
+    componentWillMount(){
         axios
             .get(`/forum/${this.props.id}`)
             .then(response => {
@@ -48,7 +48,7 @@ class Responses extends Component {
                                 <div className="media-body">
 
 
-                                    {this.props.user.user.role == 'tutor' && f.status==true  ? <p
+                                    {this.props.user.user.role == 'Tutor' && f.status==true  ? <p
                                         className="float-right btn btn-outline-primary btn-pill btn-sm">
                                         <i className="ti-check"></i> VALIDATED
                                     </p> : <p></p>}

@@ -28,7 +28,7 @@ class AddForum extends Component {
     onChangePostPic(e) {
         this.setState({
             pic: e.target.value
-    });
+        });
     }
 
     onChangePostSubject(e) {
@@ -52,12 +52,12 @@ class AddForum extends Component {
             pic: this.state.pic
         }
 
-            axios.post('/forum/add/'+this.props.user.user._id,newPost)
-                .then(
-                    res => {
-                        setTimeout(()=>window.location.reload(),0);
-                        history.push('/forum/show/'+res.data._id);
-                    })
+        axios.post('/forum/add/'+this.props.user.user._id,newPost)
+            .then(
+                res => {
+                    setTimeout(()=>window.location.reload(),0);
+                    history.push('/forumall/show/'+res.data._id);
+                })
 
 
 
@@ -72,51 +72,44 @@ class AddForum extends Component {
         console.log("props"+this.props);
 
         return (
-<div>
             <div>
-                <div className="py-5 bg-cover text-white" data-dark-overlay="5">
-                    <div className="container">
-                        <div className="row align-items-center">
-                            <div className="col-md-6">
-                                <h2>Add a post</h2>
-                            </div>
+                <div>
+                    <div className="py-5 bg-cover text-white" data-dark-overlay="5">
+                        <div className="container">
+                            <div className="row align-items-center">
+                                <div className="col-md-6">
+                                    <h2>Add a post</h2>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-    <section className="pt-5 paddingBottom-100 bg-light-v2">
-        <div className="container">
-            <form onSubmit={this.onSubmit} enctype="multipart/form-data">
-                <div className="form-group">
-                    <label>Subject: </label>
-                    <input  type="text"
-                            className="form-control"
-                            value={this.state.subject}
-                            onChange={this.onChangePostSubject}/>
-                </div>
-                <div className="form-group">
-                    <label>Description: </label>
-                    <textarea  type="text"
-                            className="form-control"
-                            value={this.state.description}
-                            onChange={this.onChangePostDescription}/>
-                </div>
-                <div className="form-group">
-                    <label>Picture: </label>
-                    <input  type="file"
-                               className="form-control"
-                               value={this.state.pic}
-                               onChange={this.onChangePostPic}/>
-                </div>
+                <section className="pt-5 paddingBottom-100 bg-light-v2">
+                    <div className="container">
+                        <form onSubmit={this.onSubmit} enctype="multipart/form-data">
+                            <div className="form-group">
+                                <label>Subject: </label>
+                                <input  type="text"
+                                        className="form-control"
+                                        value={this.state.subject}
+                                        onChange={this.onChangePostSubject}/>
+                            </div>
+                            <div className="form-group">
+                                <label>Description: </label>
+                                <textarea  type="text"
+                                           className="form-control"
+                                           value={this.state.description}
+                                           onChange={this.onChangePostDescription}/>
+                            </div>
 
-                <div className="form-group">
-                    <input type="submit" value="Create post" className="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </section>
-</div>
+                            <div className="form-group">
+                                <input type="submit" value="Create post" className="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
         )}
 }
 
