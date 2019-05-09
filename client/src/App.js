@@ -17,7 +17,6 @@ import {ForgetPassword} from "./components/ForgetPassword";
 import {ResetPassword} from "./components/ResetPassword";
 import {Forum} from "./components/Forum/Forum";
 import {AddForum} from "./components/Forum/AddForum";
-import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 import {AddTrainingSession} from "./components/TrainingSession/AddTrainingSession";
 import {TrainingSessionList} from "./components/TrainingSession/TrainingSessionList";
 import {TrainingSessionDetail} from "./components/TrainingSession/TrainingSessionDetail";
@@ -63,7 +62,6 @@ class App extends Component {
                 <Header />
                 <Menu/>
 
-                    <Route exact path="/linkedin" component={LinkedInPopUp} />
                     <Route exact path="/scrapping" component={Scrapping} />
                     <Route exact path="/login" component={Login}/>
                     <Route exact  path="/forgot" component={ForgetPassword}/>

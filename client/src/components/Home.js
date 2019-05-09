@@ -239,7 +239,7 @@ export class Home extends Component {
                 <div className="col-lg-6 mt-2 wow fadeInUp">
                     <div className="row">
                         <div className="col-md-6 my-2">
-                            <img src="assets/img/avatar/lg/1.jpg" alt />
+                            <img src="assets/img/cha.jpg" alt />
                         </div>
                         <div className="col-md-6 my-4">
                             <h4 className="mb-0">
@@ -303,7 +303,7 @@ export class Home extends Component {
                 <div className="col-lg-6 mt-2 wow fadeInUp">
                     <div className="row">
                         <div className="col-md-6 my-2">
-                            <img src="assets/img/avatar/lg/3.jpg" alt />
+                            <img src="assets/img/selim.jpg" alt />
                         </div>
                         <div className="col-md-6 my-4">
                             <h4 className="mb-0">
@@ -335,7 +335,7 @@ export class Home extends Component {
                 <div className="col-lg-6 mt-2 wow fadeInUp">
                     <div className="row">
                         <div className="col-md-6 my-2">
-                            <img src="assets/img/avatar/lg/4.jpg" alt />
+                            <img src="assets/img/douss.jpg" alt />
                         </div>
                         <div className="col-md-6 my-4">
                             <h4 className="mb-0">
