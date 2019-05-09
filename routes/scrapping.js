@@ -4,8 +4,9 @@ var User =require('../models/user')
 var express = require('express');
 var router = express.Router();
 const scrapedin = require('../scraping/scrapedin/scrapedin')
+//const scrapedin = require('scrapedin')
 var scrapping = async (url)=>new Promise(async (resolve,reject) => {
-    const profileScraper = await scrapedin({email: 'csmajs2019@gmail.com', password: 'piweb2019',isHeadless:true})
+    const profileScraper = await scrapedin({email: 'achraf.douss@esprit.tn', password: 'aqw123147',isHeadless:true})
     const profile = await profileScraper(url)
     resolve(profile)
     reject(profile)

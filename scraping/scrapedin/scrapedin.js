@@ -18,12 +18,12 @@ module.exports = ({ email, password, isHeadless, hasToLog, proxyAddress } = { is
 
   const args = proxyAddress && [`--proxy-server=${proxyAddress}`]
   args && logger.info('scrapedin', `using proxy address: ${proxyAddress}`)
-  const browser = await puppeteer.launch({ headless: isHeadless, args })
+  const browser = await puppeteer.launch({ headless: isHeadless, args:['--no-sandbox', '--disable-setuid-sandbox'] })
 
   try {
     await login(browser, email, password, logger)
   } catch (e) {
-    await browser.close()
+    //await browser.close()
     return reject(e)
   }
 

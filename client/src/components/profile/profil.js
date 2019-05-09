@@ -57,7 +57,7 @@ if(!profile.loaded) {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post('http://localhost:4000/facial/addface/'+this.props.user.user._id,formData).then(res=>this.onCloseModal()).catch(res=>console.log(res))
+        axios.post('/facial/addface/'+this.props.user.user._id,formData).then(res=>this.onCloseModal()).catch(res=>console.log(res))
 
 
     };
