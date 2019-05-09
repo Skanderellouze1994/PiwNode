@@ -94,12 +94,10 @@ class ResponseQuiz extends Component {
 
             });
         i++
-        this.last = this.a[i-1]._id
-        this.next = this.a[i]._id
         this.setState({
         })
         if(i === this.a.length-1){
-            setTimeout(()=>window.location.reload(),0);
+            //setTimeout(()=>window.location.reload(),0);
             history.push('/showquiz/'+this.props.match.params.idquiz);
         }
     }
@@ -107,7 +105,7 @@ class ResponseQuiz extends Component {
         e.preventDefault();
         this.addResponse();
         history.push('/showquiz/'+this.props.match.params.idquiz);
-        setTimeout(()=>window.location.reload(),0);
+        //setTimeout(()=>window.location.reload(),0);
     }
     nextQuestion(){
         history.push('/responsequiz/'+this.props.match.params.idquiz+'/'+this.next);
