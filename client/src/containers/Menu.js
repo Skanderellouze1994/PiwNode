@@ -23,23 +23,7 @@ class Menu extends Component {
                         <div className="collapse navbar-collapse when-collapsed" id="ec-nav__collapsible">
                             <ul className="nav navbar-nav ec-nav__navbar ml-auto">
                                 <li className="nav-item nav-item__has-megamenu megamenu-col-2">
-                                    <Link to="/" className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Home</Link>
-                                    <div className="dropdown-menu left-auto p-2 p-md-4">
-                                        <div className="row mx-0">
-                                            <div className="col-lg-6">
-                                                <ul className="list-unstyled">
-                                                    <li><Link to="/login" className="nav-link__list px-0">Demo School</Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div className="col-lg-6">
-                                                <ul className="list-unstyled">
-                                                    <li><Link to="/" className="nav-link__list px-0" href="#">Demo Online
-                                                        University</Link></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <Link to="/home" className="nav-link" >Home</Link>
                                 </li>
 
                                 <li className="nav-item">
