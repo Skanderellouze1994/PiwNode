@@ -50,18 +50,12 @@ export class Home extends Component {
         return (
 
 <div>
-                <div className="container">
-                    <style>{"\
-                .sc-chat-window opened{\
-                  height:330;\
-                }\
-              "}</style>
-                </div>
-                <div >
+
+                <div style={{position: 'relative',zIndex:'2'}} >
                     <Launcher
                         agentProfile={{
-                            teamName: 'react-chat-window',
-                            imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+                            teamName: 'Professor Bot',
+                            imageUrl: 'assets/img/bot.png'
                         }}
                         onMessageWasSent={this._onMessageWasSent.bind(this)}
                         messageList={this.state.messageList}
@@ -69,7 +63,7 @@ export class Home extends Component {
                     />
                 </div>
 
-    <section className="padding-y-100 border-bottom">
+    <section style={{position: 'relative',zIndex:'1'}}  className="padding-y-100 border-bottom">
         <div className="container">
             <div className="row align-items-center">
                 <div className="col-lg-5 mb-4 mr-auto text-center">
