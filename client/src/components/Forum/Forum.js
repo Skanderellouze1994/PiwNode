@@ -13,7 +13,7 @@ class Forum extends Component {
         this.state={
             forum:[],
             post:{},
-x:null,
+            x:null,
             resp:[null],
             u:[{}],
             description: ''};
@@ -21,7 +21,7 @@ x:null,
     componentDidMount() {
         axios.get('/forum/')
             .then(res=>this.setState({forum:res.data})
-       )
+            )
     }
 
 
@@ -48,7 +48,7 @@ x:null,
                         <p className="mb-0 mr-4 lead">
                             You need help ? you can ask here
                         </p>
-                        <Link  to={"/forum/add"} className="btn btn-outline-white"> Ask for help</Link>
+                        <Link  to={"/forumall/add"} className="btn btn-outline-white"> Ask for help</Link>
                     </div>
                 </div>
 
@@ -57,28 +57,28 @@ x:null,
                         {this.state.forum.map(f=>
                         {return(
                             <div className="row">
-                            <div className="col-lg-12">
-                                <div className="list-card marginTop-40">
+                                <div className="col-lg-12">
+                                    <div className="list-card marginTop-40">
 
-                                    <div className="col-md-12 px-md-0">
-                                        <div className="card height-100p shadow-v1">
-                                            <div className="card-body">
-                                                <Link to={"/forum/show/"+f._id} className="h4 mb-3">
-                                                    {f.subject}
+                                        <div className="col-md-12 px-md-0">
+                                            <div className="card height-100p shadow-v1">
+                                                <div className="card-body">
+                                                    <Link to={"/forumall/show/"+f._id} className="h4 mb-3">
+                                                        {f.subject}
 
-                                                </Link>
-                                                <p className="mb-0">
-                                                    {f.description}
-                                                </p>
-                                            </div>
-                                            <div className="card-footer">
-                                                <div className="media">
-                                                    <img className="iconbox" src="assets/img/avatar/4.jpg" alt />
-                                                    <div className="media-body ml-4">
-                                                        <a href="#" className="text-primary">By {f.userPost.username}</a> <br />
+                                                    </Link>
+                                                    <p className="mb-0">
+                                                        {f.description}
+                                                    </p>
+                                                </div>
+                                                <div className="card-footer">
+                                                    <div className="media">
+                                                        <img className="iconbox" src="assets/img/avatar/4.jpg" alt />
+                                                        <div className="media-body ml-4">
+                                                            <a href="#" className="text-primary">By {f.userPost.username}</a> <br />
 
-                                                        Asked {dateFormat(f.datePost, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
-                                                        <p className="float-right">
+                                                            Asked {dateFormat(f.datePost, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+                                                            <p className="float-right">
 
 
                                                                 <button type="button" className="btn btn-success"
@@ -87,16 +87,16 @@ x:null,
                                                                         data-target={"#modal__Scrolling-long-"+f._id}>{f.responses.length} responses
                                                                 </button>
 
-                                                        </p>
-                                                    </div>
+                                                            </p>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div> {/* END col-md-8*/}
-                                </div> {/* END list-card*/}
+                                        </div> {/* END col-md-8*/}
+                                    </div> {/* END list-card*/}
 
-                            </div> {/* END col-lg-9 */}
+                                </div> {/* END col-lg-9 */}
                                 <div className="modal fade" id={"modal__Scrolling-long-"+f._id} tabIndex="-1" role="dialog"
                                      aria-labelledby="modal__Scrolling-long" aria-hidden="true">
                                     <div className="modal-dialog" role="document">
@@ -116,7 +116,7 @@ x:null,
                                         </div>
                                     </div>
                                 </div>
-                        </div> )})}
+                            </div> )})}
 
                     </div> {/* END container*/}
                 </section>

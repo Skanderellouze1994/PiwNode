@@ -528,7 +528,7 @@ class CourseDetail extends Component {
                                                                         <img className="iconbox iconbox-sm"
                                                                              src="assets/img/avatar/4.jpg" alt/>
                                                                         <span className="media-body ml-3">
-                                                                <Link href="#">{student.username}</Link>
+                                                                <Link to="#">{student.username}</Link>
                                                         </span>
                                                                     </li>
                                                                 ))}

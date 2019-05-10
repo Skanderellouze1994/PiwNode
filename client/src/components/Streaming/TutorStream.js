@@ -8,7 +8,7 @@ class TutorStream extends Component {
     constructor(props){
         super(props)
         this.state={
-            value : "/streamlink/"+Math.floor(Math.random() * 1000000000000),
+            value : "https://piwnode.hopto.org/streamlink/"+Math.floor(Math.random() * 1000000000000),
             copied: false,
         };
     }
