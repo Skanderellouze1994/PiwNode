@@ -60,6 +60,8 @@ class TrainingSessionList extends Component {
             .then(response => {
                 //this.setState({courses: response.data.courses});
                 console.log(response.data);
+               // this.setState({session: response.data});
+
             });
     }
 
@@ -191,12 +193,15 @@ class TrainingSessionList extends Component {
 
                                 {session.studentsList !== undefined && session.studentsList.length !== 0
                                     ?
-                                    session.studentsList.map(list => (
-                                        list === this.props.user.user._id
-                                            ? <button className="btn btn-success shadow-success mr-3 mb-3">
-                                                {this.state.buttonOff}</button>
-                                            : <button className={this.state.classname} onClick={this.participate.bind(this)}>
-                                                {this.state.buttonOn}</button>))
+                                    session.studentsList.map(list => {
+                                        if(list === this.props.user.user._id)
+                                            return list
+                                    else return null}).length ===1
+                                        ? <button className="btn btn-success shadow-success mr-3 mb-3">
+                                            {this.state.buttonOff}</button>
+                                        : <button className={this.state.classname} onClick={this.participate.bind(this)}>
+                                            {this.state.buttonOn}</button>
+
 
                                     : <button className={this.state.classname} onClick={this.participate.bind(this)}>
                                         {this.state.buttonOn}</button>}
