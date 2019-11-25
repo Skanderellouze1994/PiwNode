@@ -4,6 +4,10 @@ This project is developed by a group of 4 students from ESPRIT : Chaima BRAIEK ,
 It is an educational platform that helps teachers and coaches to give a course online using WebRTC.
 It contains multiple functionnalities : facial recognition , scrapping data from LinkedIn in prder to complete the profile's informations , forum , real time chat , emotionnal analysis , the ability to join any training session you want after a simple search.
 
+### Architecture
+The client respository contains our react.js project.
+To run both node and react projects please run : yarn dev.
+
 ## Requirements
 
 For development, you will only need Node.js installed on your environement.
